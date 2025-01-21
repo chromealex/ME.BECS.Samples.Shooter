@@ -10,6 +10,14 @@
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
 
+ShooterSample/[Ll]ibrary/
+ShooterSample/[Tt]emp/
+ShooterSample/[Oo]bj/
+ShooterSample/[Bb]uild/
+ShooterSample/[Bb]uilds/
+ShooterSample/[Ll]ogs/
+ShooterSample/[Uu]ser[Ss]ettings/
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
@@ -71,3 +79,11 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+
+# Rider project files
+.idea/
+*.sln.iml
+
+# macOS system files
+.DS_Store
