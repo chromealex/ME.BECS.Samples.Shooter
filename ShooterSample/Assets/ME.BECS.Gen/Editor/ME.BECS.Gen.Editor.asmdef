@@ -1,7 +1,7 @@
 {
                         "name": "ME.BECS.Gen.Editor",
                         "references": [
-                            "ME.BECS.Attack","ME.BECS.UnitsHealthBars","ME.BECS","ME.BECS.Players","ME.BECS.Trees","ME.BECS.Commands","ME.BECS.Transforms","ME.BECS.Pathfinding","ME.BECS.FogOfWar","ME.BECS.Units","ME.BECS.Destroy","ME.BECS.Bullets","ME.BECS.Features","ME.BECS.Effects","ME.BECS.Views","ME.BECS.UI","ME.BECS.Network","ME.BECS.Network.Editor","ME.BECS.Editor","ME.BECS.Views.Editor","ME.BECS.Features.Editor","Unity.Burst","Unity.Mathematics","Unity.Collections","ME.BECS.WorldHelper","Unity.RenderPipelines.Universal.Runtime","Unity.RenderPipelines.Core.Runtime","ME.BECS.SceneEntityView","ME.BECS.ObjectReference.Runtime","PhotonUnityNetworking","PhotonRealtime","Ragon.Runtime","ME.BECS.Units.Editor"
+                            "ME.BECS.Attack","ME.BECS.UnitsHealthBars","ME.BECS","ME.BECS.Players","SampleShooter","ME.BECS.Trees","ME.BECS.Commands","ME.BECS.Transforms","ME.BECS.Pathfinding","ME.BECS.FogOfWar","ME.BECS.Units","ME.BECS.Destroy","ME.BECS.Bullets","ME.BECS.Features","ME.BECS.Effects","ME.BECS.Views","ME.BECS.UI","ME.BECS.Network","ME.BECS.Network.Editor","ME.BECS.Editor","ME.BECS.Views.Editor","ME.BECS.Features.Editor","Unity.Burst","Unity.Mathematics","Unity.Collections","ME.BECS.WorldHelper","Unity.RenderPipelines.Universal.Runtime","Unity.RenderPipelines.Core.Runtime","ME.BECS.SceneEntityView","ME.BECS.ObjectReference.Runtime","PhotonUnityNetworking","PhotonRealtime","Ragon.Runtime","ME.BECS.Units.Editor"
                             ],
                         "includePlatforms": [
                             "Editor"

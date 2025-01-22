@@ -1,0 +1,21 @@
+{
+    "name": "SampleShooter",
+    "rootNamespace": "",
+    "references": [
+        "ME.BECS",
+        "ME.BECS.Features",
+        "ME.BECS.Transforms",
+        "Unity.Collections",
+        "Unity.Burst",
+        "Unity.Mathematics"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

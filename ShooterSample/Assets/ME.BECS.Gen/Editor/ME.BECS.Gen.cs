@@ -199,6 +199,10 @@ namespace ME.BECS.Editor {
             BurstCompileOnDestroyNoBurst<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>.MakeMethod(null);
             BurstCompileMethod.MakeUpdate<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>(default);
             BurstCompileMethod.MakeDestroy<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>(default);
+            StaticSystemTypes<SampleShooter.Systems.Level.LevelInitializeSystem>.Validate();
+            BurstCompileOnAwake<SampleShooter.Systems.Level.LevelInitializeSystem>.MakeMethod(null);
+            BurstCompileOnAwakeNoBurst<SampleShooter.Systems.Level.LevelInitializeSystem>.MakeMethod(null);
+            BurstCompileMethod.MakeAwake<SampleShooter.Systems.Level.LevelInitializeSystem>(default);
             StaticTypes<ME.BECS.Attack.AttackComponent>.AOT();
             StaticTypes<ME.BECS.Attack.AttackFilterComponent>.AOT();
             StaticTypes<ME.BECS.Attack.AttackRuntimeFireComponent>.AOT();
@@ -301,6 +305,10 @@ namespace ME.BECS.Editor {
             StaticTypes<ME.BECS.Views.MeshRendererComponent>.AOT();
             StaticTypes<ME.BECS.Views.ViewComponent>.AOT();
             StaticTypes<ME.BECS.Views.ViewCustomIdComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Level.LevelBugsAmountComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Level.LevelComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Level.LevelIdComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Level.LevelStartPositionComponent>.AOT();
             AutoDestroyRegistryStatic<ME.BECS.Pathfinding.GraphMaskRuntimeComponent>.Destroy(null);
             StaticTypesStatic<ME.BECS.Bullets.BulletEffectOnDestroy>.AOT();
             StaticTypesStatic<ME.BECS.Bullets.BulletViewPoint>.AOT();
@@ -359,6 +367,7 @@ namespace ME.BECS.Editor {
             StaticSystemTypes<ME.BECS.Units.SteeringSystem>.Validate();
             StaticSystemTypes<ME.BECS.Units.SteeringWithAvoidanceSystem>.Validate();
             StaticSystemTypes<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>.Validate();
+            StaticSystemTypes<SampleShooter.Systems.Level.LevelInitializeSystem>.Validate();
             StaticTypes<ME.BECS.Commands.BuildingInProgress>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
             StaticTypes<ME.BECS.Commands.BuildInProgress>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
             StaticTypes<ME.BECS.Commands.CommandAttack>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
@@ -524,6 +533,10 @@ namespace ME.BECS.Editor {
             StaticTypes<ME.BECS.Views.MeshRendererComponent>.Validate(isTag: false);
             StaticTypes<ME.BECS.Views.ViewComponent>.Validate(isTag: false);
             StaticTypes<ME.BECS.Views.ViewCustomIdComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Level.LevelBugsAmountComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Level.LevelComponent>.Validate(isTag: true);
+            StaticTypes<SampleShooter.Components.Level.LevelIdComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Level.LevelStartPositionComponent>.Validate(isTag: false);
             StaticTypesDestroy<ME.BECS.Pathfinding.GraphMaskRuntimeComponent>.RegisterAutoDestroy(isTag: false);
             StaticTypes<ME.BECS.Bullets.BulletEffectOnDestroy>.ValidateStatic(isTag: false);
             StaticTypes<ME.BECS.Bullets.BulletViewPoint>.ValidateStatic(isTag: false);
