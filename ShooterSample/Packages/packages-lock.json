@@ -15,8 +15,8 @@
       "hash": "f211b1d68f7971fd7cc7077751c8398fa6b66f36"
     },
     "com.unity.burst": {
-      "version": "1.8.17",
-      "depth": 1,
+      "version": "1.8.18",
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
@@ -51,7 +51,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.31",
+      "version": "3.0.34",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -174,7 +174,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.6",
+      "version": "3.0.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {
