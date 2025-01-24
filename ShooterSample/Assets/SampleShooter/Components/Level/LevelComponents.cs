@@ -1,4 +1,5 @@
 using ME.BECS;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace SampleShooter.Components.Level
@@ -6,16 +7,24 @@ namespace SampleShooter.Components.Level
     public struct LevelComponent : IConfigComponent
     {
     }
+
     public struct LevelIdComponent : IConfigComponent
     {
         public int LevelId;
     }
-    public struct LevelBugsAmountComponent : IConfigComponent
+    
+    public struct LevelSpawnPointComponent : IConfigComponent
     {
-        public int LevelBugsAmount;
+        public float3 LevelSpawnPoint;
     }
-    public struct LevelStartPositionComponent : IConfigComponent
+
+    public struct LevelPlayerSpawnPointComponent : IConfigComponent
     {
-        public Vector3 StartPosition;
+        public float3 PlayerSpawnPoint;
+    }
+    
+    public struct LevelEnemySpawnPointComponent : IConfigComponent
+    {
+        public float3 EnemySpawnPoint;
     }
 }

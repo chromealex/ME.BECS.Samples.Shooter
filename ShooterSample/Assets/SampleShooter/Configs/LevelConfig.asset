@@ -15,12 +15,11 @@ MonoBehaviour:
   baseConfig: {fileID: 0}
   data:
     components:
-    - rid: 2710897006137049091
-    - rid: 2710897006137049092
-    - rid: 2710897006137049093
-    - rid: 2710897006137049099
-    - rid: 2710897006137049100
-    - rid: 2710897006137049101
+    - rid: 2710897053846208517
+    - rid: 2710897053846208518
+    - rid: 2710897053846208519
+    - rid: 2710897053846208520
+    - rid: 2710897053846208521
   sharedData:
     components: []
   staticData:
@@ -43,41 +42,35 @@ MonoBehaviour:
         view:
           viewSource:
             providerId: 1
-            prefabId: 23
-    - rid: 2710897006137049091
+            prefabId: 24
+    - rid: 2710897053846208517
+      type: {class: LevelComponent, ns: SampleShooter.Components.Level, asm: SampleShooter}
+      data: 
+    - rid: 2710897053846208518
       type: {class: LevelIdComponent, ns: SampleShooter.Components.Level, asm: SampleShooter}
       data:
-        LevelId: 13
-    - rid: 2710897006137049092
-      type: {class: LevelStartPositionComponent, ns: SampleShooter.Components.Level,
+        LevelId: 0
+    - rid: 2710897053846208519
+      type: {class: LevelPlayerSpawnPointComponent, ns: SampleShooter.Components.Level,
         asm: SampleShooter}
       data:
-        StartPosition: {x: 0, y: 0, z: 0}
-    - rid: 2710897006137049093
-      type: {class: LevelBugsAmountComponent, ns: SampleShooter.Components.Level,
+        PlayerSpawnPoint:
+          x: 45
+          y: 1
+          z: 45
+    - rid: 2710897053846208520
+      type: {class: LevelEnemySpawnPointComponent, ns: SampleShooter.Components.Level,
         asm: SampleShooter}
       data:
-        LevelBugsAmount: 666
-    - rid: 2710897006137049099
-      type: {class: LocalPositionComponent, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+        EnemySpawnPoint:
+          x: -45
+          y: 0
+          z: -45
+    - rid: 2710897053846208521
+      type: {class: LevelSpawnPointComponent, ns: SampleShooter.Components.Level,
+        asm: SampleShooter}
       data:
-        value:
+        LevelSpawnPoint:
           x: 0
           y: 0
           z: 0
-    - rid: 2710897006137049100
-      type: {class: LocalRotationComponent, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
-      data:
-        value:
-          value:
-            x: 0
-            y: 0
-            z: 0
-            w: 1
-    - rid: 2710897006137049101
-      type: {class: LocalScaleComponent, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
-      data:
-        value:
-          x: 1
-          y: 1
-          z: 1

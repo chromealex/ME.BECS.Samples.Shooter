@@ -5,6 +5,7 @@
         "ME.BECS",
         "ME.BECS.Features",
         "ME.BECS.Transforms",
+        "ME.BECS.Views",
         "Unity.Collections",
         "Unity.Burst",
         "Unity.Mathematics"

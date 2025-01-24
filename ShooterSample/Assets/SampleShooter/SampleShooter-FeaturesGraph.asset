@@ -19,8 +19,9 @@ MonoBehaviour:
   nodes:
   - rid: 2710897004340051968
   - rid: 2710897004340051969
-  - rid: 2710897006137049094
   - rid: 2710897006137049102
+  - rid: 2710897006137049112
+  - rid: 2710897053846208522
   edges:
   - GUID: 5e8a672f-ca78-4695-b6f4-9272988a2250
     owner: {fileID: 11400000}
@@ -30,20 +31,28 @@ MonoBehaviour:
     outputFieldName: outputNodes
     inputPortIdentifier: 
     outputPortIdentifier: 
-  - GUID: 75c7ad05-c16c-46f1-aa37-dde9dc8d0d1f
+  - GUID: fb4981cd-5797-4cdd-80ae-06836f4f4043
     owner: {fileID: 11400000}
     inputNodeGUID: c56dd634-871c-47ad-bdb7-93f3bf2f1867
-    outputNodeGUID: beedf3fa-4688-46ab-b914-a4c4ce8f3841
+    outputNodeGUID: e9fe6ba2-2f1c-4b47-97d5-6948f47bce65
     inputFieldName: inputNodes
     outputFieldName: outputNodes
     inputPortIdentifier: 
     outputPortIdentifier: 
-  - GUID: 3b44590a-67a8-45e4-948c-74d8add34b2e
+  - GUID: 504dcbaf-e403-45fa-a458-39e86b8bde74
     owner: {fileID: 11400000}
-    inputNodeGUID: beedf3fa-4688-46ab-b914-a4c4ce8f3841
+    inputNodeGUID: b0102628-1f18-4dd9-95f5-b98a715cb7d2
     outputNodeGUID: StartNode
     inputFieldName: inputNodes
     outputFieldName: output
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: 41bbe0c9-0b63-4393-b43c-f06d7c08a926
+    owner: {fileID: 11400000}
+    inputNodeGUID: e9fe6ba2-2f1c-4b47-97d5-6948f47bce65
+    outputNodeGUID: b0102628-1f18-4dd9-95f5-b98a715cb7d2
+    inputFieldName: inputNodes
+    outputFieldName: outputNodes
     inputPortIdentifier: 
     outputPortIdentifier: 
   groups: []
@@ -67,8 +76,8 @@ MonoBehaviour:
         computeOrder: 0
         position:
           serializedVersion: 2
-          x: -448
-          y: -132
+          x: -848.52234
+          y: -132.00002
           width: 100
           height: 80
         expanded: 1
@@ -85,7 +94,7 @@ MonoBehaviour:
         nodeCustomName: 
         GUID: EndNode
         groupGUID: 
-        computeOrder: 3
+        computeOrder: 4
         position:
           serializedVersion: 2
           x: 857.97815
@@ -98,33 +107,6 @@ MonoBehaviour:
         nodeLock: 0
         customRuntimeSystemRoot: {fileID: 0}
         isInstance: 0
-    - rid: 2710897006137049094
-      type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
-      data:
-        syncPoint: 1
-        syncCount: 0
-        nodeCustomName: 
-        GUID: beedf3fa-4688-46ab-b914-a4c4ce8f3841
-        groupGUID: 
-        computeOrder: 1
-        position:
-          serializedVersion: 2
-          x: -190
-          y: -137
-          width: 300
-          height: 140
-        expanded: 1
-        enabled: 1
-        debug: 0
-        nodeLock: 0
-        customRuntimeSystemRoot: {fileID: 0}
-        system:
-          rid: 2710897006137049098
-    - rid: 2710897006137049098
-      type: {class: LevelInitializeSystem, ns: SampleShooter.Systems.Level, asm: SampleShooter}
-      data:
-        LevelConfig:
-          sourceId: 196
     - rid: 2710897006137049102
       type: {class: GraphNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
@@ -133,11 +115,11 @@ MonoBehaviour:
         nodeCustomName: 
         GUID: c56dd634-871c-47ad-bdb7-93f3bf2f1867
         groupGUID: 
-        computeOrder: 2
+        computeOrder: 3
         position:
           serializedVersion: 2
-          x: 286.18307
-          y: -132
+          x: 326
+          y: -127
           width: 300
           height: 75
         expanded: 0
@@ -146,3 +128,57 @@ MonoBehaviour:
         nodeLock: 0
         customRuntimeSystemRoot: {fileID: 0}
         graphValue: {fileID: 11400000, guid: c2aa5f0bbcb444e4e8fd45055d600fbd, type: 2}
+    - rid: 2710897006137049112
+      type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
+      data:
+        syncPoint: 1
+        syncCount: 0
+        nodeCustomName: 
+        GUID: e9fe6ba2-2f1c-4b47-97d5-6948f47bce65
+        groupGUID: 
+        computeOrder: 2
+        position:
+          serializedVersion: 2
+          x: -133
+          y: -132
+          width: 300
+          height: 104
+        expanded: 1
+        enabled: 1
+        debug: 0
+        nodeLock: 0
+        customRuntimeSystemRoot: {fileID: 0}
+        system:
+          rid: 2710897006137049113
+    - rid: 2710897006137049113
+      type: {class: PlayerInitializeSystem, ns: , asm: SampleShooter}
+      data:
+        PlayerConfig:
+          sourceId: 4
+    - rid: 2710897053846208522
+      type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
+      data:
+        syncPoint: 1
+        syncCount: 0
+        nodeCustomName: 
+        GUID: b0102628-1f18-4dd9-95f5-b98a715cb7d2
+        groupGUID: 
+        computeOrder: 1
+        position:
+          serializedVersion: 2
+          x: -590
+          y: -141
+          width: 300
+          height: 140
+        expanded: 1
+        enabled: 1
+        debug: 0
+        nodeLock: 0
+        customRuntimeSystemRoot: {fileID: 0}
+        system:
+          rid: 2710897053846208524
+    - rid: 2710897053846208524
+      type: {class: LevelInitSystem, ns: SampleShooter.Systems.Level, asm: SampleShooter}
+      data:
+        LevelConfig:
+          sourceId: 196
