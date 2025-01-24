@@ -22,6 +22,7 @@ MonoBehaviour:
   - rid: 2710897006137049102
   - rid: 2710897006137049112
   - rid: 2710897053846208522
+  - rid: 2710897057712308225
   edges:
   - GUID: 5e8a672f-ca78-4695-b6f4-9272988a2250
     owner: {fileID: 11400000}
@@ -55,6 +56,14 @@ MonoBehaviour:
     outputFieldName: outputNodes
     inputPortIdentifier: 
     outputPortIdentifier: 
+  - GUID: fc6060ae-3217-4c94-9d07-15abe7099132
+    owner: {fileID: 11400000}
+    inputNodeGUID: 57d1f92e-4213-474a-a193-beb2ed89f8f4
+    outputNodeGUID: StartNode
+    inputFieldName: inputNodes
+    outputFieldName: output
+    inputPortIdentifier: 
+    outputPortIdentifier: 
   groups: []
   stackNodes: []
   pinnedElements: []
@@ -69,7 +78,7 @@ MonoBehaviour:
       type: {class: StartNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
         syncPoint: 0
-        syncCount: 1
+        syncCount: 2
         nodeCustomName: 
         GUID: StartNode
         groupGUID: 
@@ -89,8 +98,8 @@ MonoBehaviour:
     - rid: 2710897004340051969
       type: {class: ExitNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
-        syncPoint: 1
-        syncCount: 0
+        syncPoint: 0
+        syncCount: 1
         nodeCustomName: 
         GUID: EndNode
         groupGUID: 
@@ -110,8 +119,8 @@ MonoBehaviour:
     - rid: 2710897006137049102
       type: {class: GraphNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
-        syncPoint: 1
-        syncCount: 0
+        syncPoint: 0
+        syncCount: 1
         nodeCustomName: 
         GUID: c56dd634-871c-47ad-bdb7-93f3bf2f1867
         groupGUID: 
@@ -131,18 +140,18 @@ MonoBehaviour:
     - rid: 2710897006137049112
       type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
-        syncPoint: 1
-        syncCount: 0
+        syncPoint: 0
+        syncCount: 1
         nodeCustomName: 
         GUID: e9fe6ba2-2f1c-4b47-97d5-6948f47bce65
         groupGUID: 
         computeOrder: 2
         position:
           serializedVersion: 2
-          x: -133
-          y: -132
+          x: -129.50021
+          y: 48.000027
           width: 300
-          height: 104
+          height: 140
         expanded: 1
         enabled: 1
         debug: 0
@@ -158,16 +167,16 @@ MonoBehaviour:
     - rid: 2710897053846208522
       type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
-        syncPoint: 1
-        syncCount: 0
+        syncPoint: 0
+        syncCount: 1
         nodeCustomName: 
         GUID: b0102628-1f18-4dd9-95f5-b98a715cb7d2
         groupGUID: 
         computeOrder: 1
         position:
           serializedVersion: 2
-          x: -590
-          y: -141
+          x: -603.0002
+          y: 47.75001
           width: 300
           height: 140
         expanded: 1
@@ -182,3 +191,30 @@ MonoBehaviour:
       data:
         LevelConfig:
           sourceId: 196
+    - rid: 2710897057712308225
+      type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
+      data:
+        syncPoint: 0
+        syncCount: 1
+        nodeCustomName: 
+        GUID: 57d1f92e-4213-474a-a193-beb2ed89f8f4
+        groupGUID: 
+        computeOrder: 5
+        position:
+          serializedVersion: 2
+          x: -602.85016
+          y: -305.1
+          width: 300
+          height: 100
+        expanded: 1
+        enabled: 1
+        debug: 0
+        nodeLock: 0
+        customRuntimeSystemRoot: {fileID: 0}
+        system:
+          rid: 2710897057712308226
+    - rid: 2710897057712308226
+      type: {class: InitInputSystem, ns: SampleShooter.Systems.Input, asm: SampleShooter}
+      data:
+        InputConfig:
+          sourceId: 0

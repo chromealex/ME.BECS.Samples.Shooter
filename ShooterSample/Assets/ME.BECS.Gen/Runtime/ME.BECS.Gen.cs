@@ -201,6 +201,12 @@ namespace ME.BECS {
             StaticSystemTypes<PlayerInitializeSystem>.Validate();
             BurstCompileOnAwakeNoBurst<PlayerInitializeSystem>.MakeMethod(null);
             BurstCompileMethod.MakeAwake<PlayerInitializeSystem>(default);
+            StaticSystemTypes<SampleShooter.Systems.Input.InitInputSystem>.Validate();
+            BurstCompileOnAwakeNoBurst<SampleShooter.Systems.Input.InitInputSystem>.MakeMethod(null);
+            BurstCompileMethod.MakeAwake<SampleShooter.Systems.Input.InitInputSystem>(default);
+            StaticSystemTypes<SampleShooter.Systems.Input.ReadInputSystem>.Validate();
+            BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Input.ReadInputSystem>.MakeMethod(null);
+            BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Input.ReadInputSystem>(default);
             StaticSystemTypes<SampleShooter.Systems.Level.LevelInitSystem>.Validate();
             BurstCompileOnAwakeNoBurst<SampleShooter.Systems.Level.LevelInitSystem>.MakeMethod(null);
             BurstCompileMethod.MakeAwake<SampleShooter.Systems.Level.LevelInitSystem>(default);
@@ -306,6 +312,8 @@ namespace ME.BECS {
             StaticTypes<ME.BECS.Views.MeshRendererComponent>.AOT();
             StaticTypes<ME.BECS.Views.ViewComponent>.AOT();
             StaticTypes<ME.BECS.Views.ViewCustomIdComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Input.InputComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Input.InputDirection>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelComponent>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelEnemySpawnPointComponent>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelIdComponent>.AOT();
@@ -370,6 +378,8 @@ namespace ME.BECS {
             StaticSystemTypes<ME.BECS.Units.SteeringWithAvoidanceSystem>.Validate();
             StaticSystemTypes<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>.Validate();
             StaticSystemTypes<PlayerInitializeSystem>.Validate();
+            StaticSystemTypes<SampleShooter.Systems.Input.InitInputSystem>.Validate();
+            StaticSystemTypes<SampleShooter.Systems.Input.ReadInputSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Level.LevelInitSystem>.Validate();
             StaticTypes<ME.BECS.Commands.BuildingInProgress>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
             StaticTypes<ME.BECS.Commands.BuildInProgress>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
@@ -536,6 +546,8 @@ namespace ME.BECS {
             StaticTypes<ME.BECS.Views.MeshRendererComponent>.Validate(isTag: false);
             StaticTypes<ME.BECS.Views.ViewComponent>.Validate(isTag: false);
             StaticTypes<ME.BECS.Views.ViewCustomIdComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Input.InputComponent>.Validate(isTag: true);
+            StaticTypes<SampleShooter.Components.Input.InputDirection>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Level.LevelComponent>.Validate(isTag: true);
             StaticTypes<SampleShooter.Components.Level.LevelEnemySpawnPointComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Level.LevelIdComponent>.Validate(isTag: false);
@@ -4042,7 +4054,7 @@ namespace ME.BECS {
         public static void GraphInitialize_1001_SystemsCodeGenerator() {
             // SampleShooter-FeaturesGraph
             var allocator = (AllocatorManager.AllocatorHandle)Constants.ALLOCATOR_DOMAIN;
-            graphNodes1001_SystemsCodeGenerator = CollectionHelper.CreateNativeArray<System.IntPtr>(5, allocator);
+            graphNodes1001_SystemsCodeGenerator = CollectionHelper.CreateNativeArray<System.IntPtr>(7, allocator);
             {
                 var item = allocator.Allocate(TSize<ME.BECS.DestroyWithLifetimeSystem>.sizeInt, TAlign<ME.BECS.DestroyWithLifetimeSystem>.alignInt);
                 *(ME.BECS.DestroyWithLifetimeSystem*)item = new ME.BECS.DestroyWithLifetimeSystem {
@@ -4091,33 +4103,59 @@ namespace ME.BECS {
                 TSystemGraph.Register<SampleShooter.Systems.Level.LevelInitSystem>(1001, item);
                 graphNodes1001_SystemsCodeGenerator[4] = (System.IntPtr)item;
             }
+            {
+                var item = allocator.Allocate(TSize<SampleShooter.Systems.Input.InitInputSystem>.sizeInt, TAlign<SampleShooter.Systems.Input.InitInputSystem>.alignInt);
+                *(SampleShooter.Systems.Input.InitInputSystem*)item = new SampleShooter.Systems.Input.InitInputSystem {
+                    InputConfig = new ME.BECS.Config {
+                        sourceId = 5,
+                    }
+                    ,
+                }
+                ;
+                TSystemGraph.Register<SampleShooter.Systems.Input.InitInputSystem>(1001, item);
+                graphNodes1001_SystemsCodeGenerator[5] = (System.IntPtr)item;
+            }
+            {
+                var item = allocator.Allocate(TSize<SampleShooter.Systems.Input.ReadInputSystem>.sizeInt, TAlign<SampleShooter.Systems.Input.ReadInputSystem>.alignInt);
+                *(SampleShooter.Systems.Input.ReadInputSystem*)item = new SampleShooter.Systems.Input.ReadInputSystem {
+                }
+                ;
+                TSystemGraph.Register<SampleShooter.Systems.Input.ReadInputSystem>(1001, item);
+                graphNodes1001_SystemsCodeGenerator[6] = (System.IntPtr)item;
+            }
         }
         // BURST DISABLE OPEN
         private static void InnerMethodOnAwake_0_1001_SystemsCodeGenerator_NotBurst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1001_0
-        , ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_3, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0) {
+        , ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_5, ref Unity.Jobs.JobHandle dep1001_3, ref Unity.Jobs.JobHandle dep1001_6, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0) {
             {
                 var input = dep1001_0;
                 dep1001_4 = input;
-                dep1001_4 = Batches.Apply(dep1001_4, world.state);
                 var localContext1001_4 = SystemContext.Create(dt, in world, dep1001_4);
                 ((SampleShooter.Systems.Level.LevelInitSystem*)(systems[4]))->OnAwake(ref localContext1001_4);
                 dep1001_4 = localContext1001_4.dependsOn;
             }
             {
+                var input = dep1001_0;
+                dep1001_5 = input;
+                var localContext1001_5 = SystemContext.Create(dt, in world, dep1001_5);
+                ((SampleShooter.Systems.Input.InitInputSystem*)(systems[5]))->OnAwake(ref localContext1001_5);
+                dep1001_5 = localContext1001_5.dependsOn;
+            }
+            {
                 var input = dep1001_4;
                 dep1001_3 = input;
-                dep1001_3 = Batches.Apply(dep1001_3, world.state);
                 var localContext1001_3 = SystemContext.Create(dt, in world, dep1001_3);
                 ((PlayerInitializeSystem*)(systems[3]))->OnAwake(ref localContext1001_3);
                 dep1001_3 = localContext1001_3.dependsOn;
             }
-            dep30_2 = dep1001_3;
+            dep1001_6 = dep1001_5;
+            dep30_2 = JobsExt.CombineDependencies(dep1001_3, dep1001_6);
             dep30_4 = dep30_2;
             dep30_0 = dep30_4;
             // BURST DISABLE CLOSE
         }
         // BURST ENABLE OPEN
-        [BURST] private static void InnerMethodOnAwake_3_1001_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1001_0, ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_3, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0
+        [BURST] private static void InnerMethodOnAwake_3_1001_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1001_0, ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_5, ref Unity.Jobs.JobHandle dep1001_3, ref Unity.Jobs.JobHandle dep1001_6, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0
         , ref Unity.Jobs.JobHandle dep30_1) {
             {
                 var input = dep30_0;
@@ -4139,27 +4177,29 @@ namespace ME.BECS {
             Unity.Jobs.JobHandle dep30_4 = default;
             Unity.Jobs.JobHandle dep1001_2 = default;
             Unity.Jobs.JobHandle dep30_2 = default;
+            Unity.Jobs.JobHandle dep1001_6 = default;
             Unity.Jobs.JobHandle dep1001_3 = default;
+            Unity.Jobs.JobHandle dep1001_5 = default;
             Unity.Jobs.JobHandle dep1001_4 = default;
             Unity.Jobs.JobHandle dep1001_0 = default;
             dep1001_0 = dependsOn;
             // BURST ENABLE CLOSE
             InnerMethodOnAwake_0_1001_SystemsCodeGenerator_NotBurst(dt, in world, ref dependsOn,  systems, ref dep1001_0
-            , ref dep1001_4, ref dep1001_3, ref dep30_2, ref dep1001_2, ref dep30_4, ref dep30_0
+            , ref dep1001_4, ref dep1001_5, ref dep1001_3, ref dep1001_6, ref dep30_2, ref dep1001_2, ref dep30_4, ref dep30_0
             );
             
-            InnerMethodOnAwake_3_1001_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1001_0, ref dep1001_4, ref dep1001_3, ref dep30_2, ref dep1001_2, ref dep30_4, ref dep30_0
+            InnerMethodOnAwake_3_1001_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1001_0, ref dep1001_4, ref dep1001_5, ref dep1001_3, ref dep1001_6, ref dep30_2, ref dep1001_2, ref dep30_4, ref dep30_0
             , ref dep30_1
             );
             
             dependsOn = dep1001_2;
             // Dependencies scheme:
             // * dependsOn                        => dep1001_0           START                            [ SKIPPED ]
-            // * Batches.Apply                    :  dep1001_0 => dep1001_4                               [  SYNC   ]
-            // * dep1001_4                        => dep1001_4           Level Init System                [NOT BURST]
-            // * Batches.Apply                    :  dep1001_4 => dep1001_3                               [  SYNC   ]
-            // * dep1001_3                        => dep1001_3           Player Initialize System         [NOT BURST]
-            // * dep1001_3                        => dep30_2             START                            [ SKIPPED ]
+            // * dep1001_0                        => dep1001_4           Level Init System                [NOT BURST]
+            // * dep1001_0                        => dep1001_5           Init Input System                [NOT BURST]
+            // * dep1001_4                        => dep1001_3           Player Initialize System         [NOT BURST]
+            // * dep1001_5                        => dep1001_6           Read Input System                [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
+            // * dep1001_3, dep1001_6             => dep30_2             START                            [ SKIPPED ]
             // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
             // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
             // * Batches.Apply                    :  dep30_0 => dep30_1                                   [  SYNC   ]
@@ -4175,8 +4215,10 @@ namespace ME.BECS {
             // Dependencies scheme:
             // * dependsOn                        => dep1001_0           START                            [ SKIPPED ]
             // * dep1001_0                        => dep1001_4           Level Init System                [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
+            // * dep1001_0                        => dep1001_5           Init Input System                [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
             // * dep1001_4                        => dep1001_3           Player Initialize System         [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
-            // * dep1001_3                        => dep30_2             START                            [ SKIPPED ]
+            // * dep1001_5                        => dep1001_6           Read Input System                [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
+            // * dep1001_3, dep1001_6             => dep30_2             START                            [ SKIPPED ]
             // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
             // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
             // * dep30_0                          => dep30_1             Transform World Matrix Update... [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
@@ -4184,8 +4226,21 @@ namespace ME.BECS {
             // * EXIT dependsOn = dep1001_2;
             // * dep1001_2                        => dependsOn       
         }
+        // BURST DISABLE OPEN
+        private static void InnerMethodOnUpdate_0_1001_SystemsCodeGenerator_NotBurst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1001_0, ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_5, ref Unity.Jobs.JobHandle dep1001_3
+        , ref Unity.Jobs.JobHandle dep1001_6, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2) {
+            {
+                var input = dep1001_5;
+                dep1001_6 = input;
+                var localContext1001_6 = SystemContext.Create(dt, in world, dep1001_6);
+                ((SampleShooter.Systems.Input.ReadInputSystem*)(systems[6]))->OnUpdate(ref localContext1001_6);
+                dep1001_6 = localContext1001_6.dependsOn;
+            }
+            dep30_2 = JobsExt.CombineDependencies(dep1001_3, dep1001_6);
+            // BURST DISABLE CLOSE
+        }
         // BURST ENABLE OPEN
-        [BURST] private static void InnerMethodOnUpdate_0_1001_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1001_0, ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_3, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2
+        [BURST] private static void InnerMethodOnUpdate_3_1001_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1001_0, ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_5, ref Unity.Jobs.JobHandle dep1001_3, ref Unity.Jobs.JobHandle dep1001_6, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2
         , ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0, ref Unity.Jobs.JobHandle dep30_1) {
             {
                 var input = dep30_2;
@@ -4223,15 +4278,21 @@ namespace ME.BECS {
             Unity.Jobs.JobHandle dep30_4 = default;
             Unity.Jobs.JobHandle dep1001_2 = default;
             Unity.Jobs.JobHandle dep30_2 = default;
+            Unity.Jobs.JobHandle dep1001_6 = default;
             Unity.Jobs.JobHandle dep1001_3 = default;
+            Unity.Jobs.JobHandle dep1001_5 = default;
             Unity.Jobs.JobHandle dep1001_4 = default;
             Unity.Jobs.JobHandle dep1001_0 = default;
             dep1001_0 = dependsOn;
             dep1001_4 = dep1001_0;
+            dep1001_5 = dep1001_0;
             dep1001_3 = dep1001_4;
-            dep30_2 = dep1001_3;
             // BURST ENABLE CLOSE
-            InnerMethodOnUpdate_0_1001_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1001_0, ref dep1001_4, ref dep1001_3, ref dep30_2, ref dep1001_2
+            InnerMethodOnUpdate_0_1001_SystemsCodeGenerator_NotBurst(dt, in world, ref dependsOn,  systems, ref dep1001_0, ref dep1001_4, ref dep1001_5, ref dep1001_3
+            , ref dep1001_6, ref dep30_2, ref dep1001_2
+            );
+            
+            InnerMethodOnUpdate_3_1001_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1001_0, ref dep1001_4, ref dep1001_5, ref dep1001_3, ref dep1001_6, ref dep30_2, ref dep1001_2
             , ref dep30_4, ref dep30_0, ref dep30_1
             );
             
@@ -4239,8 +4300,10 @@ namespace ME.BECS {
             // Dependencies scheme:
             // * dependsOn                        => dep1001_0           START                            [ SKIPPED ]
             // * dep1001_0                        => dep1001_4           Level Init System                [NOT BURST] - Method ME.BECS.IUpdate was not found. Node skipped.
+            // * dep1001_0                        => dep1001_5           Init Input System                [NOT BURST] - Method ME.BECS.IUpdate was not found. Node skipped.
             // * dep1001_4                        => dep1001_3           Player Initialize System         [NOT BURST] - Method ME.BECS.IUpdate was not found. Node skipped.
-            // * dep1001_3                        => dep30_2             START                            [ SKIPPED ]
+            // * dep1001_5                        => dep1001_6           Read Input System                [NOT BURST]
+            // * dep1001_3, dep1001_6             => dep30_2             START                            [ SKIPPED ]
             // * Batches.Apply                    :  dep30_2 => dep30_4                                   [  SYNC   ]
             // * dep30_4                          => dep30_4             Destroy With Ticks System        [  BURST  ]
             // * Batches.Apply                    :  dep30_4 => dep30_0                                   [  SYNC   ]
@@ -4258,8 +4321,10 @@ namespace ME.BECS {
             // Dependencies scheme:
             // * dependsOn                        => dep1001_0           START                            [ SKIPPED ]
             // * dep1001_0                        => dep1001_4           Level Init System                [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
+            // * dep1001_0                        => dep1001_5           Init Input System                [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
             // * dep1001_4                        => dep1001_3           Player Initialize System         [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
-            // * dep1001_3                        => dep30_2             START                            [ SKIPPED ]
+            // * dep1001_5                        => dep1001_6           Read Input System                [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
+            // * dep1001_3, dep1001_6             => dep30_2             START                            [ SKIPPED ]
             // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
             // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
             // * dep30_0                          => dep30_1             Transform World Matrix Update... [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
@@ -4274,8 +4339,10 @@ namespace ME.BECS {
             // Dependencies scheme:
             // * dependsOn                        => dep1001_0           START                            [ SKIPPED ]
             // * dep1001_0                        => dep1001_4           Level Init System                [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
+            // * dep1001_0                        => dep1001_5           Init Input System                [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
             // * dep1001_4                        => dep1001_3           Player Initialize System         [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
-            // * dep1001_3                        => dep30_2             START                            [ SKIPPED ]
+            // * dep1001_5                        => dep1001_6           Read Input System                [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
+            // * dep1001_3, dep1001_6             => dep30_2             START                            [ SKIPPED ]
             // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
             // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
             // * dep30_0                          => dep30_1             Transform World Matrix Update... [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.

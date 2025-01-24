@@ -202,6 +202,12 @@ namespace ME.BECS.Editor {
             StaticSystemTypes<PlayerInitializeSystem>.Validate();
             BurstCompileOnAwakeNoBurst<PlayerInitializeSystem>.MakeMethod(null);
             BurstCompileMethod.MakeAwake<PlayerInitializeSystem>(default);
+            StaticSystemTypes<SampleShooter.Systems.Input.InitInputSystem>.Validate();
+            BurstCompileOnAwakeNoBurst<SampleShooter.Systems.Input.InitInputSystem>.MakeMethod(null);
+            BurstCompileMethod.MakeAwake<SampleShooter.Systems.Input.InitInputSystem>(default);
+            StaticSystemTypes<SampleShooter.Systems.Input.ReadInputSystem>.Validate();
+            BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Input.ReadInputSystem>.MakeMethod(null);
+            BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Input.ReadInputSystem>(default);
             StaticSystemTypes<SampleShooter.Systems.Level.LevelInitSystem>.Validate();
             BurstCompileOnAwakeNoBurst<SampleShooter.Systems.Level.LevelInitSystem>.MakeMethod(null);
             BurstCompileMethod.MakeAwake<SampleShooter.Systems.Level.LevelInitSystem>(default);
@@ -307,6 +313,8 @@ namespace ME.BECS.Editor {
             StaticTypes<ME.BECS.Views.MeshRendererComponent>.AOT();
             StaticTypes<ME.BECS.Views.ViewComponent>.AOT();
             StaticTypes<ME.BECS.Views.ViewCustomIdComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Input.InputComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Input.InputDirection>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelComponent>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelEnemySpawnPointComponent>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelIdComponent>.AOT();
@@ -371,6 +379,8 @@ namespace ME.BECS.Editor {
             StaticSystemTypes<ME.BECS.Units.SteeringWithAvoidanceSystem>.Validate();
             StaticSystemTypes<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>.Validate();
             StaticSystemTypes<PlayerInitializeSystem>.Validate();
+            StaticSystemTypes<SampleShooter.Systems.Input.InitInputSystem>.Validate();
+            StaticSystemTypes<SampleShooter.Systems.Input.ReadInputSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Level.LevelInitSystem>.Validate();
             StaticTypes<ME.BECS.Commands.BuildingInProgress>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
             StaticTypes<ME.BECS.Commands.BuildInProgress>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
@@ -537,6 +547,8 @@ namespace ME.BECS.Editor {
             StaticTypes<ME.BECS.Views.MeshRendererComponent>.Validate(isTag: false);
             StaticTypes<ME.BECS.Views.ViewComponent>.Validate(isTag: false);
             StaticTypes<ME.BECS.Views.ViewCustomIdComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Input.InputComponent>.Validate(isTag: true);
+            StaticTypes<SampleShooter.Components.Input.InputDirection>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Level.LevelComponent>.Validate(isTag: true);
             StaticTypes<SampleShooter.Components.Level.LevelEnemySpawnPointComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Level.LevelIdComponent>.Validate(isTag: false);
