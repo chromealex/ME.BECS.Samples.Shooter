@@ -5,6 +5,8 @@ using Unity.Collections;
 using SampleShooter.Components.Level;
 using Unity.Jobs;
 using Unity.Mathematics;
+using SampleShooter.Components.Player;
+
 
 public struct PlayerInitializeSystem : IAwake
 {
@@ -14,6 +16,7 @@ public struct PlayerInitializeSystem : IAwake
     {
         var playerEntity = Ent.New(in context);
         PlayerConfig.Apply(in playerEntity);
+        playerEntity.Set(new PlayerComponent());
         playerEntity.GetOrCreateAspect<TransformAspect>();
 
         JobHandle jobHandle = API.Query(context)

@@ -201,6 +201,13 @@ namespace ME.BECS {
             StaticSystemTypes<PlayerInitializeSystem>.Validate();
             BurstCompileOnAwakeNoBurst<PlayerInitializeSystem>.MakeMethod(null);
             BurstCompileMethod.MakeAwake<PlayerInitializeSystem>(default);
+            StaticSystemTypes<PlayerMoveDirectionSystem>.Validate();
+            BurstCompileOnUpdate<PlayerMoveDirectionSystem>.MakeMethod(null);
+            BurstCompileOnUpdateNoBurst<PlayerMoveDirectionSystem>.MakeMethod(null);
+            BurstCompileMethod.MakeUpdate<PlayerMoveDirectionSystem>(default);
+            StaticSystemTypes<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>.Validate();
+            BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>.MakeMethod(null);
+            BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>(default);
             StaticSystemTypes<SampleShooter.Systems.Input.InitInputSystem>.Validate();
             BurstCompileOnAwakeNoBurst<SampleShooter.Systems.Input.InitInputSystem>.MakeMethod(null);
             BurstCompileMethod.MakeAwake<SampleShooter.Systems.Input.InitInputSystem>(default);
@@ -319,6 +326,8 @@ namespace ME.BECS {
             StaticTypes<SampleShooter.Components.Level.LevelIdComponent>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelPlayerSpawnPointComponent>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelSpawnPointComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Player.PlayerComponent>.AOT();
+            StaticTypes<SampleShooter.NetworkModuleComponent>.AOT();
             AutoDestroyRegistryStatic<ME.BECS.Pathfinding.GraphMaskRuntimeComponent>.Destroy(null);
             StaticTypesStatic<ME.BECS.Bullets.BulletEffectOnDestroy>.AOT();
             StaticTypesStatic<ME.BECS.Bullets.BulletViewPoint>.AOT();
@@ -378,6 +387,8 @@ namespace ME.BECS {
             StaticSystemTypes<ME.BECS.Units.SteeringWithAvoidanceSystem>.Validate();
             StaticSystemTypes<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>.Validate();
             StaticSystemTypes<PlayerInitializeSystem>.Validate();
+            StaticSystemTypes<PlayerMoveDirectionSystem>.Validate();
+            StaticSystemTypes<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Input.InitInputSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Input.ReadInputSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Level.LevelInitSystem>.Validate();
@@ -553,6 +564,8 @@ namespace ME.BECS {
             StaticTypes<SampleShooter.Components.Level.LevelIdComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Level.LevelPlayerSpawnPointComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Level.LevelSpawnPointComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Player.PlayerComponent>.Validate(isTag: true);
+            StaticTypes<SampleShooter.NetworkModuleComponent>.Validate(isTag: true);
             StaticTypesDestroy<ME.BECS.Pathfinding.GraphMaskRuntimeComponent>.RegisterAutoDestroy(isTag: false);
             StaticTypes<ME.BECS.Bullets.BulletEffectOnDestroy>.ValidateStatic(isTag: false);
             StaticTypes<ME.BECS.Bullets.BulletViewPoint>.ValidateStatic(isTag: false);
@@ -666,6 +679,7 @@ namespace ME.BECS {
             EarlyInit.DoAspectsComponents2_1<ME.BECS.Attack.MoveToAttackerSystem.MoveToAttackerJob, ME.BECS.Units.UnitAspect, ME.BECS.Transforms.TransformAspect, ME.BECS.Units.DamageTookEvent>();
             EarlyInit.DoAspectsComponents1_1<ME.BECS.Attack.StopWhileAttackSystem.JobSet, ME.BECS.Attack.AttackAspect, ME.BECS.Transforms.ParentComponent>();
             EarlyInit.DoAspectsComponents1_1<ME.BECS.Attack.MoveToAttackerSystem.StopOnTargetJob, ME.BECS.Units.UnitAspect, ME.BECS.Commands.UnitAttackCommandComponent>();
+            EarlyInit.DoAspectsComponents1_2<PlayerMoveDirectionSystem.JobPlayerMove, ME.BECS.Transforms.TransformAspect, SampleShooter.Components.Input.InputDirection, SampleShooter.Components.Player.PlayerComponent>();
             EarlyInit.DoAspectsComponents1_2<ME.BECS.Transforms.TransformWorldMatrixUpdateSystem.CalculateRootsWithChildrenJob, ME.BECS.Transforms.TransformAspect, ME.BECS.Transforms.ParentComponent, ME.BECS.Transforms.IsFirstLevelComponent>();
             EarlyInit.DoAspectsComponents2_1<ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem.Job, ME.BECS.QuadTreeQueryAspect, ME.BECS.Transforms.TransformAspect, ME.BECS.FogOfWar.QuadTreeQueryFogOfWarFilter>();
             StaticTypes.collectionsCount.Resize(StaticTypes.counter + 1u);
@@ -1438,7 +1452,20 @@ namespace ME.BECS {
             public SafetyComponentContainerRO<ME.BECS.Units.UnitCommandGroupComponent> ME_BECS_Units_UnitCommandGroupComponent;
             public SafetyComponentContainerRW<ME.BECS.Units.UnitLookAtComponent> ME_BECS_Units_UnitLookAtComponent;
         }
-        public struct JobDebugData53 { // ME.BECS.Transforms.TransformWorldMatrixUpdateSystem+CalculateRootsWithChildrenJob
+        public struct JobDebugData53 { // PlayerMoveDirectionSystem+JobPlayerMove
+            [NativeDisableUnsafePtrRestriction] public ScheduleMode scheduleMode;
+            [NativeDisableUnsafePtrRestriction] public PlayerMoveDirectionSystem.JobPlayerMove jobData;
+            [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
+            public ME.BECS.Transforms.TransformAspect a0;
+            public RefRW<SampleShooter.Components.Input.InputDirection> c0;
+            public RefRW<SampleShooter.Components.Player.PlayerComponent> c1;
+            public SafetyComponentContainerRW<ME.BECS.Transforms.LocalPositionComponent> ME_BECS_Transforms_LocalPositionComponent;
+            public SafetyComponentContainerRO<ME.BECS.Transforms.LocalRotationComponent> ME_BECS_Transforms_LocalRotationComponent;
+            public SafetyComponentContainerRO<ME.BECS.Transforms.LocalScaleComponent> ME_BECS_Transforms_LocalScaleComponent;
+            public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
+            public SafetyComponentContainerRW<SampleShooter.Components.Input.InputDirection> SampleShooter_Components_Input_InputDirection;
+        }
+        public struct JobDebugData54 { // ME.BECS.Transforms.TransformWorldMatrixUpdateSystem+CalculateRootsWithChildrenJob
             [NativeDisableUnsafePtrRestriction] public ScheduleMode scheduleMode;
             [NativeDisableUnsafePtrRestriction] public ME.BECS.Transforms.TransformWorldMatrixUpdateSystem.CalculateRootsWithChildrenJob jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
@@ -1452,7 +1479,7 @@ namespace ME.BECS {
             public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
             public SafetyComponentContainerRW<ME.BECS.Transforms.WorldMatrixComponent> ME_BECS_Transforms_WorldMatrixComponent;
         }
-        public struct JobDebugData54 { // ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem+Job
+        public struct JobDebugData55 { // ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem+Job
             [NativeDisableUnsafePtrRestriction] public ScheduleMode scheduleMode;
             [NativeDisableUnsafePtrRestriction] public ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem.Job jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
@@ -2213,7 +2240,20 @@ namespace ME.BECS {
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Units.UnitCommandGroupComponent> ME_BECS_Units_UnitCommandGroupComponent;
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRW<ME.BECS.Units.UnitLookAtComponent> ME_BECS_Units_UnitLookAtComponent;
         }
-        public struct JobDebugData53Unsafe { // ME.BECS.Transforms.TransformWorldMatrixUpdateSystem+CalculateRootsWithChildrenJob
+        public struct JobDebugData53Unsafe { // PlayerMoveDirectionSystem+JobPlayerMove
+            [NativeDisableUnsafePtrRestriction] public ScheduleMode scheduleMode;
+            [NativeDisableUnsafePtrRestriction] public PlayerMoveDirectionSystem.JobPlayerMove jobData;
+            [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
+            [NativeDisableContainerSafetyRestriction] public ME.BECS.Transforms.TransformAspect a0;
+            [NativeDisableContainerSafetyRestriction] public RefRW<SampleShooter.Components.Input.InputDirection> c0;
+            [NativeDisableContainerSafetyRestriction] public RefRW<SampleShooter.Components.Player.PlayerComponent> c1;
+            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRW<ME.BECS.Transforms.LocalPositionComponent> ME_BECS_Transforms_LocalPositionComponent;
+            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.LocalRotationComponent> ME_BECS_Transforms_LocalRotationComponent;
+            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.LocalScaleComponent> ME_BECS_Transforms_LocalScaleComponent;
+            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
+            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRW<SampleShooter.Components.Input.InputDirection> SampleShooter_Components_Input_InputDirection;
+        }
+        public struct JobDebugData54Unsafe { // ME.BECS.Transforms.TransformWorldMatrixUpdateSystem+CalculateRootsWithChildrenJob
             [NativeDisableUnsafePtrRestriction] public ScheduleMode scheduleMode;
             [NativeDisableUnsafePtrRestriction] public ME.BECS.Transforms.TransformWorldMatrixUpdateSystem.CalculateRootsWithChildrenJob jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
@@ -2227,7 +2267,7 @@ namespace ME.BECS {
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRW<ME.BECS.Transforms.WorldMatrixComponent> ME_BECS_Transforms_WorldMatrixComponent;
         }
-        public struct JobDebugData54Unsafe { // ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem+Job
+        public struct JobDebugData55Unsafe { // ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem+Job
             [NativeDisableUnsafePtrRestriction] public ScheduleMode scheduleMode;
             [NativeDisableUnsafePtrRestriction] public ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem.Job jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
@@ -2403,6 +2443,9 @@ namespace ME.BECS {
         }
         private struct CacheJobDebugData54 {
             public static readonly SharedStatic<System.IntPtr> cache = SharedStatic<System.IntPtr>.GetOrCreate<CacheJobDebugData54>();
+        }
+        private struct CacheJobDebugData55 {
+            public static readonly SharedStatic<System.IntPtr> cache = SharedStatic<System.IntPtr>.GetOrCreate<CacheJobDebugData55>();
         }
         #endif
         
@@ -3986,7 +4029,7 @@ namespace ME.BECS {
                 var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
                 CompiledJobs<ME.BECS.Attack.MoveToAttackerSystem.StopOnTargetJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData52Unsafe) : typeof(JobDebugData52));
             }
-            { // ME.BECS.Transforms.TransformWorldMatrixUpdateSystem+CalculateRootsWithChildrenJob
+            { // PlayerMoveDirectionSystem+JobPlayerMove
                 CacheJobDebugData53.cache.Data = default;
                 [BurstCompile]
                 static void* Method(void* jobData, CommandBuffer* buffer, bool unsafeMode, ScheduleMode scheduleMode) {
@@ -3998,6 +4041,35 @@ namespace ME.BECS {
                             data = (JobDebugData53*)_make(new JobDebugData53(), Constants.ALLOCATOR_DOMAIN).ptr;
                         }
                         CacheJobDebugData53.cache.Data = (System.IntPtr)data;
+                    }
+                    data->scheduleMode = scheduleMode;
+                    data->jobData = *(PlayerMoveDirectionSystem.JobPlayerMove*)jobData;
+                    data->buffer = buffer;
+                    data->a0 = buffer->state.ptr->aspectsStorage.Initialize<ME.BECS.Transforms.TransformAspect>(buffer->state);
+                    data->c0 = buffer->state.ptr->components.GetRW<SampleShooter.Components.Input.InputDirection>(buffer->state, buffer->worldId);
+                    data->c1 = buffer->state.ptr->components.GetRW<SampleShooter.Components.Player.PlayerComponent>(buffer->state, buffer->worldId);
+                    data->ME_BECS_Transforms_LocalPositionComponent = new SafetyComponentContainerRW<ME.BECS.Transforms.LocalPositionComponent>(buffer->state, buffer->worldId);
+                    data->ME_BECS_Transforms_LocalRotationComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.LocalRotationComponent>(buffer->state, buffer->worldId);
+                    data->ME_BECS_Transforms_LocalScaleComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.LocalScaleComponent>(buffer->state, buffer->worldId);
+                    data->ME_BECS_Transforms_ParentComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent>(buffer->state, buffer->worldId);
+                    data->SampleShooter_Components_Input_InputDirection = new SafetyComponentContainerRW<SampleShooter.Components.Input.InputDirection>(buffer->state, buffer->worldId);
+                    return data;
+                }
+                var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
+                CompiledJobs<PlayerMoveDirectionSystem.JobPlayerMove>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData53Unsafe) : typeof(JobDebugData53));
+            }
+            { // ME.BECS.Transforms.TransformWorldMatrixUpdateSystem+CalculateRootsWithChildrenJob
+                CacheJobDebugData54.cache.Data = default;
+                [BurstCompile]
+                static void* Method(void* jobData, CommandBuffer* buffer, bool unsafeMode, ScheduleMode scheduleMode) {
+                    JobDebugData54* data = (JobDebugData54*)CacheJobDebugData54.cache.Data;
+                    if (data == null) {
+                        if (unsafeMode == true) {
+                            data = (JobDebugData54*)_make(new JobDebugData54Unsafe(), Constants.ALLOCATOR_DOMAIN).ptr;
+                            } else {
+                            data = (JobDebugData54*)_make(new JobDebugData54(), Constants.ALLOCATOR_DOMAIN).ptr;
+                        }
+                        CacheJobDebugData54.cache.Data = (System.IntPtr)data;
                     }
                     data->scheduleMode = scheduleMode;
                     data->jobData = *(ME.BECS.Transforms.TransformWorldMatrixUpdateSystem.CalculateRootsWithChildrenJob*)jobData;
@@ -4014,20 +4086,20 @@ namespace ME.BECS {
                     return data;
                 }
                 var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
-                CompiledJobs<ME.BECS.Transforms.TransformWorldMatrixUpdateSystem.CalculateRootsWithChildrenJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData53Unsafe) : typeof(JobDebugData53));
+                CompiledJobs<ME.BECS.Transforms.TransformWorldMatrixUpdateSystem.CalculateRootsWithChildrenJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData54Unsafe) : typeof(JobDebugData54));
             }
             { // ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem+Job
-                CacheJobDebugData54.cache.Data = default;
+                CacheJobDebugData55.cache.Data = default;
                 [BurstCompile]
                 static void* Method(void* jobData, CommandBuffer* buffer, bool unsafeMode, ScheduleMode scheduleMode) {
-                    JobDebugData54* data = (JobDebugData54*)CacheJobDebugData54.cache.Data;
+                    JobDebugData55* data = (JobDebugData55*)CacheJobDebugData55.cache.Data;
                     if (data == null) {
                         if (unsafeMode == true) {
-                            data = (JobDebugData54*)_make(new JobDebugData54Unsafe(), Constants.ALLOCATOR_DOMAIN).ptr;
+                            data = (JobDebugData55*)_make(new JobDebugData55Unsafe(), Constants.ALLOCATOR_DOMAIN).ptr;
                             } else {
-                            data = (JobDebugData54*)_make(new JobDebugData54(), Constants.ALLOCATOR_DOMAIN).ptr;
+                            data = (JobDebugData55*)_make(new JobDebugData55(), Constants.ALLOCATOR_DOMAIN).ptr;
                         }
-                        CacheJobDebugData54.cache.Data = (System.IntPtr)data;
+                        CacheJobDebugData55.cache.Data = (System.IntPtr)data;
                     }
                     data->scheduleMode = scheduleMode;
                     data->jobData = *(ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem.Job*)jobData;
@@ -4042,7 +4114,7 @@ namespace ME.BECS {
                     return data;
                 }
                 var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
-                CompiledJobs<ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem.Job>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData54Unsafe) : typeof(JobDebugData54));
+                CompiledJobs<ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem.Job>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData55Unsafe) : typeof(JobDebugData55));
             }
         }
         #endif
@@ -4054,7 +4126,7 @@ namespace ME.BECS {
         public static void GraphInitialize_1001_SystemsCodeGenerator() {
             // SampleShooter-FeaturesGraph
             var allocator = (AllocatorManager.AllocatorHandle)Constants.ALLOCATOR_DOMAIN;
-            graphNodes1001_SystemsCodeGenerator = CollectionHelper.CreateNativeArray<System.IntPtr>(7, allocator);
+            graphNodes1001_SystemsCodeGenerator = CollectionHelper.CreateNativeArray<System.IntPtr>(8, allocator);
             {
                 var item = allocator.Allocate(TSize<ME.BECS.DestroyWithLifetimeSystem>.sizeInt, TAlign<ME.BECS.DestroyWithLifetimeSystem>.alignInt);
                 *(ME.BECS.DestroyWithLifetimeSystem*)item = new ME.BECS.DestroyWithLifetimeSystem {
@@ -4123,10 +4195,18 @@ namespace ME.BECS {
                 TSystemGraph.Register<SampleShooter.Systems.Input.ReadInputSystem>(1001, item);
                 graphNodes1001_SystemsCodeGenerator[6] = (System.IntPtr)item;
             }
+            {
+                var item = allocator.Allocate(TSize<PlayerMoveDirectionSystem>.sizeInt, TAlign<PlayerMoveDirectionSystem>.alignInt);
+                *(PlayerMoveDirectionSystem*)item = new PlayerMoveDirectionSystem {
+                }
+                ;
+                TSystemGraph.Register<PlayerMoveDirectionSystem>(1001, item);
+                graphNodes1001_SystemsCodeGenerator[7] = (System.IntPtr)item;
+            }
         }
         // BURST DISABLE OPEN
         private static void InnerMethodOnAwake_0_1001_SystemsCodeGenerator_NotBurst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1001_0
-        , ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_5, ref Unity.Jobs.JobHandle dep1001_3, ref Unity.Jobs.JobHandle dep1001_6, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0) {
+        , ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_5, ref Unity.Jobs.JobHandle dep1001_3, ref Unity.Jobs.JobHandle dep1001_6, ref Unity.Jobs.JobHandle dep1001_7, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0) {
             {
                 var input = dep1001_0;
                 dep1001_4 = input;
@@ -4149,13 +4229,14 @@ namespace ME.BECS {
                 dep1001_3 = localContext1001_3.dependsOn;
             }
             dep1001_6 = dep1001_5;
-            dep30_2 = JobsExt.CombineDependencies(dep1001_3, dep1001_6);
+            dep1001_7 = JobsExt.CombineDependencies(dep1001_6, dep1001_3);
+            dep30_2 = dep1001_7;
             dep30_4 = dep30_2;
             dep30_0 = dep30_4;
             // BURST DISABLE CLOSE
         }
         // BURST ENABLE OPEN
-        [BURST] private static void InnerMethodOnAwake_3_1001_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1001_0, ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_5, ref Unity.Jobs.JobHandle dep1001_3, ref Unity.Jobs.JobHandle dep1001_6, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0
+        [BURST] private static void InnerMethodOnAwake_3_1001_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1001_0, ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_5, ref Unity.Jobs.JobHandle dep1001_3, ref Unity.Jobs.JobHandle dep1001_6, ref Unity.Jobs.JobHandle dep1001_7, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0
         , ref Unity.Jobs.JobHandle dep30_1) {
             {
                 var input = dep30_0;
@@ -4177,6 +4258,7 @@ namespace ME.BECS {
             Unity.Jobs.JobHandle dep30_4 = default;
             Unity.Jobs.JobHandle dep1001_2 = default;
             Unity.Jobs.JobHandle dep30_2 = default;
+            Unity.Jobs.JobHandle dep1001_7 = default;
             Unity.Jobs.JobHandle dep1001_6 = default;
             Unity.Jobs.JobHandle dep1001_3 = default;
             Unity.Jobs.JobHandle dep1001_5 = default;
@@ -4185,10 +4267,10 @@ namespace ME.BECS {
             dep1001_0 = dependsOn;
             // BURST ENABLE CLOSE
             InnerMethodOnAwake_0_1001_SystemsCodeGenerator_NotBurst(dt, in world, ref dependsOn,  systems, ref dep1001_0
-            , ref dep1001_4, ref dep1001_5, ref dep1001_3, ref dep1001_6, ref dep30_2, ref dep1001_2, ref dep30_4, ref dep30_0
+            , ref dep1001_4, ref dep1001_5, ref dep1001_3, ref dep1001_6, ref dep1001_7, ref dep30_2, ref dep1001_2, ref dep30_4, ref dep30_0
             );
             
-            InnerMethodOnAwake_3_1001_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1001_0, ref dep1001_4, ref dep1001_5, ref dep1001_3, ref dep1001_6, ref dep30_2, ref dep1001_2, ref dep30_4, ref dep30_0
+            InnerMethodOnAwake_3_1001_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1001_0, ref dep1001_4, ref dep1001_5, ref dep1001_3, ref dep1001_6, ref dep1001_7, ref dep30_2, ref dep1001_2, ref dep30_4, ref dep30_0
             , ref dep30_1
             );
             
@@ -4199,7 +4281,8 @@ namespace ME.BECS {
             // * dep1001_0                        => dep1001_5           Init Input System                [NOT BURST]
             // * dep1001_4                        => dep1001_3           Player Initialize System         [NOT BURST]
             // * dep1001_5                        => dep1001_6           Read Input System                [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
-            // * dep1001_3, dep1001_6             => dep30_2             START                            [ SKIPPED ]
+            // * dep1001_6, dep1001_3             => dep1001_7           Player Move Direction System     [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
+            // * dep1001_7                        => dep30_2             START                            [ SKIPPED ]
             // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
             // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
             // * Batches.Apply                    :  dep30_0 => dep30_1                                   [  SYNC   ]
@@ -4218,7 +4301,8 @@ namespace ME.BECS {
             // * dep1001_0                        => dep1001_5           Init Input System                [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
             // * dep1001_4                        => dep1001_3           Player Initialize System         [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
             // * dep1001_5                        => dep1001_6           Read Input System                [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
-            // * dep1001_3, dep1001_6             => dep30_2             START                            [ SKIPPED ]
+            // * dep1001_6, dep1001_3             => dep1001_7           Player Move Direction System     [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
+            // * dep1001_7                        => dep30_2             START                            [ SKIPPED ]
             // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
             // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
             // * dep30_0                          => dep30_1             Transform World Matrix Update... [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
@@ -4228,7 +4312,7 @@ namespace ME.BECS {
         }
         // BURST DISABLE OPEN
         private static void InnerMethodOnUpdate_0_1001_SystemsCodeGenerator_NotBurst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1001_0, ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_5, ref Unity.Jobs.JobHandle dep1001_3
-        , ref Unity.Jobs.JobHandle dep1001_6, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2) {
+        , ref Unity.Jobs.JobHandle dep1001_6) {
             {
                 var input = dep1001_5;
                 dep1001_6 = input;
@@ -4236,12 +4320,20 @@ namespace ME.BECS {
                 ((SampleShooter.Systems.Input.ReadInputSystem*)(systems[6]))->OnUpdate(ref localContext1001_6);
                 dep1001_6 = localContext1001_6.dependsOn;
             }
-            dep30_2 = JobsExt.CombineDependencies(dep1001_3, dep1001_6);
             // BURST DISABLE CLOSE
         }
         // BURST ENABLE OPEN
-        [BURST] private static void InnerMethodOnUpdate_3_1001_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1001_0, ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_5, ref Unity.Jobs.JobHandle dep1001_3, ref Unity.Jobs.JobHandle dep1001_6, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2
-        , ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0, ref Unity.Jobs.JobHandle dep30_1) {
+        [BURST] private static void InnerMethodOnUpdate_3_1001_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1001_0, ref Unity.Jobs.JobHandle dep1001_4, ref Unity.Jobs.JobHandle dep1001_5, ref Unity.Jobs.JobHandle dep1001_3, ref Unity.Jobs.JobHandle dep1001_6
+        , ref Unity.Jobs.JobHandle dep1001_7, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1001_2, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0, ref Unity.Jobs.JobHandle dep30_1) {
+            {
+                var input = JobsExt.CombineDependencies(dep1001_6, dep1001_3);
+                dep1001_7 = input;
+                dep1001_7 = Batches.Apply(dep1001_7, world.state);
+                var localContext1001_7 = SystemContext.Create(dt, in world, dep1001_7);
+                ((PlayerMoveDirectionSystem*)(systems[7]))->OnUpdate(ref localContext1001_7);
+                dep1001_7 = localContext1001_7.dependsOn;
+            }
+            dep30_2 = dep1001_7;
             {
                 var input = dep30_2;
                 dep30_4 = input;
@@ -4278,6 +4370,7 @@ namespace ME.BECS {
             Unity.Jobs.JobHandle dep30_4 = default;
             Unity.Jobs.JobHandle dep1001_2 = default;
             Unity.Jobs.JobHandle dep30_2 = default;
+            Unity.Jobs.JobHandle dep1001_7 = default;
             Unity.Jobs.JobHandle dep1001_6 = default;
             Unity.Jobs.JobHandle dep1001_3 = default;
             Unity.Jobs.JobHandle dep1001_5 = default;
@@ -4289,11 +4382,11 @@ namespace ME.BECS {
             dep1001_3 = dep1001_4;
             // BURST ENABLE CLOSE
             InnerMethodOnUpdate_0_1001_SystemsCodeGenerator_NotBurst(dt, in world, ref dependsOn,  systems, ref dep1001_0, ref dep1001_4, ref dep1001_5, ref dep1001_3
-            , ref dep1001_6, ref dep30_2, ref dep1001_2
+            , ref dep1001_6
             );
             
-            InnerMethodOnUpdate_3_1001_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1001_0, ref dep1001_4, ref dep1001_5, ref dep1001_3, ref dep1001_6, ref dep30_2, ref dep1001_2
-            , ref dep30_4, ref dep30_0, ref dep30_1
+            InnerMethodOnUpdate_3_1001_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1001_0, ref dep1001_4, ref dep1001_5, ref dep1001_3, ref dep1001_6
+            , ref dep1001_7, ref dep30_2, ref dep1001_2, ref dep30_4, ref dep30_0, ref dep30_1
             );
             
             dependsOn = dep1001_2;
@@ -4303,7 +4396,9 @@ namespace ME.BECS {
             // * dep1001_0                        => dep1001_5           Init Input System                [NOT BURST] - Method ME.BECS.IUpdate was not found. Node skipped.
             // * dep1001_4                        => dep1001_3           Player Initialize System         [NOT BURST] - Method ME.BECS.IUpdate was not found. Node skipped.
             // * dep1001_5                        => dep1001_6           Read Input System                [NOT BURST]
-            // * dep1001_3, dep1001_6             => dep30_2             START                            [ SKIPPED ]
+            // * Batches.Apply                    :  dep1001_6, dep1001_3 => dep1001_7                    [  SYNC   ]
+            // * dep1001_7                        => dep1001_7           Player Move Direction System     [  BURST  ]
+            // * dep1001_7                        => dep30_2             START                            [ SKIPPED ]
             // * Batches.Apply                    :  dep30_2 => dep30_4                                   [  SYNC   ]
             // * dep30_4                          => dep30_4             Destroy With Ticks System        [  BURST  ]
             // * Batches.Apply                    :  dep30_4 => dep30_0                                   [  SYNC   ]
@@ -4324,7 +4419,8 @@ namespace ME.BECS {
             // * dep1001_0                        => dep1001_5           Init Input System                [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
             // * dep1001_4                        => dep1001_3           Player Initialize System         [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
             // * dep1001_5                        => dep1001_6           Read Input System                [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
-            // * dep1001_3, dep1001_6             => dep30_2             START                            [ SKIPPED ]
+            // * dep1001_6, dep1001_3             => dep1001_7           Player Move Direction System     [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
+            // * dep1001_7                        => dep30_2             START                            [ SKIPPED ]
             // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
             // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
             // * dep30_0                          => dep30_1             Transform World Matrix Update... [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
@@ -4342,7 +4438,8 @@ namespace ME.BECS {
             // * dep1001_0                        => dep1001_5           Init Input System                [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
             // * dep1001_4                        => dep1001_3           Player Initialize System         [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
             // * dep1001_5                        => dep1001_6           Read Input System                [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
-            // * dep1001_3, dep1001_6             => dep30_2             START                            [ SKIPPED ]
+            // * dep1001_6, dep1001_3             => dep1001_7           Player Move Direction System     [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
+            // * dep1001_7                        => dep30_2             START                            [ SKIPPED ]
             // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
             // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
             // * dep30_0                          => dep30_1             Transform World Matrix Update... [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
@@ -4353,6 +4450,274 @@ namespace ME.BECS {
         [AOT.MonoPInvokeCallback(typeof(SystemsStatic.GetSystem))]
         public static void GraphGetSystem_1001_SystemsCodeGenerator(int index, out void* ptr) {
             ptr = (void*)graphNodes1001_SystemsCodeGenerator[index];
+        }
+        private static NativeArray<System.IntPtr> graphNodes1002_SystemsCodeGenerator;
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.InitializeGraph))]
+        public static void GraphInitialize_1002_SystemsCodeGenerator() {
+            // SampleShooter-LateUpdate-FeaturesGraph
+            var allocator = (AllocatorManager.AllocatorHandle)Constants.ALLOCATOR_DOMAIN;
+            graphNodes1002_SystemsCodeGenerator = CollectionHelper.CreateNativeArray<System.IntPtr>(4, allocator);
+            {
+                var item = allocator.Allocate(TSize<ME.BECS.DestroyWithLifetimeSystem>.sizeInt, TAlign<ME.BECS.DestroyWithLifetimeSystem>.alignInt);
+                *(ME.BECS.DestroyWithLifetimeSystem*)item = new ME.BECS.DestroyWithLifetimeSystem {
+                }
+                ;
+                TSystemGraph.Register<ME.BECS.DestroyWithLifetimeSystem>(1002, item);
+                graphNodes1002_SystemsCodeGenerator[0] = (System.IntPtr)item;
+            }
+            {
+                var item = allocator.Allocate(TSize<ME.BECS.Transforms.TransformWorldMatrixUpdateSystem>.sizeInt, TAlign<ME.BECS.Transforms.TransformWorldMatrixUpdateSystem>.alignInt);
+                *(ME.BECS.Transforms.TransformWorldMatrixUpdateSystem*)item = new ME.BECS.Transforms.TransformWorldMatrixUpdateSystem {
+                }
+                ;
+                TSystemGraph.Register<ME.BECS.Transforms.TransformWorldMatrixUpdateSystem>(1002, item);
+                graphNodes1002_SystemsCodeGenerator[1] = (System.IntPtr)item;
+            }
+            {
+                var item = allocator.Allocate(TSize<ME.BECS.DestroyWithTicksSystem>.sizeInt, TAlign<ME.BECS.DestroyWithTicksSystem>.alignInt);
+                *(ME.BECS.DestroyWithTicksSystem*)item = new ME.BECS.DestroyWithTicksSystem {
+                }
+                ;
+                TSystemGraph.Register<ME.BECS.DestroyWithTicksSystem>(1002, item);
+                graphNodes1002_SystemsCodeGenerator[2] = (System.IntPtr)item;
+            }
+            {
+                var item = allocator.Allocate(TSize<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>.sizeInt, TAlign<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>.alignInt);
+                *(SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem*)item = new SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem {
+                }
+                ;
+                TSystemGraph.Register<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>(1002, item);
+                graphNodes1002_SystemsCodeGenerator[3] = (System.IntPtr)item;
+            }
+        }
+        // BURST ENABLE OPEN
+        [BURST] private static void InnerMethodOnAwake_0_1002_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1002_0, ref Unity.Jobs.JobHandle dep1002_3, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1002_2, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0
+        , ref Unity.Jobs.JobHandle dep30_1) {
+            {
+                var input = dep30_0;
+                dep30_1 = input;
+                dep30_1 = Batches.Apply(dep30_1, world.state);
+                var localContext30_1 = SystemContext.Create(dt, in world, dep30_1);
+                ((ME.BECS.Transforms.TransformWorldMatrixUpdateSystem*)(systems[1]))->OnAwake(ref localContext30_1);
+                dep30_1 = localContext30_1.dependsOn;
+            }
+            dep1002_2 = dep30_1;
+            dependsOn = dep1002_2;
+        }
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.OnAwake))]
+        public static void GraphOnAwake_1002_SystemsCodeGenerator(float dt, ref World world, ref Unity.Jobs.JobHandle dependsOn) {
+            // SampleShooter-LateUpdate-FeaturesGraph
+            var systems = (System.IntPtr*)graphNodes1002_SystemsCodeGenerator.GetUnsafePtr();
+            Unity.Jobs.JobHandle dep30_1 = default;
+            Unity.Jobs.JobHandle dep30_0 = default;
+            Unity.Jobs.JobHandle dep30_4 = default;
+            Unity.Jobs.JobHandle dep1002_2 = default;
+            Unity.Jobs.JobHandle dep30_2 = default;
+            Unity.Jobs.JobHandle dep1002_3 = default;
+            Unity.Jobs.JobHandle dep1002_0 = default;
+            dep1002_0 = dependsOn;
+            dep1002_3 = dep1002_0;
+            dep30_2 = dep1002_3;
+            dep30_4 = dep30_2;
+            dep30_0 = dep30_4;
+            // BURST ENABLE CLOSE
+            InnerMethodOnAwake_0_1002_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1002_0, ref dep1002_3, ref dep30_2, ref dep1002_2, ref dep30_4, ref dep30_0
+            , ref dep30_1
+            );
+            
+            dependsOn = dep1002_2;
+            // Dependencies scheme:
+            // * dependsOn                        => dep1002_0           START                            [ SKIPPED ]
+            // * dep1002_0                        => dep1002_3           Destroy Input Direction Compo... [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
+            // * dep1002_3                        => dep30_2             START                            [ SKIPPED ]
+            // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
+            // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
+            // * Batches.Apply                    :  dep30_0 => dep30_1                                   [  SYNC   ]
+            // * dep30_1                          => dep30_1             Transform World Matrix Update... [  BURST  ]
+            // * EXIT dep1002_2 = dep30_1;
+            // * EXIT dependsOn = dep1002_2;
+            // * dep1002_2                        => dependsOn       
+        }
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.OnStart))]
+        public static void GraphOnStart_1002_SystemsCodeGenerator(float dt, ref World world, ref Unity.Jobs.JobHandle dependsOn) {
+            // SampleShooter-LateUpdate-FeaturesGraph
+            // All graph's nodes were skipped
+            // Dependencies scheme:
+            // * dependsOn                        => dep1002_0           START                            [ SKIPPED ]
+            // * dep1002_0                        => dep1002_3           Destroy Input Direction Compo... [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
+            // * dep1002_3                        => dep30_2             START                            [ SKIPPED ]
+            // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
+            // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
+            // * dep30_0                          => dep30_1             Transform World Matrix Update... [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
+            // * EXIT dep1002_2 = dep30_1;
+            // * EXIT dependsOn = dep1002_2;
+            // * dep1002_2                        => dependsOn       
+        }
+        // BURST DISABLE OPEN
+        private static void InnerMethodOnUpdate_0_1002_SystemsCodeGenerator_NotBurst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1002_0
+        , ref Unity.Jobs.JobHandle dep1002_3, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1002_2) {
+            {
+                var input = dep1002_0;
+                dep1002_3 = input;
+                dep1002_3 = Batches.Apply(dep1002_3, world.state);
+                var localContext1002_3 = SystemContext.Create(dt, in world, dep1002_3);
+                ((SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem*)(systems[3]))->OnUpdate(ref localContext1002_3);
+                dep1002_3 = localContext1002_3.dependsOn;
+            }
+            dep30_2 = dep1002_3;
+            // BURST DISABLE CLOSE
+        }
+        // BURST ENABLE OPEN
+        [BURST] private static void InnerMethodOnUpdate_3_1002_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1002_0, ref Unity.Jobs.JobHandle dep1002_3, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1002_2
+        , ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0, ref Unity.Jobs.JobHandle dep30_1) {
+            {
+                var input = dep30_2;
+                dep30_4 = input;
+                dep30_4 = Batches.Apply(dep30_4, world.state);
+                var localContext30_4 = SystemContext.Create(dt, in world, dep30_4);
+                ((ME.BECS.DestroyWithTicksSystem*)(systems[2]))->OnUpdate(ref localContext30_4);
+                dep30_4 = localContext30_4.dependsOn;
+            }
+            {
+                var input = dep30_4;
+                dep30_0 = input;
+                dep30_0 = Batches.Apply(dep30_0, world.state);
+                var localContext30_0 = SystemContext.Create(dt, in world, dep30_0);
+                ((ME.BECS.DestroyWithLifetimeSystem*)(systems[0]))->OnUpdate(ref localContext30_0);
+                dep30_0 = localContext30_0.dependsOn;
+            }
+            {
+                var input = dep30_0;
+                dep30_1 = input;
+                dep30_1 = Batches.Apply(dep30_1, world.state);
+                var localContext30_1 = SystemContext.Create(dt, in world, dep30_1);
+                ((ME.BECS.Transforms.TransformWorldMatrixUpdateSystem*)(systems[1]))->OnUpdate(ref localContext30_1);
+                dep30_1 = localContext30_1.dependsOn;
+            }
+            dep1002_2 = dep30_1;
+            dependsOn = dep1002_2;
+        }
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.OnUpdate))]
+        public static void GraphOnUpdate_1002_SystemsCodeGenerator(float dt, ref World world, ref Unity.Jobs.JobHandle dependsOn) {
+            // SampleShooter-LateUpdate-FeaturesGraph
+            var systems = (System.IntPtr*)graphNodes1002_SystemsCodeGenerator.GetUnsafePtr();
+            Unity.Jobs.JobHandle dep30_1 = default;
+            Unity.Jobs.JobHandle dep30_0 = default;
+            Unity.Jobs.JobHandle dep30_4 = default;
+            Unity.Jobs.JobHandle dep1002_2 = default;
+            Unity.Jobs.JobHandle dep30_2 = default;
+            Unity.Jobs.JobHandle dep1002_3 = default;
+            Unity.Jobs.JobHandle dep1002_0 = default;
+            dep1002_0 = dependsOn;
+            // BURST ENABLE CLOSE
+            InnerMethodOnUpdate_0_1002_SystemsCodeGenerator_NotBurst(dt, in world, ref dependsOn,  systems, ref dep1002_0
+            , ref dep1002_3, ref dep30_2, ref dep1002_2
+            );
+            
+            InnerMethodOnUpdate_3_1002_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1002_0, ref dep1002_3, ref dep30_2, ref dep1002_2
+            , ref dep30_4, ref dep30_0, ref dep30_1
+            );
+            
+            dependsOn = dep1002_2;
+            // Dependencies scheme:
+            // * dependsOn                        => dep1002_0           START                            [ SKIPPED ]
+            // * Batches.Apply                    :  dep1002_0 => dep1002_3                               [  SYNC   ]
+            // * dep1002_3                        => dep1002_3           Destroy Input Direction Compo... [NOT BURST]
+            // * dep1002_3                        => dep30_2             START                            [ SKIPPED ]
+            // * Batches.Apply                    :  dep30_2 => dep30_4                                   [  SYNC   ]
+            // * dep30_4                          => dep30_4             Destroy With Ticks System        [  BURST  ]
+            // * Batches.Apply                    :  dep30_4 => dep30_0                                   [  SYNC   ]
+            // * dep30_0                          => dep30_0             Destroy With Lifetime System     [  BURST  ]
+            // * Batches.Apply                    :  dep30_0 => dep30_1                                   [  SYNC   ]
+            // * dep30_1                          => dep30_1             Transform World Matrix Update... [  BURST  ]
+            // * EXIT dep1002_2 = dep30_1;
+            // * EXIT dependsOn = dep1002_2;
+            // * dep1002_2                        => dependsOn       
+        }
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.OnDestroy))]
+        public static void GraphOnDestroy_1002_SystemsCodeGenerator(float dt, ref World world, ref Unity.Jobs.JobHandle dependsOn) {
+            // SampleShooter-LateUpdate-FeaturesGraph
+            // All graph's nodes were skipped
+            // Dependencies scheme:
+            // * dependsOn                        => dep1002_0           START                            [ SKIPPED ]
+            // * dep1002_0                        => dep1002_3           Destroy Input Direction Compo... [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
+            // * dep1002_3                        => dep30_2             START                            [ SKIPPED ]
+            // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
+            // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
+            // * dep30_0                          => dep30_1             Transform World Matrix Update... [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
+            // * EXIT dep1002_2 = dep30_1;
+            // * EXIT dependsOn = dep1002_2;
+            // * dep1002_2                        => dependsOn       
+        }
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.OnDrawGizmos))]
+        public static void GraphOnDrawGizmos_1002_SystemsCodeGenerator(float dt, ref World world, ref Unity.Jobs.JobHandle dependsOn) {
+            // SampleShooter-LateUpdate-FeaturesGraph
+            // All graph's nodes were skipped
+            // Dependencies scheme:
+            // * dependsOn                        => dep1002_0           START                            [ SKIPPED ]
+            // * dep1002_0                        => dep1002_3           Destroy Input Direction Compo... [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
+            // * dep1002_3                        => dep30_2             START                            [ SKIPPED ]
+            // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
+            // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
+            // * dep30_0                          => dep30_1             Transform World Matrix Update... [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
+            // * EXIT dep1002_2 = dep30_1;
+            // * EXIT dependsOn = dep1002_2;
+            // * dep1002_2                        => dependsOn       
+        }
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.GetSystem))]
+        public static void GraphGetSystem_1002_SystemsCodeGenerator(int index, out void* ptr) {
+            ptr = (void*)graphNodes1002_SystemsCodeGenerator[index];
+        }
+        private static NativeArray<System.IntPtr> graphNodes1003_SystemsCodeGenerator;
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.InitializeGraph))]
+        public static void GraphInitialize_1003_SystemsCodeGenerator() {
+            // SampleShooterInputInitializer-FeaturesGraph
+            var allocator = (AllocatorManager.AllocatorHandle)Constants.ALLOCATOR_DOMAIN;
+            graphNodes1003_SystemsCodeGenerator = CollectionHelper.CreateNativeArray<System.IntPtr>(0, allocator);
+        }
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.OnAwake))]
+        public static void GraphOnAwake_1003_SystemsCodeGenerator(float dt, ref World world, ref Unity.Jobs.JobHandle dependsOn) {
+            // SampleShooterInputInitializer-FeaturesGraph
+            // All graph's nodes were skipped
+            // Dependencies scheme:
+            // * dependsOn                        => dep1003_0           START                            [ SKIPPED ]
+            // *                                  => dependsOn       
+        }
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.OnStart))]
+        public static void GraphOnStart_1003_SystemsCodeGenerator(float dt, ref World world, ref Unity.Jobs.JobHandle dependsOn) {
+            // SampleShooterInputInitializer-FeaturesGraph
+            // All graph's nodes were skipped
+            // Dependencies scheme:
+            // * dependsOn                        => dep1003_0           START                            [ SKIPPED ]
+            // *                                  => dependsOn       
+        }
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.OnUpdate))]
+        public static void GraphOnUpdate_1003_SystemsCodeGenerator(float dt, ref World world, ref Unity.Jobs.JobHandle dependsOn) {
+            // SampleShooterInputInitializer-FeaturesGraph
+            // All graph's nodes were skipped
+            // Dependencies scheme:
+            // * dependsOn                        => dep1003_0           START                            [ SKIPPED ]
+            // *                                  => dependsOn       
+        }
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.OnDestroy))]
+        public static void GraphOnDestroy_1003_SystemsCodeGenerator(float dt, ref World world, ref Unity.Jobs.JobHandle dependsOn) {
+            // SampleShooterInputInitializer-FeaturesGraph
+            // All graph's nodes were skipped
+            // Dependencies scheme:
+            // * dependsOn                        => dep1003_0           START                            [ SKIPPED ]
+            // *                                  => dependsOn       
+        }
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.OnDrawGizmos))]
+        public static void GraphOnDrawGizmos_1003_SystemsCodeGenerator(float dt, ref World world, ref Unity.Jobs.JobHandle dependsOn) {
+            // SampleShooterInputInitializer-FeaturesGraph
+            // All graph's nodes were skipped
+            // Dependencies scheme:
+            // * dependsOn                        => dep1003_0           START                            [ SKIPPED ]
+            // *                                  => dependsOn       
+        }
+        [AOT.MonoPInvokeCallback(typeof(SystemsStatic.GetSystem))]
+        public static void GraphGetSystem_1003_SystemsCodeGenerator(int index, out void* ptr) {
+            ptr = (void*)graphNodes1003_SystemsCodeGenerator[index];
         }
         private static NativeArray<System.IntPtr> graphNodes28_SystemsCodeGenerator;
         [AOT.MonoPInvokeCallback(typeof(SystemsStatic.InitializeGraph))]
@@ -6341,6 +6706,26 @@ namespace ME.BECS {
                 SystemsStatic.RegisterDestroyMethod(GraphOnDestroy_1001_SystemsCodeGenerator, 1001, false);
                 SystemsStatic.RegisterGetSystemMethod(GraphGetSystem_1001_SystemsCodeGenerator, 1001, false);
             }
+            // Graph: SampleShooter-LateUpdate-FeaturesGraph
+            {
+                SystemsStatic.RegisterMethod(GraphInitialize_1002_SystemsCodeGenerator, 1002, false);
+                SystemsStatic.RegisterAwakeMethod(GraphOnAwake_1002_SystemsCodeGenerator, 1002, false);
+                SystemsStatic.RegisterStartMethod(GraphOnStart_1002_SystemsCodeGenerator, 1002, false);
+                SystemsStatic.RegisterUpdateMethod(GraphOnUpdate_1002_SystemsCodeGenerator, 1002, false);
+                SystemsStatic.RegisterDrawGizmosMethod(GraphOnDrawGizmos_1002_SystemsCodeGenerator, 1002, false);
+                SystemsStatic.RegisterDestroyMethod(GraphOnDestroy_1002_SystemsCodeGenerator, 1002, false);
+                SystemsStatic.RegisterGetSystemMethod(GraphGetSystem_1002_SystemsCodeGenerator, 1002, false);
+            }
+            // Graph: SampleShooterInputInitializer-FeaturesGraph
+            {
+                SystemsStatic.RegisterMethod(GraphInitialize_1003_SystemsCodeGenerator, 1003, false);
+                SystemsStatic.RegisterAwakeMethod(GraphOnAwake_1003_SystemsCodeGenerator, 1003, false);
+                SystemsStatic.RegisterStartMethod(GraphOnStart_1003_SystemsCodeGenerator, 1003, false);
+                SystemsStatic.RegisterUpdateMethod(GraphOnUpdate_1003_SystemsCodeGenerator, 1003, false);
+                SystemsStatic.RegisterDrawGizmosMethod(GraphOnDrawGizmos_1003_SystemsCodeGenerator, 1003, false);
+                SystemsStatic.RegisterDestroyMethod(GraphOnDestroy_1003_SystemsCodeGenerator, 1003, false);
+                SystemsStatic.RegisterGetSystemMethod(GraphGetSystem_1003_SystemsCodeGenerator, 1003, false);
+            }
             // Graph: FogOfWarGraph-Logic
             {
                 SystemsStatic.RegisterMethod(GraphInitialize_28_SystemsCodeGenerator, 28, false);
@@ -6539,11 +6924,11 @@ namespace ME.BECS {
             ME.BECS.Views.ViewsTypeInfo.RegisterType<ME.BECS.Views.DefaultView>(new ME.BECS.Views.ViewTypeInfo() {
                 flags = (ME.BECS.Views.TypeFlags)0,
             });
-            ME.BECS.Views.ViewsTypeInfo.RegisterType<SampleShooter.Views.Player.PlayerView>(new ME.BECS.Views.ViewTypeInfo() {
-                flags = (ME.BECS.Views.TypeFlags)0,
-            });
             ME.BECS.Views.ViewsTypeInfo.RegisterType<SampleShooter.Views.Level.LevelView>(new ME.BECS.Views.ViewTypeInfo() {
                 flags = (ME.BECS.Views.TypeFlags)1,
+            });
+            ME.BECS.Views.ViewsTypeInfo.RegisterType<SampleShooter.Views.Player.PlayerView>(new ME.BECS.Views.ViewTypeInfo() {
+                flags = (ME.BECS.Views.TypeFlags)0,
             });
             ME.BECS.Views.ViewsTypeInfo.RegisterType<ME.BECS.Pathfinding.Views.GridView>(new ME.BECS.Views.ViewTypeInfo() {
                 flags = (ME.BECS.Views.TypeFlags)49,

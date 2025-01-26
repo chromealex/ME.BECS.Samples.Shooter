@@ -1,5 +1,6 @@
 using ME.BECS;
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace SampleShooter.Components.Input
 {
@@ -10,7 +11,7 @@ namespace SampleShooter.Components.Input
     
     public struct InputDirection : IComponent
     {
-        public Vector2 Direction;
+        public float3 Direction;
     }
     
     //todo settings
