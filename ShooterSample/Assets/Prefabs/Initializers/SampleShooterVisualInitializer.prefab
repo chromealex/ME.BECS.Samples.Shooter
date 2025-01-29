@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3743177401385739945
+--- !u!1 &2077269443015479984
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2628237492719826415}
-  - component: {fileID: 4233292224790850953}
+  - component: {fileID: 874558028331079809}
+  - component: {fileID: 2737918445232963532}
   m_Layer: 0
-  m_Name: SampleShooterInputInitializer
+  m_Name: SampleShooterVisualInitializer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2628237492719826415
+--- !u!4 &874558028331079809
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3743177401385739945}
+  m_GameObject: {fileID: 2077269443015479984}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,16 +32,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4233292224790850953
+--- !u!114 &2737918445232963532
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3743177401385739945}
+  m_GameObject: {fileID: 2077269443015479984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c31029f855f4b4ba1a5fa46e35b23a80, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b1c5461cf1d499b8569d9062e3eb706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   properties:
@@ -127,4 +127,6 @@ MonoBehaviour:
     list:
     - enabled: 1
       obj: {fileID: 11400000, guid: b8a9bbf3f2a744935967ab1a099f746a, type: 2}
-  featuresGraph: {fileID: 11400000, guid: e9835e616778c432e9d85b1eea044321, type: 2}
+  featuresGraph: {fileID: 11400000, guid: dc79979a6bc1a4cd5b041459c324c783, type: 2}
+  featuresGraphFixedUpdate: {fileID: 0}
+  featuresGraphLateUpdate: {fileID: 0}

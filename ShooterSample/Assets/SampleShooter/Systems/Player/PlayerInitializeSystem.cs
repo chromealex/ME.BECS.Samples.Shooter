@@ -1,35 +1,37 @@
 using ME.BECS;
+using ME.BECS.Players;
 using ME.BECS.Transforms;
-using UnityEngine;
-using Unity.Collections;
 using SampleShooter.Components.Level;
 using Unity.Jobs;
 using Unity.Mathematics;
-using SampleShooter.Components.Player;
+using UnityEngine;
 
-
-public struct PlayerInitializeSystem : IAwake
+namespace SampleShooter.Systems.Player
 {
-    public Config PlayerConfig;
-
-    public void OnAwake(ref SystemContext context)
+    public struct PlayerInitializeSystem : IAwake
     {
-        var playerEntity = Ent.New(in context);
-        PlayerConfig.Apply(in playerEntity);
-        playerEntity.Set(new PlayerComponent());
-        playerEntity.GetOrCreateAspect<TransformAspect>();
+        public Config PlayerConfig;
 
-        JobHandle jobHandle = API.Query(context)
-            .WithAll<LevelComponent, LevelPlayerSpawnPointComponent>()
-            .ParallelFor(64)
-            .ForEach((in CommandBufferJob commandBuffer) =>
-            {
-                Ent ent = commandBuffer.ent;
-                float3 playerSpawnPoint = ent.Read<LevelPlayerSpawnPointComponent>().PlayerSpawnPoint;
-                playerEntity.GetAspect<TransformAspect>().position = playerSpawnPoint;
-                Debug.Log("Player spawn point in PlayerInitializeSystem: " + playerSpawnPoint);
-            });
+        public void OnAwake(ref SystemContext context)
+        {
+            PlayerAspect playerAspect = PlayerUtils.GetActivePlayer();
+            var playerEntity = Ent.New();
+            playerAspect.ent = playerEntity;
+            PlayerConfig.Apply(in playerEntity);
+            playerEntity.GetOrCreateAspect<TransformAspect>();
 
-        jobHandle.Complete();
+            JobHandle jobHandle = API.Query(context)
+                .WithAll<LevelComponent, LevelPlayerSpawnPointComponent>()
+                .ParallelFor(64)
+                .ForEach((in CommandBufferJob commandBuffer) =>
+                {
+                    Ent ent = commandBuffer.ent;
+                    float3 playerSpawnPoint = ent.Read<LevelPlayerSpawnPointComponent>().PlayerSpawnPoint;
+                    playerEntity.GetAspect<TransformAspect>().position = playerSpawnPoint;
+                    Debug.Log("Player spawn point in PlayerInitializeSystem: " + playerSpawnPoint);
+                });
+
+            jobHandle.Complete();
+        }
     }
 }

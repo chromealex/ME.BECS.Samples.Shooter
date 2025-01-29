@@ -6,7 +6,6 @@ namespace SampleShooter.Components.Input
 {
     public struct InputComponent : IComponent
     {
-        
     }
     
     public struct InputDirection : IComponent
