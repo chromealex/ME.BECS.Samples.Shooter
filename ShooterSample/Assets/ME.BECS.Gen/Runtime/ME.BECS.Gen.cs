@@ -6797,6 +6797,7 @@ namespace ME.BECS {
             }
         }
         public static unsafe void NetworkLoad(ref ME.BECS.Network.UnsafeNetworkModule.MethodsStorage methods) {
+            methods.Add(SampleShooter.Systems.Input.ReadInputSystem.SomeNetworkDelegate);
         }
         public static unsafe void AspectsConstruct(ref World world) {
             {

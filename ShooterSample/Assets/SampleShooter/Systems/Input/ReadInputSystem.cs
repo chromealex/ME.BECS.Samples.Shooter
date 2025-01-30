@@ -7,6 +7,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using SampleShooter.Components.Player;
 using SampleShooter.Components.Input;
+using SampleShooter.Data;
 using SampleShooter.Initializers;
 
 namespace SampleShooter.Systems.Input
@@ -49,15 +50,14 @@ namespace SampleShooter.Systems.Input
 
             if (math.length(direction) > 0.1f)
             {
-                
-                // context.world.parent.SendNetworkEvent(new MoveUnitsData() {
-                //     fromLength = (ushort)this.unitRequests.Count,
-                //     from = arrFrom,
-                //     to = nearestPoint.Read<PointIdComponent>().value,
-                // }, MoveTo);
-                
-                direction = math.normalize(direction);
                 //means we've got here input
+                direction = math.normalize(direction);
+
+                context.world.parent.SendNetworkEvent(new PlayerInputData
+                {
+                    Direction = direction,
+                }, SomeNetworkDelegate);
+
 
                 // NetworkModule networkModule = SampleShooterLogicInitializer.Instance.GetNetworkModule();
                 // JobHandle jobHandle = API.Query(context)
@@ -70,11 +70,17 @@ namespace SampleShooter.Systems.Input
                 //         context.world.parent.SendNetworkEvent();
                 //
                 //     });
-
-                Debug.Log($"{nameof(ReadInputSystem)} Created {nameof(InputDirection)} with value {direction}!");
-
-                // jobHandle.Complete();
             }
+        }
+
+        [NetworkMethod]
+        [AOT.MonoPInvokeCallback(typeof(NetworkMethodDelegate))]
+        public static void SomeNetworkDelegate(in InputData data, ref SystemContext context)
+        {
+            var playerInputData = data.GetData<PlayerInputData>();
+            Debug.Log($"test {data.PlayerId}");
+            Debug.Log($"test {playerInputData.Direction}");
+            Debug.Log($"test {context.world.id}");
         }
     }
 }
