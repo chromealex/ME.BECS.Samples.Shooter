@@ -3,15 +3,15 @@ using ME.BECS.Players;
 using ME.BECS.Transforms;
 using SampleShooter.Components.Level;
 using Unity.Jobs;
-using Unity.Mathematics;
 using UnityEngine;
+using Unity.Mathematics;
 
 namespace SampleShooter.Systems.Player
 {
     public struct PlayerInitializeSystem : IAwake
     {
         public Config PlayerConfig;
-
+        
         public void OnAwake(ref SystemContext context)
         {
             //because we are in logic world and  world.parent = SampleShooterLogicInitializer.Instance.world; (see SampleShooterLogicInitializer)

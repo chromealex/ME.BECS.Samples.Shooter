@@ -199,6 +199,13 @@ namespace ME.BECS.Editor {
             BurstCompileOnDestroyNoBurst<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>.MakeMethod(null);
             BurstCompileMethod.MakeUpdate<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>(default);
             BurstCompileMethod.MakeDestroy<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>(default);
+            StaticSystemTypes<SampleShooter.Systems.Camera.CameraInitializeSystem>.Validate();
+            BurstCompileOnAwakeNoBurst<SampleShooter.Systems.Camera.CameraInitializeSystem>.MakeMethod(null);
+            BurstCompileMethod.MakeAwake<SampleShooter.Systems.Camera.CameraInitializeSystem>(default);
+            StaticSystemTypes<SampleShooter.Systems.Camera.CameraMoveSystem>.Validate();
+            BurstCompileOnUpdate<SampleShooter.Systems.Camera.CameraMoveSystem>.MakeMethod(null);
+            BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Camera.CameraMoveSystem>.MakeMethod(null);
+            BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Camera.CameraMoveSystem>(default);
             StaticSystemTypes<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>.Validate();
             BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>.MakeMethod(null);
             BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>(default);
@@ -325,6 +332,12 @@ namespace ME.BECS.Editor {
             StaticTypes<ME.BECS.Views.MeshRendererComponent>.AOT();
             StaticTypes<ME.BECS.Views.ViewComponent>.AOT();
             StaticTypes<ME.BECS.Views.ViewCustomIdComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Camera.CameraComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Camera.CameraPositionOffsetComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Camera.CameraRotationOffsetComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Camera.CameraSmoothTimeComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Camera.CameraTypeComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Camera.CameraVelocityComponent>.AOT();
             StaticTypes<SampleShooter.Components.Input.InputComponent>.AOT();
             StaticTypes<SampleShooter.Components.Input.InputDirection>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelComponent>.AOT();
@@ -390,6 +403,8 @@ namespace ME.BECS.Editor {
             StaticSystemTypes<ME.BECS.Units.SteeringSystem>.Validate();
             StaticSystemTypes<ME.BECS.Units.SteeringWithAvoidanceSystem>.Validate();
             StaticSystemTypes<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>.Validate();
+            StaticSystemTypes<SampleShooter.Systems.Camera.CameraInitializeSystem>.Validate();
+            StaticSystemTypes<SampleShooter.Systems.Camera.CameraMoveSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Input.InitInputSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Input.ReadInputSystem>.Validate();
@@ -565,6 +580,12 @@ namespace ME.BECS.Editor {
             StaticTypes<ME.BECS.Views.MeshRendererComponent>.Validate(isTag: false);
             StaticTypes<ME.BECS.Views.ViewComponent>.Validate(isTag: false);
             StaticTypes<ME.BECS.Views.ViewCustomIdComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Camera.CameraComponent>.Validate(isTag: true);
+            StaticTypes<SampleShooter.Components.Camera.CameraPositionOffsetComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Camera.CameraRotationOffsetComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Camera.CameraSmoothTimeComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Camera.CameraTypeComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Camera.CameraVelocityComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Input.InputComponent>.Validate(isTag: true);
             StaticTypes<SampleShooter.Components.Input.InputDirection>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Level.LevelComponent>.Validate(isTag: true);

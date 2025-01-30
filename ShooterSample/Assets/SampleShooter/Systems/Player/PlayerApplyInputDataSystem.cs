@@ -39,6 +39,7 @@ namespace SampleShooter.Systems.Player
         {
             var playerInputData = data.GetData<PlayerInputData>();
             
+            
             JobHandle playerMoveJob = context.Query().Schedule<JobPlayerMove, TransformAspect, PlayerComponent>
             (new JobPlayerMove()
             {
