@@ -5,10 +5,10 @@ using ME.BECS.Network.Markers;
 using UnityEngine;
 using Unity.Jobs;
 using Unity.Mathematics;
-using SampleShooter.Components.Player;
 using SampleShooter.Components.Input;
 using SampleShooter.Data;
 using SampleShooter.Initializers;
+using SampleShooter.Systems.Player;
 
 namespace SampleShooter.Systems.Input
 {
@@ -56,31 +56,10 @@ namespace SampleShooter.Systems.Input
                 context.world.parent.SendNetworkEvent(new PlayerInputData
                 {
                     Direction = direction,
-                }, SomeNetworkDelegate);
-
-
-                // NetworkModule networkModule = SampleShooterLogicInitializer.Instance.GetNetworkModule();
-                // JobHandle jobHandle = API.Query(context)
-                //     .With<NetworkModuleComponent>()
-                //     .ParallelFor(64)
-                //     .ForEach((in CommandBufferJob commandBuffer) =>
-                //     {
-                //         Ent networkModuleEntity = commandBuffer.ent;
-                //         var networkModule = networkModuleEntity.Read<NetworkModuleComponent>().NetworkModule.Value;
-                //         context.world.parent.SendNetworkEvent();
-                //
-                //     });
+                }, PlayerApplyInputDataSystem.DelegatePlayerInputData);
             }
         }
 
-        [NetworkMethod]
-        [AOT.MonoPInvokeCallback(typeof(NetworkMethodDelegate))]
-        public static void SomeNetworkDelegate(in InputData data, ref SystemContext context)
-        {
-            var playerInputData = data.GetData<PlayerInputData>();
-            Debug.Log($"test {data.PlayerId}");
-            Debug.Log($"test {playerInputData.Direction}");
-            Debug.Log($"test {context.world.id}");
-        }
+       
     }
 }

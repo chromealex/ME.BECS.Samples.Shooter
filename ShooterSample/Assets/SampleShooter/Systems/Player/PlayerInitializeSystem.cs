@@ -23,6 +23,7 @@ namespace SampleShooter.Systems.Player
             //get players entity from player aspect
             Ent playerEntity = playerAspectFromSystem.ent;
             PlayerConfig.Apply(in playerEntity);
+            // playerEntity.Set(new PlayerComponent());
             playerEntity.GetOrCreateAspect<TransformAspect>();
 
             JobHandle jobHandle = API.Query(context)
