@@ -23,7 +23,8 @@ MonoBehaviour:
   - rid: 2710897171688062999
   - rid: 2710897171688063001
   - rid: 2710897171688063004
-  - rid: 935440366453653890
+  - rid: 935440367154626655
+  - rid: 935440367154626657
   edges:
   - GUID: 1ee4244d-b6ad-4fe5-b520-c6398fef5c4e
     owner: {fileID: 11400000}
@@ -57,20 +58,36 @@ MonoBehaviour:
     outputFieldName: outputNodes
     inputPortIdentifier: 
     outputPortIdentifier: 
-  - GUID: f55b04f3-48a6-4cc9-9ac5-ca777c0494b5
+  - GUID: a23e367d-761e-482e-96a3-ab18e2ab8608
     owner: {fileID: 11400000}
-    inputNodeGUID: d908618d-cdd8-40a4-94c1-9aa6b3069544
+    inputNodeGUID: 4f8db330-077f-4912-b1dc-3279b8d53a07
+    outputNodeGUID: 9f7e62d9-69da-4a7a-9d6f-008c04267c10
+    inputFieldName: inputNodes
+    outputFieldName: outputNodes
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: c550a9b3-17f6-4001-b858-68f3f133ce27
+    owner: {fileID: 11400000}
+    inputNodeGUID: 7eefdaca-2770-48ba-b5c6-959d4b33b3bf
+    outputNodeGUID: 4f8db330-077f-4912-b1dc-3279b8d53a07
+    inputFieldName: inputNodes
+    outputFieldName: outputNodes
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: 9e587b80-7b7f-4af9-a550-5043836afb94
+    owner: {fileID: 11400000}
+    inputNodeGUID: 7eefdaca-2770-48ba-b5c6-959d4b33b3bf
     outputNodeGUID: 8f0938e9-977a-4a18-a688-e7f475bd2180
     inputFieldName: inputNodes
     outputFieldName: outputNodes
     inputPortIdentifier: 
     outputPortIdentifier: 
-  - GUID: 35a6edcf-1842-4442-8915-3fc2baff05a2
+  - GUID: 6eea6238-d921-4f20-8f8b-c6d8e3c957e6
     owner: {fileID: 11400000}
-    inputNodeGUID: 7eefdaca-2770-48ba-b5c6-959d4b33b3bf
-    outputNodeGUID: d908618d-cdd8-40a4-94c1-9aa6b3069544
+    inputNodeGUID: 9f7e62d9-69da-4a7a-9d6f-008c04267c10
+    outputNodeGUID: StartNode
     inputFieldName: inputNodes
-    outputFieldName: outputNodes
+    outputFieldName: output
     inputPortIdentifier: 
     outputPortIdentifier: 
   groups: []
@@ -83,19 +100,46 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 935440366453653890
+    - rid: 935440367154626655
       type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
-        syncPoint: 1
-        syncCount: 0
+        syncPoint: 0
+        syncCount: 1
         nodeCustomName: 
-        GUID: d908618d-cdd8-40a4-94c1-9aa6b3069544
+        GUID: 9f7e62d9-69da-4a7a-9d6f-008c04267c10
         groupGUID: 
-        computeOrder: 4
+        computeOrder: 1
         position:
           serializedVersion: 2
-          x: 163.98994
-          y: -84.639984
+          x: -1014.7749
+          y: -324.03003
+          width: 300
+          height: 140
+        expanded: 1
+        enabled: 1
+        debug: 0
+        nodeLock: 0
+        customRuntimeSystemRoot: {fileID: 0}
+        system:
+          rid: 935440367154626656
+    - rid: 935440367154626656
+      type: {class: CameraInitializeSystem, ns: SampleShooter.Systems.Camera, asm: SampleShooter}
+      data:
+        CameraConfig:
+          sourceId: 212
+    - rid: 935440367154626657
+      type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
+      data:
+        syncPoint: 0
+        syncCount: 1
+        nodeCustomName: 
+        GUID: 4f8db330-077f-4912-b1dc-3279b8d53a07
+        groupGUID: 
+        computeOrder: 2
+        position:
+          serializedVersion: 2
+          x: -510.48492
+          y: -204.98752
           width: 100
           height: 100
         expanded: 1
@@ -104,16 +148,15 @@ MonoBehaviour:
         nodeLock: 0
         customRuntimeSystemRoot: {fileID: 0}
         system:
-          rid: 935440366453653891
-    - rid: 935440366453653891
-      type: {class: PlayerApplyInputDataSystem, ns: SampleShooter.Systems.Player,
-        asm: SampleShooter}
+          rid: 935440367154626658
+    - rid: 935440367154626658
+      type: {class: CameraMoveSystem, ns: SampleShooter.Systems.Camera, asm: SampleShooter}
       data: 
     - rid: 2710897171688062995
       type: {class: StartNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
         syncPoint: 0
-        syncCount: 1
+        syncCount: 2
         nodeCustomName: 
         GUID: StartNode
         groupGUID: 
@@ -138,7 +181,7 @@ MonoBehaviour:
         nodeCustomName: 
         GUID: EndNode
         groupGUID: 
-        computeOrder: 6
+        computeOrder: 7
         position:
           serializedVersion: 2
           x: 947.3875
@@ -154,12 +197,12 @@ MonoBehaviour:
     - rid: 2710897171688062997
       type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
-        syncPoint: 1
-        syncCount: 0
+        syncPoint: 0
+        syncCount: 1
         nodeCustomName: 
         GUID: 8b81d0e6-3517-46c9-b98c-eaf519e3cdf1
         groupGUID: 
-        computeOrder: 1
+        computeOrder: 3
         position:
           serializedVersion: 2
           x: -1054.9861
@@ -181,18 +224,18 @@ MonoBehaviour:
     - rid: 2710897171688062999
       type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
-        syncPoint: 1
-        syncCount: 0
+        syncPoint: 0
+        syncCount: 1
         nodeCustomName: 
         GUID: 986a7f00-807c-4357-94ca-d0ddcdd53666
         groupGUID: 
-        computeOrder: 2
+        computeOrder: 4
         position:
           serializedVersion: 2
-          x: -604.4325
-          y: -499.00003
+          x: -656.9002
+          y: -541
           width: 300
-          height: 137.5
+          height: 139
         expanded: 1
         enabled: 1
         debug: 0
@@ -207,16 +250,16 @@ MonoBehaviour:
     - rid: 2710897171688063001
       type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
-        syncPoint: 1
-        syncCount: 0
+        syncPoint: 0
+        syncCount: 1
         nodeCustomName: 
         GUID: 8f0938e9-977a-4a18-a688-e7f475bd2180
         groupGUID: 
-        computeOrder: 3
+        computeOrder: 5
         position:
           serializedVersion: 2
-          x: -171.00009
-          y: -482.00006
+          x: -250.34982
+          y: -547
           width: 300
           height: 140
         expanded: 1
@@ -239,11 +282,11 @@ MonoBehaviour:
         nodeCustomName: 
         GUID: 7eefdaca-2770-48ba-b5c6-959d4b33b3bf
         groupGUID: 
-        computeOrder: 5
+        computeOrder: 6
         position:
           serializedVersion: 2
-          x: 372.76
-          y: -482.0001
+          x: 473.5101
+          y: -519.50006
           width: 300
           height: 75
         expanded: 0
