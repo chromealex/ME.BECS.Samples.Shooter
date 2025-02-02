@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseConfig: {fileID: 0}
   data:
-    components: []
+    components:
+    - rid: 935440366453653892
+    - rid: 935440367154626651
+    - rid: 935440367154626652
+    - rid: 935440367154626653
   sharedData:
     components: []
   staticData:
@@ -24,13 +28,45 @@ MonoBehaviour:
     components:
     - rid: 2710897054365253635
   aspects:
-    components: []
+    components:
+    - rid: 935440367154626650
   collectionsData:
     nextId: 0
     items: []
   references:
     version: 2
     RefIds:
+    - rid: 935440366453653892
+      type: {class: PlayerMoveSpeedComponent, ns: SampleShooter.Components.Player,
+        asm: SampleShooter}
+      data:
+        MoveSpeed: 25
+    - rid: 935440367154626650
+      type: {class: TransformAspect, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+      data: 
+    - rid: 935440367154626651
+      type: {class: LocalPositionComponent, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+      data:
+        value:
+          x: 0
+          y: 0
+          z: 0
+    - rid: 935440367154626652
+      type: {class: LocalRotationComponent, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+      data:
+        value:
+          value:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+    - rid: 935440367154626653
+      type: {class: LocalScaleComponent, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+      data:
+        value:
+          x: 1
+          y: 1
+          z: 1
     - rid: 2710897054365253635
       type: {class: InstantiateViewComponent, ns: ME.BECS.Views, asm: ME.BECS.Views}
       data:

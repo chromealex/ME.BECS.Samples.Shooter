@@ -3,6 +3,7 @@ using ME.BECS.Jobs;
 using ME.BECS.Network;
 using ME.BECS.Players;
 using ME.BECS.Transforms;
+using SampleShooter.Components.Player;
 using SampleShooter.Data;
 using Unity.Burst;
 using Unity.Jobs;
@@ -28,8 +29,8 @@ namespace SampleShooter.Systems.Player
 
             public void Execute(in JobInfo jobInfo, in Ent ent, ref TransformAspect playerTransform, ref PlayerComponent playerComponent)
             {
-                playerTransform.position += dt * direction;
-                Debug.Log($"{nameof(PlayerMoveDirectionSystem)} move !");
+                float moveSpeed = ent.Read<PlayerMoveSpeedComponent>().MoveSpeed;
+                playerTransform.position += dt * direction * moveSpeed;
             }
         }
 

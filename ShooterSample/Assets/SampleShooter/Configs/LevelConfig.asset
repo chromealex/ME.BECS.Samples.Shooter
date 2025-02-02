@@ -55,9 +55,9 @@ MonoBehaviour:
         asm: SampleShooter}
       data:
         PlayerSpawnPoint:
-          x: 45
+          x: 5
           y: 1
-          z: 45
+          z: 5
     - rid: 2710897053846208520
       type: {class: LevelEnemySpawnPointComponent, ns: SampleShooter.Components.Level,
         asm: SampleShooter}

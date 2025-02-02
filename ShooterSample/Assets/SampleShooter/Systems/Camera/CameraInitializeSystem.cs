@@ -13,7 +13,6 @@ namespace SampleShooter.Systems.Camera
             Debug.Log($"{nameof(CameraInitializeSystem)} started to work");
             var cameraEntity = Ent.New(in context);
             CameraConfig.Apply(in cameraEntity);
-            cameraEntity.GetOrCreateAspect<TransformAspect>();
         }
     }
 }

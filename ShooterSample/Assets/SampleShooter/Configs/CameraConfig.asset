@@ -20,6 +20,9 @@ MonoBehaviour:
     - rid: 2710897183939624970
     - rid: 2710897183939624971
     - rid: 2710897183939624972
+    - rid: 935440366453653887
+    - rid: 935440366453653888
+    - rid: 935440366453653889
   sharedData:
     components: []
   staticData:
@@ -29,13 +32,40 @@ MonoBehaviour:
     components:
     - rid: 2710897183939624973
   aspects:
-    components: []
+    components:
+    - rid: 935440366453653886
   collectionsData:
     nextId: 0
     items: []
   references:
     version: 2
     RefIds:
+    - rid: 935440366453653886
+      type: {class: TransformAspect, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+      data: 
+    - rid: 935440366453653887
+      type: {class: LocalPositionComponent, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+      data:
+        value:
+          x: 0
+          y: 0
+          z: 0
+    - rid: 935440366453653888
+      type: {class: LocalRotationComponent, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+      data:
+        value:
+          value:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+    - rid: 935440366453653889
+      type: {class: LocalScaleComponent, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+      data:
+        value:
+          x: 1
+          y: 1
+          z: 1
     - rid: 2710897183939624968
       type: {class: CameraComponent, ns: SampleShooter.Components.Camera, asm: SampleShooter}
       data: 

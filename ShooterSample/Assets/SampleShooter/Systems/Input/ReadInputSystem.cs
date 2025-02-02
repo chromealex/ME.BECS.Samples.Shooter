@@ -29,21 +29,25 @@ namespace SampleShooter.Systems.Input
             if (UnityEngine.Input.GetKey(KeyCode.W))
             {
                 z += 1f;
+                Debug.Log("W key pressed");
             }
 
             if (UnityEngine.Input.GetKey(KeyCode.S))
             {
                 z -= 1f;
+                Debug.Log("S key pressed");
             }
 
             if (UnityEngine.Input.GetKey(KeyCode.A))
             {
                 x -= 1f;
+                Debug.Log("A key pressed");
             }
 
             if (UnityEngine.Input.GetKey(KeyCode.D))
             {
                 x += 1f;
+                Debug.Log("D key pressed");
             }
 
             var direction = new float3(x, 0f, z);

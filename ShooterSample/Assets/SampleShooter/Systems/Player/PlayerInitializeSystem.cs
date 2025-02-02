@@ -14,17 +14,13 @@ namespace SampleShooter.Systems.Player
         
         public void OnAwake(ref SystemContext context)
         {
-            //because we are in logic world and  world.parent = SampleShooterLogicInitializer.Instance.world; (see SampleShooterLogicInitializer)
             World logicWorld = context.world.parent;
-            //get players system from logic world
             var playersSystem = logicWorld.GetSystem<PlayersSystem>();
-            //get active player aspect from players system
             PlayerAspect playerAspectFromSystem = playersSystem.GetActivePlayer();
-            //get players entity from player aspect
             Ent playerEntity = playerAspectFromSystem.ent;
             PlayerConfig.Apply(in playerEntity);
-            // playerEntity.Set(new PlayerComponent());
-            playerEntity.GetOrCreateAspect<TransformAspect>();
+            
+            PlayerUtils.SetActivePlayer(playerAspectFromSystem);
 
             JobHandle jobHandle = API.Query(context)
                 .WithAll<LevelComponent, LevelPlayerSpawnPointComponent>()
