@@ -206,6 +206,10 @@ namespace ME.BECS.Editor {
             BurstCompileOnUpdate<SampleShooter.Systems.Camera.CameraMoveSystem>.MakeMethod(null);
             BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Camera.CameraMoveSystem>.MakeMethod(null);
             BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Camera.CameraMoveSystem>(default);
+            StaticSystemTypes<SampleShooter.Systems.Camera.CameraRayCastSystem>.Validate();
+            BurstCompileOnUpdate<SampleShooter.Systems.Camera.CameraRayCastSystem>.MakeMethod(null);
+            BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Camera.CameraRayCastSystem>.MakeMethod(null);
+            BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Camera.CameraRayCastSystem>(default);
             StaticSystemTypes<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>.Validate();
             BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>.MakeMethod(null);
             BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>(default);
@@ -229,6 +233,10 @@ namespace ME.BECS.Editor {
             BurstCompileOnUpdate<SampleShooter.Systems.Player.PlayerMoveDirectionSystem>.MakeMethod(null);
             BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Player.PlayerMoveDirectionSystem>.MakeMethod(null);
             BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Player.PlayerMoveDirectionSystem>(default);
+            StaticSystemTypes<SampleShooter.Systems.Player.PlayerRotationToPointerSystem>.Validate();
+            BurstCompileOnUpdate<SampleShooter.Systems.Player.PlayerRotationToPointerSystem>.MakeMethod(null);
+            BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Player.PlayerRotationToPointerSystem>.MakeMethod(null);
+            BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Player.PlayerRotationToPointerSystem>(default);
             StaticTypes<ME.BECS.Attack.AttackComponent>.AOT();
             StaticTypes<ME.BECS.Attack.AttackFilterComponent>.AOT();
             StaticTypes<ME.BECS.Attack.AttackRuntimeFireComponent>.AOT();
@@ -335,6 +343,7 @@ namespace ME.BECS.Editor {
             StaticTypes<SampleShooter.Components.Camera.CameraComponent>.AOT();
             StaticTypes<SampleShooter.Components.Camera.CameraFollowSpeedComponent>.AOT();
             StaticTypes<SampleShooter.Components.Camera.CameraPositionOffsetComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Camera.CameraRayComponent>.AOT();
             StaticTypes<SampleShooter.Components.Camera.CameraRotationOffsetComponent>.AOT();
             StaticTypes<SampleShooter.Components.Camera.CameraSmoothTimeComponent>.AOT();
             StaticTypes<SampleShooter.Components.Camera.CameraTypeComponent>.AOT();
@@ -407,6 +416,7 @@ namespace ME.BECS.Editor {
             StaticSystemTypes<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Camera.CameraInitializeSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Camera.CameraMoveSystem>.Validate();
+            StaticSystemTypes<SampleShooter.Systems.Camera.CameraRayCastSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Input.DestroyInputDirectionComponentSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Input.InitInputSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Input.ReadInputSystem>.Validate();
@@ -414,6 +424,7 @@ namespace ME.BECS.Editor {
             StaticSystemTypes<SampleShooter.Systems.Player.PlayerApplyInputDataSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Player.PlayerInitializeSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Player.PlayerMoveDirectionSystem>.Validate();
+            StaticSystemTypes<SampleShooter.Systems.Player.PlayerRotationToPointerSystem>.Validate();
             StaticTypes<ME.BECS.Commands.BuildingInProgress>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
             StaticTypes<ME.BECS.Commands.BuildInProgress>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
             StaticTypes<ME.BECS.Commands.CommandAttack>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
@@ -585,6 +596,7 @@ namespace ME.BECS.Editor {
             StaticTypes<SampleShooter.Components.Camera.CameraComponent>.Validate(isTag: true);
             StaticTypes<SampleShooter.Components.Camera.CameraFollowSpeedComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Camera.CameraPositionOffsetComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Camera.CameraRayComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Camera.CameraRotationOffsetComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Camera.CameraSmoothTimeComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Camera.CameraTypeComponent>.Validate(isTag: false);

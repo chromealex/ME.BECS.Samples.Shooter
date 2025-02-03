@@ -40,7 +40,6 @@ namespace SampleShooter.Systems.Player
         {
             var playerInputData = data.GetData<PlayerInputData>();
             
-            
             JobHandle playerMoveJob = context.Query().Schedule<JobPlayerMove, TransformAspect, PlayerComponent>
             (new JobPlayerMove()
             {
@@ -48,7 +47,6 @@ namespace SampleShooter.Systems.Player
                 direction = playerInputData.Direction,
             });
             
-            Debug.Log($"{nameof(DelegatePlayerInputData)} - {playerInputData.Direction}");
             context.SetDependency(playerMoveJob);
         }
     }

@@ -1,6 +1,7 @@
 using ME.BECS;
 using SampleShooter.Enums;
 using Unity.Mathematics;
+using UnityEngine;
 
 namespace SampleShooter.Components.Camera
 {
@@ -36,5 +37,10 @@ namespace SampleShooter.Components.Camera
     public struct CameraFollowSpeedComponent : IConfigComponent
     {
         public float FollowSpeed;
+    }
+    
+    public struct CameraRayComponent : IComponent
+    {
+        public Ray CameraRay;
     }
 }

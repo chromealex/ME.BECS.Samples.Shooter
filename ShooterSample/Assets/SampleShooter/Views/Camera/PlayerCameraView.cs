@@ -1,5 +1,6 @@
 using ME.BECS;
 using ME.BECS.Views;
+using SampleShooter.Components.Camera;
 using SampleShooter.Enums;
 using UnityEngine;
 
@@ -13,6 +14,12 @@ namespace SampleShooter.Views.Camera
         protected override void OnInitialize(in EntRO ent)
         {
             Debug.Log($"On initialize {nameof(PlayerCameraView)}!");
+        }
+
+        protected override void OnUpdate(in EntRO entRO, float dt)
+        {
+            Ent playerCameraEntity = entRO.GetEntity();
+            playerCameraEntity.Get<CameraRayComponent>().CameraRay = _camera.ScreenPointToRay(Input.mousePosition);
         }
     }
 }

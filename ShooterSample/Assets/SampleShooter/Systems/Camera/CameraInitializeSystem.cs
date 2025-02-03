@@ -37,6 +37,7 @@ namespace SampleShooter.Systems.Camera
         {
             var cameraEntity = Ent.New(in context);
             CameraConfig.Apply(in cameraEntity);
+            cameraEntity.Set(new CameraRayComponent());
 
             JobHandle cameraInitializeJob = context.Query()
                 .Schedule<CameraInitializeJob, TransformAspect, CameraComponent>();
