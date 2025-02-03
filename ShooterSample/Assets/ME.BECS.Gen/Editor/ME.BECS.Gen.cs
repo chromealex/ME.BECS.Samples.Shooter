@@ -333,6 +333,7 @@ namespace ME.BECS.Editor {
             StaticTypes<ME.BECS.Views.ViewComponent>.AOT();
             StaticTypes<ME.BECS.Views.ViewCustomIdComponent>.AOT();
             StaticTypes<SampleShooter.Components.Camera.CameraComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Camera.CameraFollowSpeedComponent>.AOT();
             StaticTypes<SampleShooter.Components.Camera.CameraPositionOffsetComponent>.AOT();
             StaticTypes<SampleShooter.Components.Camera.CameraRotationOffsetComponent>.AOT();
             StaticTypes<SampleShooter.Components.Camera.CameraSmoothTimeComponent>.AOT();
@@ -582,6 +583,7 @@ namespace ME.BECS.Editor {
             StaticTypes<ME.BECS.Views.ViewComponent>.Validate(isTag: false);
             StaticTypes<ME.BECS.Views.ViewCustomIdComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Camera.CameraComponent>.Validate(isTag: true);
+            StaticTypes<SampleShooter.Components.Camera.CameraFollowSpeedComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Camera.CameraPositionOffsetComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Camera.CameraRotationOffsetComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Camera.CameraSmoothTimeComponent>.Validate(isTag: false);

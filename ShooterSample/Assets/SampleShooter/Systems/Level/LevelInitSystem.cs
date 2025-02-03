@@ -14,8 +14,7 @@ namespace SampleShooter.Systems.Level
             Debug.Log("LevelInitializeSystem started to work");
             var levelEntity = Ent.New(in context);
             LevelConfig.Apply(in levelEntity);
-            
-            var tr = levelEntity.GetOrCreateAspect<TransformAspect>();
+            var tr = levelEntity.GetAspect<TransformAspect>();
             tr.position = levelEntity.Read<LevelSpawnPointComponent>().LevelSpawnPoint;
         }
     }

@@ -129,4 +129,5 @@ MonoBehaviour:
       obj: {fileID: 11400000, guid: b8a9bbf3f2a744935967ab1a099f746a, type: 2}
   featuresGraph: {fileID: 11400000, guid: dc79979a6bc1a4cd5b041459c324c783, type: 2}
   featuresGraphFixedUpdate: {fileID: 0}
-  featuresGraphLateUpdate: {fileID: 0}
+  featuresGraphLateUpdate: {fileID: 11400000, guid: 23a50a13775e945cf9e2358f2f182dab,
+    type: 2}

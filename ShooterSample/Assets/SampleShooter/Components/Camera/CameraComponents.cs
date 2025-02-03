@@ -32,4 +32,9 @@ namespace SampleShooter.Components.Camera
     {
         public float3 Velocity;
     }
+    
+    public struct CameraFollowSpeedComponent : IConfigComponent
+    {
+        public float FollowSpeed;
+    }
 }

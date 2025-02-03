@@ -20,6 +20,9 @@ MonoBehaviour:
     - rid: 2710897053846208519
     - rid: 2710897053846208520
     - rid: 2710897053846208521
+    - rid: 935440389415109460
+    - rid: 935440389415109461
+    - rid: 935440389415109462
   sharedData:
     components: []
   staticData:
@@ -29,13 +32,40 @@ MonoBehaviour:
     components:
     - rid: 2710897006137049089
   aspects:
-    components: []
+    components:
+    - rid: 935440389415109459
   collectionsData:
     nextId: 0
     items: []
   references:
     version: 2
     RefIds:
+    - rid: 935440389415109459
+      type: {class: TransformAspect, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+      data: 
+    - rid: 935440389415109460
+      type: {class: LocalPositionComponent, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+      data:
+        value:
+          x: 0
+          y: 0
+          z: 0
+    - rid: 935440389415109461
+      type: {class: LocalRotationComponent, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+      data:
+        value:
+          value:
+            x: 0
+            y: 0
+            z: 0
+            w: 1
+    - rid: 935440389415109462
+      type: {class: LocalScaleComponent, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
+      data:
+        value:
+          x: 1
+          y: 1
+          z: 1
     - rid: 2710897006137049089
       type: {class: InstantiateViewComponent, ns: ME.BECS.Views, asm: ME.BECS.Views}
       data:
@@ -55,17 +85,17 @@ MonoBehaviour:
         asm: SampleShooter}
       data:
         PlayerSpawnPoint:
-          x: 5
-          y: 1
-          z: 5
+          x: 0
+          y: 0
+          z: -35
     - rid: 2710897053846208520
       type: {class: LevelEnemySpawnPointComponent, ns: SampleShooter.Components.Level,
         asm: SampleShooter}
       data:
         EnemySpawnPoint:
-          x: -45
+          x: 45
           y: 0
-          z: -45
+          z: 45
     - rid: 2710897053846208521
       type: {class: LevelSpawnPointComponent, ns: SampleShooter.Components.Level,
         asm: SampleShooter}
