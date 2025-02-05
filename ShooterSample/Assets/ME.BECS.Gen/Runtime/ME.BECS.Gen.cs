@@ -354,6 +354,7 @@ namespace ME.BECS {
             StaticTypes<SampleShooter.Components.Level.LevelIdComponent>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelPlayerSpawnPointComponent>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelSpawnPointComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Player.PlayerMoveDirectionComponent>.AOT();
             StaticTypes<SampleShooter.Components.Player.PlayerMoveSpeedComponent>.AOT();
             AutoDestroyRegistryStatic<ME.BECS.Pathfinding.GraphMaskRuntimeComponent>.Destroy(null);
             StaticTypesStatic<ME.BECS.Bullets.BulletEffectOnDestroy>.AOT();
@@ -607,6 +608,7 @@ namespace ME.BECS {
             StaticTypes<SampleShooter.Components.Level.LevelIdComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Level.LevelPlayerSpawnPointComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Level.LevelSpawnPointComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Player.PlayerMoveDirectionComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Player.PlayerMoveSpeedComponent>.Validate(isTag: false);
             StaticTypesDestroy<ME.BECS.Pathfinding.GraphMaskRuntimeComponent>.RegisterAutoDestroy(isTag: false);
             StaticTypes<ME.BECS.Bullets.BulletEffectOnDestroy>.ValidateStatic(isTag: false);
@@ -673,8 +675,8 @@ namespace ME.BECS {
             EarlyInit.DoComponents<ME.BECS.Views.Jobs.JobAddToScene, ME.BECS.Views.IsViewRequested>();
             EarlyInit.DoComponents<ME.BECS.Views.Jobs.JobAssignViews, ME.BECS.Views.AssignViewComponent>();
             EarlyInit.DoComponents<ME.BECS.Views.Jobs.JobRemoveFromScene, ME.BECS.Views.ViewComponent>();
-            EarlyInit.DoComponents<SampleShooter.Systems.Player.PlayerRotationToPointerSystem.CameraRayCastJob, SampleShooter.Components.Camera.CameraComponent, SampleShooter.Components.Camera.CameraRayComponent>();
             EarlyInit.DoComponents<SampleShooter.Systems.Camera.CameraRayCastSystem.CameraRayCastJob, SampleShooter.Components.Camera.CameraComponent, SampleShooter.Components.Camera.CameraRayComponent>();
+            EarlyInit.DoComponents<SampleShooter.Systems.Player.PlayerRotationToPointerSystem.CameraRayCastJob, SampleShooter.Components.Camera.CameraComponent, SampleShooter.Components.Camera.CameraRayComponent>();
             EarlyInit.DoComponents<ME.BECS.Commands.CommandBuildUpdateSystem.CompleteJob, ME.BECS.Commands.BuildingInProgress>();
             EarlyInit.DoComponents<ME.BECS.Commands.CommandBuildUpdateSystem.UpdateProgressJob, ME.BECS.Commands.BuildInProgress>();
             EarlyInit.DoComponents<ME.BECS.Pathfinding.UpdateGraphSystem.ResetPathJob, ME.BECS.Pathfinding.TargetPathComponent>();
@@ -723,9 +725,10 @@ namespace ME.BECS {
             EarlyInit.DoAspectsComponents2_1<ME.BECS.Attack.MoveToAttackerSystem.MoveToAttackerJob, ME.BECS.Units.UnitAspect, ME.BECS.Transforms.TransformAspect, ME.BECS.Units.DamageTookEvent>();
             EarlyInit.DoAspectsComponents1_1<ME.BECS.Attack.StopWhileAttackSystem.JobSet, ME.BECS.Attack.AttackAspect, ME.BECS.Transforms.ParentComponent>();
             EarlyInit.DoAspectsComponents1_1<ME.BECS.Attack.MoveToAttackerSystem.StopOnTargetJob, ME.BECS.Units.UnitAspect, ME.BECS.Commands.UnitAttackCommandComponent>();
-            EarlyInit.DoAspectsComponents1_1<SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMove, ME.BECS.Transforms.TransformAspect, ME.BECS.Players.PlayerComponent>();
             EarlyInit.DoAspectsComponents1_1<SampleShooter.Systems.Camera.CameraMoveSystem.CameraMoveJob, ME.BECS.Transforms.TransformAspect, SampleShooter.Components.Camera.CameraComponent>();
+            EarlyInit.DoAspectsComponents1_2<SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMoveDirection, ME.BECS.Transforms.TransformAspect, ME.BECS.Players.PlayerComponent, SampleShooter.Components.Player.PlayerMoveDirectionComponent>();
             EarlyInit.DoAspectsComponents1_1<SampleShooter.Systems.Camera.CameraInitializeSystem.CameraInitializeJob, ME.BECS.Transforms.TransformAspect, SampleShooter.Components.Camera.CameraComponent>();
+            EarlyInit.DoAspectsComponents1_2<SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMove, ME.BECS.Transforms.TransformAspect, ME.BECS.Players.PlayerComponent, SampleShooter.Components.Player.PlayerMoveDirectionComponent>();
             EarlyInit.DoAspectsComponents1_2<ME.BECS.Transforms.TransformWorldMatrixUpdateSystem.CalculateRootsWithChildrenJob, ME.BECS.Transforms.TransformAspect, ME.BECS.Transforms.ParentComponent, ME.BECS.Transforms.IsFirstLevelComponent>();
             EarlyInit.DoAspectsComponents2_1<ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem.Job, ME.BECS.QuadTreeQueryAspect, ME.BECS.Transforms.TransformAspect, ME.BECS.FogOfWar.QuadTreeQueryFogOfWarFilter>();
             StaticTypes.collectionsCount.Resize(StaticTypes.counter + 1u);
@@ -774,9 +777,9 @@ namespace ME.BECS {
             public RefRW<ME.BECS.Views.ViewComponent> c0;
             public SafetyComponentContainerRW<ME.BECS.Views.ViewComponent> ME_BECS_Views_ViewComponent;
         }
-        public struct JobDebugData4 { // SampleShooter.Systems.Player.PlayerRotationToPointerSystem+CameraRayCastJob
+        public struct JobDebugData4 { // SampleShooter.Systems.Camera.CameraRayCastSystem+CameraRayCastJob
             [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
-            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Player.PlayerRotationToPointerSystem.CameraRayCastJob jobData;
+            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Camera.CameraRayCastSystem.CameraRayCastJob jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
             public RefRW<SampleShooter.Components.Camera.CameraComponent> c0;
             public RefRW<SampleShooter.Components.Camera.CameraRayComponent> c1;
@@ -786,9 +789,9 @@ namespace ME.BECS {
             public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
             public SafetyComponentContainerRO<SampleShooter.Components.Camera.CameraRayComponent> SampleShooter_Components_Camera_CameraRayComponent;
         }
-        public struct JobDebugData5 { // SampleShooter.Systems.Camera.CameraRayCastSystem+CameraRayCastJob
+        public struct JobDebugData5 { // SampleShooter.Systems.Player.PlayerRotationToPointerSystem+CameraRayCastJob
             [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
-            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Camera.CameraRayCastSystem.CameraRayCastJob jobData;
+            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Player.PlayerRotationToPointerSystem.CameraRayCastJob jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
             public RefRW<SampleShooter.Components.Camera.CameraComponent> c0;
             public RefRW<SampleShooter.Components.Camera.CameraRayComponent> c1;
@@ -1524,19 +1527,7 @@ namespace ME.BECS {
             public SafetyComponentContainerRO<ME.BECS.Units.UnitCommandGroupComponent> ME_BECS_Units_UnitCommandGroupComponent;
             public SafetyComponentContainerRW<ME.BECS.Units.UnitLookAtComponent> ME_BECS_Units_UnitLookAtComponent;
         }
-        public struct JobDebugData55 { // SampleShooter.Systems.Player.PlayerApplyInputDataSystem+JobPlayerMove
-            [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
-            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMove jobData;
-            [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
-            public ME.BECS.Transforms.TransformAspect a0;
-            public RefRW<ME.BECS.Players.PlayerComponent> c0;
-            public SafetyComponentContainerRW<ME.BECS.Transforms.LocalPositionComponent> ME_BECS_Transforms_LocalPositionComponent;
-            public SafetyComponentContainerRO<ME.BECS.Transforms.LocalRotationComponent> ME_BECS_Transforms_LocalRotationComponent;
-            public SafetyComponentContainerRO<ME.BECS.Transforms.LocalScaleComponent> ME_BECS_Transforms_LocalScaleComponent;
-            public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
-            public SafetyComponentContainerRO<SampleShooter.Components.Player.PlayerMoveSpeedComponent> SampleShooter_Components_Player_PlayerMoveSpeedComponent;
-        }
-        public struct JobDebugData56 { // SampleShooter.Systems.Camera.CameraMoveSystem+CameraMoveJob
+        public struct JobDebugData55 { // SampleShooter.Systems.Camera.CameraMoveSystem+CameraMoveJob
             [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
             [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Camera.CameraMoveSystem.CameraMoveJob jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
@@ -1548,6 +1539,20 @@ namespace ME.BECS {
             public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
             public SafetyComponentContainerRO<SampleShooter.Components.Camera.CameraFollowSpeedComponent> SampleShooter_Components_Camera_CameraFollowSpeedComponent;
             public SafetyComponentContainerRO<SampleShooter.Components.Camera.CameraPositionOffsetComponent> SampleShooter_Components_Camera_CameraPositionOffsetComponent;
+        }
+        public struct JobDebugData56 { // SampleShooter.Systems.Player.PlayerApplyInputDataSystem+JobPlayerMoveDirection
+            [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
+            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMoveDirection jobData;
+            [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
+            public ME.BECS.Transforms.TransformAspect a0;
+            public RefRW<ME.BECS.Players.PlayerComponent> c0;
+            public RefRW<SampleShooter.Components.Player.PlayerMoveDirectionComponent> c1;
+            public SafetyComponentContainerRW<ME.BECS.Transforms.LocalPositionComponent> ME_BECS_Transforms_LocalPositionComponent;
+            public SafetyComponentContainerRO<ME.BECS.Transforms.LocalRotationComponent> ME_BECS_Transforms_LocalRotationComponent;
+            public SafetyComponentContainerRO<ME.BECS.Transforms.LocalScaleComponent> ME_BECS_Transforms_LocalScaleComponent;
+            public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
+            public SafetyComponentContainerRO<SampleShooter.Components.Player.PlayerMoveDirectionComponent> SampleShooter_Components_Player_PlayerMoveDirectionComponent;
+            public SafetyComponentContainerRO<SampleShooter.Components.Player.PlayerMoveSpeedComponent> SampleShooter_Components_Player_PlayerMoveSpeedComponent;
         }
         public struct JobDebugData57 { // SampleShooter.Systems.Camera.CameraInitializeSystem+CameraInitializeJob
             [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
@@ -1561,7 +1566,16 @@ namespace ME.BECS {
             public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
             public SafetyComponentContainerRO<SampleShooter.Components.Camera.CameraPositionOffsetComponent> SampleShooter_Components_Camera_CameraPositionOffsetComponent;
         }
-        public struct JobDebugData58 { // ME.BECS.Transforms.TransformWorldMatrixUpdateSystem+CalculateRootsWithChildrenJob
+        public struct JobDebugData58 { // SampleShooter.Systems.Player.PlayerApplyInputDataSystem+JobPlayerMove
+            [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
+            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMove jobData;
+            [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
+            public ME.BECS.Transforms.TransformAspect a0;
+            public RefRW<ME.BECS.Players.PlayerComponent> c0;
+            public RefRW<SampleShooter.Components.Player.PlayerMoveDirectionComponent> c1;
+            public SafetyComponentContainerWO<SampleShooter.Components.Player.PlayerMoveDirectionComponent> SampleShooter_Components_Player_PlayerMoveDirectionComponent;
+        }
+        public struct JobDebugData59 { // ME.BECS.Transforms.TransformWorldMatrixUpdateSystem+CalculateRootsWithChildrenJob
             [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
             [NativeDisableUnsafePtrRestriction] public ME.BECS.Transforms.TransformWorldMatrixUpdateSystem.CalculateRootsWithChildrenJob jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
@@ -1575,7 +1589,7 @@ namespace ME.BECS {
             public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
             public SafetyComponentContainerRW<ME.BECS.Transforms.WorldMatrixComponent> ME_BECS_Transforms_WorldMatrixComponent;
         }
-        public struct JobDebugData59 { // ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem+Job
+        public struct JobDebugData60 { // ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem+Job
             [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
             [NativeDisableUnsafePtrRestriction] public ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem.Job jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
@@ -1612,9 +1626,9 @@ namespace ME.BECS {
             [NativeDisableContainerSafetyRestriction] public RefRW<ME.BECS.Views.ViewComponent> c0;
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRW<ME.BECS.Views.ViewComponent> ME_BECS_Views_ViewComponent;
         }
-        public struct JobDebugData4Unsafe { // SampleShooter.Systems.Player.PlayerRotationToPointerSystem+CameraRayCastJob
+        public struct JobDebugData4Unsafe { // SampleShooter.Systems.Camera.CameraRayCastSystem+CameraRayCastJob
             [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
-            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Player.PlayerRotationToPointerSystem.CameraRayCastJob jobData;
+            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Camera.CameraRayCastSystem.CameraRayCastJob jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
             [NativeDisableContainerSafetyRestriction] public RefRW<SampleShooter.Components.Camera.CameraComponent> c0;
             [NativeDisableContainerSafetyRestriction] public RefRW<SampleShooter.Components.Camera.CameraRayComponent> c1;
@@ -1624,9 +1638,9 @@ namespace ME.BECS {
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<SampleShooter.Components.Camera.CameraRayComponent> SampleShooter_Components_Camera_CameraRayComponent;
         }
-        public struct JobDebugData5Unsafe { // SampleShooter.Systems.Camera.CameraRayCastSystem+CameraRayCastJob
+        public struct JobDebugData5Unsafe { // SampleShooter.Systems.Player.PlayerRotationToPointerSystem+CameraRayCastJob
             [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
-            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Camera.CameraRayCastSystem.CameraRayCastJob jobData;
+            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Player.PlayerRotationToPointerSystem.CameraRayCastJob jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
             [NativeDisableContainerSafetyRestriction] public RefRW<SampleShooter.Components.Camera.CameraComponent> c0;
             [NativeDisableContainerSafetyRestriction] public RefRW<SampleShooter.Components.Camera.CameraRayComponent> c1;
@@ -2362,19 +2376,7 @@ namespace ME.BECS {
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Units.UnitCommandGroupComponent> ME_BECS_Units_UnitCommandGroupComponent;
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRW<ME.BECS.Units.UnitLookAtComponent> ME_BECS_Units_UnitLookAtComponent;
         }
-        public struct JobDebugData55Unsafe { // SampleShooter.Systems.Player.PlayerApplyInputDataSystem+JobPlayerMove
-            [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
-            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMove jobData;
-            [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
-            [NativeDisableContainerSafetyRestriction] public ME.BECS.Transforms.TransformAspect a0;
-            [NativeDisableContainerSafetyRestriction] public RefRW<ME.BECS.Players.PlayerComponent> c0;
-            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRW<ME.BECS.Transforms.LocalPositionComponent> ME_BECS_Transforms_LocalPositionComponent;
-            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.LocalRotationComponent> ME_BECS_Transforms_LocalRotationComponent;
-            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.LocalScaleComponent> ME_BECS_Transforms_LocalScaleComponent;
-            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
-            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<SampleShooter.Components.Player.PlayerMoveSpeedComponent> SampleShooter_Components_Player_PlayerMoveSpeedComponent;
-        }
-        public struct JobDebugData56Unsafe { // SampleShooter.Systems.Camera.CameraMoveSystem+CameraMoveJob
+        public struct JobDebugData55Unsafe { // SampleShooter.Systems.Camera.CameraMoveSystem+CameraMoveJob
             [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
             [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Camera.CameraMoveSystem.CameraMoveJob jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
@@ -2386,6 +2388,20 @@ namespace ME.BECS {
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<SampleShooter.Components.Camera.CameraFollowSpeedComponent> SampleShooter_Components_Camera_CameraFollowSpeedComponent;
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<SampleShooter.Components.Camera.CameraPositionOffsetComponent> SampleShooter_Components_Camera_CameraPositionOffsetComponent;
+        }
+        public struct JobDebugData56Unsafe { // SampleShooter.Systems.Player.PlayerApplyInputDataSystem+JobPlayerMoveDirection
+            [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
+            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMoveDirection jobData;
+            [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
+            [NativeDisableContainerSafetyRestriction] public ME.BECS.Transforms.TransformAspect a0;
+            [NativeDisableContainerSafetyRestriction] public RefRW<ME.BECS.Players.PlayerComponent> c0;
+            [NativeDisableContainerSafetyRestriction] public RefRW<SampleShooter.Components.Player.PlayerMoveDirectionComponent> c1;
+            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRW<ME.BECS.Transforms.LocalPositionComponent> ME_BECS_Transforms_LocalPositionComponent;
+            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.LocalRotationComponent> ME_BECS_Transforms_LocalRotationComponent;
+            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.LocalScaleComponent> ME_BECS_Transforms_LocalScaleComponent;
+            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
+            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<SampleShooter.Components.Player.PlayerMoveDirectionComponent> SampleShooter_Components_Player_PlayerMoveDirectionComponent;
+            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<SampleShooter.Components.Player.PlayerMoveSpeedComponent> SampleShooter_Components_Player_PlayerMoveSpeedComponent;
         }
         public struct JobDebugData57Unsafe { // SampleShooter.Systems.Camera.CameraInitializeSystem+CameraInitializeJob
             [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
@@ -2399,7 +2415,16 @@ namespace ME.BECS {
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<SampleShooter.Components.Camera.CameraPositionOffsetComponent> SampleShooter_Components_Camera_CameraPositionOffsetComponent;
         }
-        public struct JobDebugData58Unsafe { // ME.BECS.Transforms.TransformWorldMatrixUpdateSystem+CalculateRootsWithChildrenJob
+        public struct JobDebugData58Unsafe { // SampleShooter.Systems.Player.PlayerApplyInputDataSystem+JobPlayerMove
+            [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
+            [NativeDisableUnsafePtrRestriction] public SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMove jobData;
+            [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
+            [NativeDisableContainerSafetyRestriction] public ME.BECS.Transforms.TransformAspect a0;
+            [NativeDisableContainerSafetyRestriction] public RefRW<ME.BECS.Players.PlayerComponent> c0;
+            [NativeDisableContainerSafetyRestriction] public RefRW<SampleShooter.Components.Player.PlayerMoveDirectionComponent> c1;
+            [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerWO<SampleShooter.Components.Player.PlayerMoveDirectionComponent> SampleShooter_Components_Player_PlayerMoveDirectionComponent;
+        }
+        public struct JobDebugData59Unsafe { // ME.BECS.Transforms.TransformWorldMatrixUpdateSystem+CalculateRootsWithChildrenJob
             [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
             [NativeDisableUnsafePtrRestriction] public ME.BECS.Transforms.TransformWorldMatrixUpdateSystem.CalculateRootsWithChildrenJob jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
@@ -2413,7 +2438,7 @@ namespace ME.BECS {
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent> ME_BECS_Transforms_ParentComponent;
             [NativeDisableContainerSafetyRestriction] public SafetyComponentContainerRW<ME.BECS.Transforms.WorldMatrixComponent> ME_BECS_Transforms_WorldMatrixComponent;
         }
-        public struct JobDebugData59Unsafe { // ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem+Job
+        public struct JobDebugData60Unsafe { // ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem+Job
             [NativeDisableUnsafePtrRestriction] public ScheduleFlags scheduleFlags;
             [NativeDisableUnsafePtrRestriction] public ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem.Job jobData;
             [NativeDisableUnsafePtrRestriction] public CommandBuffer* buffer;
@@ -2605,6 +2630,9 @@ namespace ME.BECS {
         private struct CacheJobDebugData59 {
             public static readonly SharedStatic<System.IntPtr> cache = SharedStatic<System.IntPtr>.GetOrCreate<CacheJobDebugData59>();
         }
+        private struct CacheJobDebugData60 {
+            public static readonly SharedStatic<System.IntPtr> cache = SharedStatic<System.IntPtr>.GetOrCreate<CacheJobDebugData60>();
+        }
         #endif
         
         #if ENABLE_UNITY_COLLECTIONS_CHECKS && ENABLE_BECS_COLLECTIONS_CHECKS
@@ -2679,7 +2707,7 @@ namespace ME.BECS {
                 var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
                 CompiledJobs<ME.BECS.Views.Jobs.JobRemoveFromScene>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData3Unsafe) : typeof(JobDebugData3));
             }
-            { // SampleShooter.Systems.Player.PlayerRotationToPointerSystem+CameraRayCastJob
+            { // SampleShooter.Systems.Camera.CameraRayCastSystem+CameraRayCastJob
                 CacheJobDebugData4.cache.Data = default;
                 [BurstCompile]
                 static void* Method(void* jobData, CommandBuffer* buffer, bool unsafeMode, ScheduleFlags scheduleFlags) {
@@ -2691,34 +2719,6 @@ namespace ME.BECS {
                             data = (JobDebugData4*)_make(new JobDebugData4(), Constants.ALLOCATOR_DOMAIN).ptr;
                         }
                         CacheJobDebugData4.cache.Data = (System.IntPtr)data;
-                    }
-                    data->scheduleFlags = scheduleFlags;
-                    data->jobData = *(SampleShooter.Systems.Player.PlayerRotationToPointerSystem.CameraRayCastJob*)jobData;
-                    data->buffer = buffer;
-                    data->c0 = buffer->state.ptr->components.GetRW<SampleShooter.Components.Camera.CameraComponent>(buffer->state, buffer->worldId);
-                    data->c1 = buffer->state.ptr->components.GetRW<SampleShooter.Components.Camera.CameraRayComponent>(buffer->state, buffer->worldId);
-                    data->ME_BECS_Transforms_LocalPositionComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.LocalPositionComponent>(buffer->state, buffer->worldId);
-                    data->ME_BECS_Transforms_LocalRotationComponent = new SafetyComponentContainerRW<ME.BECS.Transforms.LocalRotationComponent>(buffer->state, buffer->worldId);
-                    data->ME_BECS_Transforms_LocalScaleComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.LocalScaleComponent>(buffer->state, buffer->worldId);
-                    data->ME_BECS_Transforms_ParentComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent>(buffer->state, buffer->worldId);
-                    data->SampleShooter_Components_Camera_CameraRayComponent = new SafetyComponentContainerRO<SampleShooter.Components.Camera.CameraRayComponent>(buffer->state, buffer->worldId);
-                    return data;
-                }
-                var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
-                CompiledJobs<SampleShooter.Systems.Player.PlayerRotationToPointerSystem.CameraRayCastJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData4Unsafe) : typeof(JobDebugData4));
-            }
-            { // SampleShooter.Systems.Camera.CameraRayCastSystem+CameraRayCastJob
-                CacheJobDebugData5.cache.Data = default;
-                [BurstCompile]
-                static void* Method(void* jobData, CommandBuffer* buffer, bool unsafeMode, ScheduleFlags scheduleFlags) {
-                    JobDebugData5* data = (JobDebugData5*)CacheJobDebugData5.cache.Data;
-                    if (data == null) {
-                        if (unsafeMode == true) {
-                            data = (JobDebugData5*)_make(new JobDebugData5Unsafe(), Constants.ALLOCATOR_DOMAIN).ptr;
-                            } else {
-                            data = (JobDebugData5*)_make(new JobDebugData5(), Constants.ALLOCATOR_DOMAIN).ptr;
-                        }
-                        CacheJobDebugData5.cache.Data = (System.IntPtr)data;
                     }
                     data->scheduleFlags = scheduleFlags;
                     data->jobData = *(SampleShooter.Systems.Camera.CameraRayCastSystem.CameraRayCastJob*)jobData;
@@ -2733,7 +2733,35 @@ namespace ME.BECS {
                     return data;
                 }
                 var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
-                CompiledJobs<SampleShooter.Systems.Camera.CameraRayCastSystem.CameraRayCastJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData5Unsafe) : typeof(JobDebugData5));
+                CompiledJobs<SampleShooter.Systems.Camera.CameraRayCastSystem.CameraRayCastJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData4Unsafe) : typeof(JobDebugData4));
+            }
+            { // SampleShooter.Systems.Player.PlayerRotationToPointerSystem+CameraRayCastJob
+                CacheJobDebugData5.cache.Data = default;
+                [BurstCompile]
+                static void* Method(void* jobData, CommandBuffer* buffer, bool unsafeMode, ScheduleFlags scheduleFlags) {
+                    JobDebugData5* data = (JobDebugData5*)CacheJobDebugData5.cache.Data;
+                    if (data == null) {
+                        if (unsafeMode == true) {
+                            data = (JobDebugData5*)_make(new JobDebugData5Unsafe(), Constants.ALLOCATOR_DOMAIN).ptr;
+                            } else {
+                            data = (JobDebugData5*)_make(new JobDebugData5(), Constants.ALLOCATOR_DOMAIN).ptr;
+                        }
+                        CacheJobDebugData5.cache.Data = (System.IntPtr)data;
+                    }
+                    data->scheduleFlags = scheduleFlags;
+                    data->jobData = *(SampleShooter.Systems.Player.PlayerRotationToPointerSystem.CameraRayCastJob*)jobData;
+                    data->buffer = buffer;
+                    data->c0 = buffer->state.ptr->components.GetRW<SampleShooter.Components.Camera.CameraComponent>(buffer->state, buffer->worldId);
+                    data->c1 = buffer->state.ptr->components.GetRW<SampleShooter.Components.Camera.CameraRayComponent>(buffer->state, buffer->worldId);
+                    data->ME_BECS_Transforms_LocalPositionComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.LocalPositionComponent>(buffer->state, buffer->worldId);
+                    data->ME_BECS_Transforms_LocalRotationComponent = new SafetyComponentContainerRW<ME.BECS.Transforms.LocalRotationComponent>(buffer->state, buffer->worldId);
+                    data->ME_BECS_Transforms_LocalScaleComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.LocalScaleComponent>(buffer->state, buffer->worldId);
+                    data->ME_BECS_Transforms_ParentComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent>(buffer->state, buffer->worldId);
+                    data->SampleShooter_Components_Camera_CameraRayComponent = new SafetyComponentContainerRO<SampleShooter.Components.Camera.CameraRayComponent>(buffer->state, buffer->worldId);
+                    return data;
+                }
+                var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
+                CompiledJobs<SampleShooter.Systems.Player.PlayerRotationToPointerSystem.CameraRayCastJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData5Unsafe) : typeof(JobDebugData5));
             }
             { // ME.BECS.Commands.CommandBuildUpdateSystem+CompleteJob
                 CacheJobDebugData6.cache.Data = default;
@@ -4245,7 +4273,7 @@ namespace ME.BECS {
                 var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
                 CompiledJobs<ME.BECS.Attack.MoveToAttackerSystem.StopOnTargetJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData54Unsafe) : typeof(JobDebugData54));
             }
-            { // SampleShooter.Systems.Player.PlayerApplyInputDataSystem+JobPlayerMove
+            { // SampleShooter.Systems.Camera.CameraMoveSystem+CameraMoveJob
                 CacheJobDebugData55.cache.Data = default;
                 [BurstCompile]
                 static void* Method(void* jobData, CommandBuffer* buffer, bool unsafeMode, ScheduleFlags scheduleFlags) {
@@ -4257,34 +4285,6 @@ namespace ME.BECS {
                             data = (JobDebugData55*)_make(new JobDebugData55(), Constants.ALLOCATOR_DOMAIN).ptr;
                         }
                         CacheJobDebugData55.cache.Data = (System.IntPtr)data;
-                    }
-                    data->scheduleFlags = scheduleFlags;
-                    data->jobData = *(SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMove*)jobData;
-                    data->buffer = buffer;
-                    data->a0 = buffer->state.ptr->aspectsStorage.Initialize<ME.BECS.Transforms.TransformAspect>(buffer->state);
-                    data->c0 = buffer->state.ptr->components.GetRW<ME.BECS.Players.PlayerComponent>(buffer->state, buffer->worldId);
-                    data->ME_BECS_Transforms_LocalPositionComponent = new SafetyComponentContainerRW<ME.BECS.Transforms.LocalPositionComponent>(buffer->state, buffer->worldId);
-                    data->ME_BECS_Transforms_LocalRotationComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.LocalRotationComponent>(buffer->state, buffer->worldId);
-                    data->ME_BECS_Transforms_LocalScaleComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.LocalScaleComponent>(buffer->state, buffer->worldId);
-                    data->ME_BECS_Transforms_ParentComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent>(buffer->state, buffer->worldId);
-                    data->SampleShooter_Components_Player_PlayerMoveSpeedComponent = new SafetyComponentContainerRO<SampleShooter.Components.Player.PlayerMoveSpeedComponent>(buffer->state, buffer->worldId);
-                    return data;
-                }
-                var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
-                CompiledJobs<SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMove>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData55Unsafe) : typeof(JobDebugData55));
-            }
-            { // SampleShooter.Systems.Camera.CameraMoveSystem+CameraMoveJob
-                CacheJobDebugData56.cache.Data = default;
-                [BurstCompile]
-                static void* Method(void* jobData, CommandBuffer* buffer, bool unsafeMode, ScheduleFlags scheduleFlags) {
-                    JobDebugData56* data = (JobDebugData56*)CacheJobDebugData56.cache.Data;
-                    if (data == null) {
-                        if (unsafeMode == true) {
-                            data = (JobDebugData56*)_make(new JobDebugData56Unsafe(), Constants.ALLOCATOR_DOMAIN).ptr;
-                            } else {
-                            data = (JobDebugData56*)_make(new JobDebugData56(), Constants.ALLOCATOR_DOMAIN).ptr;
-                        }
-                        CacheJobDebugData56.cache.Data = (System.IntPtr)data;
                     }
                     data->scheduleFlags = scheduleFlags;
                     data->jobData = *(SampleShooter.Systems.Camera.CameraMoveSystem.CameraMoveJob*)jobData;
@@ -4300,7 +4300,37 @@ namespace ME.BECS {
                     return data;
                 }
                 var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
-                CompiledJobs<SampleShooter.Systems.Camera.CameraMoveSystem.CameraMoveJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData56Unsafe) : typeof(JobDebugData56));
+                CompiledJobs<SampleShooter.Systems.Camera.CameraMoveSystem.CameraMoveJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData55Unsafe) : typeof(JobDebugData55));
+            }
+            { // SampleShooter.Systems.Player.PlayerApplyInputDataSystem+JobPlayerMoveDirection
+                CacheJobDebugData56.cache.Data = default;
+                [BurstCompile]
+                static void* Method(void* jobData, CommandBuffer* buffer, bool unsafeMode, ScheduleFlags scheduleFlags) {
+                    JobDebugData56* data = (JobDebugData56*)CacheJobDebugData56.cache.Data;
+                    if (data == null) {
+                        if (unsafeMode == true) {
+                            data = (JobDebugData56*)_make(new JobDebugData56Unsafe(), Constants.ALLOCATOR_DOMAIN).ptr;
+                            } else {
+                            data = (JobDebugData56*)_make(new JobDebugData56(), Constants.ALLOCATOR_DOMAIN).ptr;
+                        }
+                        CacheJobDebugData56.cache.Data = (System.IntPtr)data;
+                    }
+                    data->scheduleFlags = scheduleFlags;
+                    data->jobData = *(SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMoveDirection*)jobData;
+                    data->buffer = buffer;
+                    data->a0 = buffer->state.ptr->aspectsStorage.Initialize<ME.BECS.Transforms.TransformAspect>(buffer->state);
+                    data->c0 = buffer->state.ptr->components.GetRW<ME.BECS.Players.PlayerComponent>(buffer->state, buffer->worldId);
+                    data->c1 = buffer->state.ptr->components.GetRW<SampleShooter.Components.Player.PlayerMoveDirectionComponent>(buffer->state, buffer->worldId);
+                    data->ME_BECS_Transforms_LocalPositionComponent = new SafetyComponentContainerRW<ME.BECS.Transforms.LocalPositionComponent>(buffer->state, buffer->worldId);
+                    data->ME_BECS_Transforms_LocalRotationComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.LocalRotationComponent>(buffer->state, buffer->worldId);
+                    data->ME_BECS_Transforms_LocalScaleComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.LocalScaleComponent>(buffer->state, buffer->worldId);
+                    data->ME_BECS_Transforms_ParentComponent = new SafetyComponentContainerRO<ME.BECS.Transforms.ParentComponent>(buffer->state, buffer->worldId);
+                    data->SampleShooter_Components_Player_PlayerMoveDirectionComponent = new SafetyComponentContainerRO<SampleShooter.Components.Player.PlayerMoveDirectionComponent>(buffer->state, buffer->worldId);
+                    data->SampleShooter_Components_Player_PlayerMoveSpeedComponent = new SafetyComponentContainerRO<SampleShooter.Components.Player.PlayerMoveSpeedComponent>(buffer->state, buffer->worldId);
+                    return data;
+                }
+                var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
+                CompiledJobs<SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMoveDirection>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData56Unsafe) : typeof(JobDebugData56));
             }
             { // SampleShooter.Systems.Camera.CameraInitializeSystem+CameraInitializeJob
                 CacheJobDebugData57.cache.Data = default;
@@ -4330,7 +4360,7 @@ namespace ME.BECS {
                 var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
                 CompiledJobs<SampleShooter.Systems.Camera.CameraInitializeSystem.CameraInitializeJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData57Unsafe) : typeof(JobDebugData57));
             }
-            { // ME.BECS.Transforms.TransformWorldMatrixUpdateSystem+CalculateRootsWithChildrenJob
+            { // SampleShooter.Systems.Player.PlayerApplyInputDataSystem+JobPlayerMove
                 CacheJobDebugData58.cache.Data = default;
                 [BurstCompile]
                 static void* Method(void* jobData, CommandBuffer* buffer, bool unsafeMode, ScheduleFlags scheduleFlags) {
@@ -4342,6 +4372,31 @@ namespace ME.BECS {
                             data = (JobDebugData58*)_make(new JobDebugData58(), Constants.ALLOCATOR_DOMAIN).ptr;
                         }
                         CacheJobDebugData58.cache.Data = (System.IntPtr)data;
+                    }
+                    data->scheduleFlags = scheduleFlags;
+                    data->jobData = *(SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMove*)jobData;
+                    data->buffer = buffer;
+                    data->a0 = buffer->state.ptr->aspectsStorage.Initialize<ME.BECS.Transforms.TransformAspect>(buffer->state);
+                    data->c0 = buffer->state.ptr->components.GetRW<ME.BECS.Players.PlayerComponent>(buffer->state, buffer->worldId);
+                    data->c1 = buffer->state.ptr->components.GetRW<SampleShooter.Components.Player.PlayerMoveDirectionComponent>(buffer->state, buffer->worldId);
+                    data->SampleShooter_Components_Player_PlayerMoveDirectionComponent = new SafetyComponentContainerWO<SampleShooter.Components.Player.PlayerMoveDirectionComponent>(buffer->state, buffer->worldId);
+                    return data;
+                }
+                var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
+                CompiledJobs<SampleShooter.Systems.Player.PlayerApplyInputDataSystem.JobPlayerMove>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData58Unsafe) : typeof(JobDebugData58));
+            }
+            { // ME.BECS.Transforms.TransformWorldMatrixUpdateSystem+CalculateRootsWithChildrenJob
+                CacheJobDebugData59.cache.Data = default;
+                [BurstCompile]
+                static void* Method(void* jobData, CommandBuffer* buffer, bool unsafeMode, ScheduleFlags scheduleFlags) {
+                    JobDebugData59* data = (JobDebugData59*)CacheJobDebugData59.cache.Data;
+                    if (data == null) {
+                        if (unsafeMode == true) {
+                            data = (JobDebugData59*)_make(new JobDebugData59Unsafe(), Constants.ALLOCATOR_DOMAIN).ptr;
+                            } else {
+                            data = (JobDebugData59*)_make(new JobDebugData59(), Constants.ALLOCATOR_DOMAIN).ptr;
+                        }
+                        CacheJobDebugData59.cache.Data = (System.IntPtr)data;
                     }
                     data->scheduleFlags = scheduleFlags;
                     data->jobData = *(ME.BECS.Transforms.TransformWorldMatrixUpdateSystem.CalculateRootsWithChildrenJob*)jobData;
@@ -4358,20 +4413,20 @@ namespace ME.BECS {
                     return data;
                 }
                 var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
-                CompiledJobs<ME.BECS.Transforms.TransformWorldMatrixUpdateSystem.CalculateRootsWithChildrenJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData58Unsafe) : typeof(JobDebugData58));
+                CompiledJobs<ME.BECS.Transforms.TransformWorldMatrixUpdateSystem.CalculateRootsWithChildrenJob>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData59Unsafe) : typeof(JobDebugData59));
             }
             { // ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem+Job
-                CacheJobDebugData59.cache.Data = default;
+                CacheJobDebugData60.cache.Data = default;
                 [BurstCompile]
                 static void* Method(void* jobData, CommandBuffer* buffer, bool unsafeMode, ScheduleFlags scheduleFlags) {
-                    JobDebugData59* data = (JobDebugData59*)CacheJobDebugData59.cache.Data;
+                    JobDebugData60* data = (JobDebugData60*)CacheJobDebugData60.cache.Data;
                     if (data == null) {
                         if (unsafeMode == true) {
-                            data = (JobDebugData59*)_make(new JobDebugData59Unsafe(), Constants.ALLOCATOR_DOMAIN).ptr;
+                            data = (JobDebugData60*)_make(new JobDebugData60Unsafe(), Constants.ALLOCATOR_DOMAIN).ptr;
                             } else {
-                            data = (JobDebugData59*)_make(new JobDebugData59(), Constants.ALLOCATOR_DOMAIN).ptr;
+                            data = (JobDebugData60*)_make(new JobDebugData60(), Constants.ALLOCATOR_DOMAIN).ptr;
                         }
-                        CacheJobDebugData59.cache.Data = (System.IntPtr)data;
+                        CacheJobDebugData60.cache.Data = (System.IntPtr)data;
                     }
                     data->scheduleFlags = scheduleFlags;
                     data->jobData = *(ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem.Job*)jobData;
@@ -4386,7 +4441,7 @@ namespace ME.BECS {
                     return data;
                 }
                 var fn = BurstCompiler.CompileFunctionPointer<CompiledJobCallback>(Method);
-                CompiledJobs<ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem.Job>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData59Unsafe) : typeof(JobDebugData59));
+                CompiledJobs<ME.BECS.FogOfWar.QuadTreeQueryFogOfWarSystem.Job>.SetFunction(fn, (unsafeMode) => unsafeMode == true ? typeof(JobDebugData60Unsafe) : typeof(JobDebugData60));
             }
         }
         #endif
@@ -4398,7 +4453,7 @@ namespace ME.BECS {
         public static void GraphInitialize_1006_SystemsCodeGenerator() {
             // SampleShooter-Logic-FeatureGraph
             var allocator = (AllocatorManager.AllocatorHandle)Constants.ALLOCATOR_DOMAIN;
-            graphNodes1006_SystemsCodeGenerator = CollectionHelper.CreateNativeArray<System.IntPtr>(6, allocator);
+            graphNodes1006_SystemsCodeGenerator = CollectionHelper.CreateNativeArray<System.IntPtr>(7, allocator);
             {
                 var item = allocator.Allocate(TSize<SampleShooter.Systems.Level.LevelInitSystem>.sizeInt, TAlign<SampleShooter.Systems.Level.LevelInitSystem>.alignInt);
                 *(SampleShooter.Systems.Level.LevelInitSystem*)item = new SampleShooter.Systems.Level.LevelInitSystem {
@@ -4456,6 +4511,14 @@ namespace ME.BECS {
                 TSystemGraph.Register<ME.BECS.DestroyWithTicksSystem>(1006, item);
                 graphNodes1006_SystemsCodeGenerator[5] = (System.IntPtr)item;
             }
+            {
+                var item = allocator.Allocate(TSize<SampleShooter.Systems.Player.PlayerApplyInputDataSystem>.sizeInt, TAlign<SampleShooter.Systems.Player.PlayerApplyInputDataSystem>.alignInt);
+                *(SampleShooter.Systems.Player.PlayerApplyInputDataSystem*)item = new SampleShooter.Systems.Player.PlayerApplyInputDataSystem {
+                }
+                ;
+                TSystemGraph.Register<SampleShooter.Systems.Player.PlayerApplyInputDataSystem>(1006, item);
+                graphNodes1006_SystemsCodeGenerator[6] = (System.IntPtr)item;
+            }
         }
         // BURST DISABLE OPEN
         private static void InnerMethodOnAwake_0_1006_SystemsCodeGenerator_NotBurst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1006_0
@@ -4485,7 +4548,7 @@ namespace ME.BECS {
         }
         // BURST DISABLE OPEN
         private static void InnerMethodOnAwake_6_1006_SystemsCodeGenerator_NotBurst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1006_0, ref Unity.Jobs.JobHandle dep1006_2, ref Unity.Jobs.JobHandle dep1006_3
-        , ref Unity.Jobs.JobHandle dep1006_4, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1006_5, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0) {
+        , ref Unity.Jobs.JobHandle dep1006_4, ref Unity.Jobs.JobHandle dep1006_6, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1006_5, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0) {
             {
                 var input = dep1006_3;
                 dep1006_4 = input;
@@ -4494,13 +4557,14 @@ namespace ME.BECS {
                 ((SampleShooter.Systems.Player.PlayerInitializeSystem*)systems[2])->OnAwake(ref localContext1006_4);
                 dep1006_4 = localContext1006_4.dependsOn;
             }
-            dep30_2 = dep1006_4;
+            dep1006_6 = dep1006_4;
+            dep30_2 = dep1006_6;
             dep30_4 = dep30_2;
             dep30_0 = dep30_4;
             // BURST DISABLE CLOSE
         }
         // BURST ENABLE OPEN
-        [BURST] private static void InnerMethodOnAwake_9_1006_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1006_0, ref Unity.Jobs.JobHandle dep1006_2, ref Unity.Jobs.JobHandle dep1006_3, ref Unity.Jobs.JobHandle dep1006_4, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1006_5, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0
+        [BURST] private static void InnerMethodOnAwake_9_1006_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1006_0, ref Unity.Jobs.JobHandle dep1006_2, ref Unity.Jobs.JobHandle dep1006_3, ref Unity.Jobs.JobHandle dep1006_4, ref Unity.Jobs.JobHandle dep1006_6, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1006_5, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0
         , ref Unity.Jobs.JobHandle dep30_1) {
             {
                 var input = dep30_0;
@@ -4522,6 +4586,7 @@ namespace ME.BECS {
             Unity.Jobs.JobHandle dep30_4 = default;
             Unity.Jobs.JobHandle dep1006_5 = default;
             Unity.Jobs.JobHandle dep30_2 = default;
+            Unity.Jobs.JobHandle dep1006_6 = default;
             Unity.Jobs.JobHandle dep1006_4 = default;
             Unity.Jobs.JobHandle dep1006_3 = default;
             Unity.Jobs.JobHandle dep1006_2 = default;
@@ -4537,10 +4602,10 @@ namespace ME.BECS {
             );
             
             InnerMethodOnAwake_6_1006_SystemsCodeGenerator_NotBurst(dt, in world, ref dependsOn,  systems, ref dep1006_0, ref dep1006_2, ref dep1006_3
-            , ref dep1006_4, ref dep30_2, ref dep1006_5, ref dep30_4, ref dep30_0
+            , ref dep1006_4, ref dep1006_6, ref dep30_2, ref dep1006_5, ref dep30_4, ref dep30_0
             );
             
-            InnerMethodOnAwake_9_1006_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1006_0, ref dep1006_2, ref dep1006_3, ref dep1006_4, ref dep30_2, ref dep1006_5, ref dep30_4, ref dep30_0
+            InnerMethodOnAwake_9_1006_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1006_0, ref dep1006_2, ref dep1006_3, ref dep1006_4, ref dep1006_6, ref dep30_2, ref dep1006_5, ref dep30_4, ref dep30_0
             , ref dep30_1
             );
             
@@ -4553,7 +4618,8 @@ namespace ME.BECS {
             // * dep1006_3                        => dep1006_3           Players System                   [  BURST  ]
             // * Batches.Apply                    :  dep1006_3 => dep1006_4                               [  SYNC   ]
             // * dep1006_4                        => dep1006_4           Player Initialize System         [NOT BURST]
-            // * dep1006_4                        => dep30_2             START                            [ SKIPPED ]
+            // * dep1006_4                        => dep1006_6           Player Apply Input Data System   [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
+            // * dep1006_6                        => dep30_2             START                            [ SKIPPED ]
             // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
             // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IAwake was not found. Node skipped.
             // * Batches.Apply                    :  dep30_0 => dep30_1                                   [  SYNC   ]
@@ -4571,7 +4637,8 @@ namespace ME.BECS {
             // * dep1006_0                        => dep1006_2           Level Init System                [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
             // * dep1006_2                        => dep1006_3           Players System                   [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
             // * dep1006_3                        => dep1006_4           Player Initialize System         [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
-            // * dep1006_4                        => dep30_2             START                            [ SKIPPED ]
+            // * dep1006_4                        => dep1006_6           Player Apply Input Data System   [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
+            // * dep1006_6                        => dep30_2             START                            [ SKIPPED ]
             // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
             // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
             // * dep30_0                          => dep30_1             Transform World Matrix Update... [NOT BURST] - Method ME.BECS.IStart was not found. Node skipped.
@@ -4580,8 +4647,17 @@ namespace ME.BECS {
             // * dep1006_5                        => dependsOn       
         }
         // BURST ENABLE OPEN
-        [BURST] private static void InnerMethodOnUpdate_0_1006_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1006_0, ref Unity.Jobs.JobHandle dep1006_2, ref Unity.Jobs.JobHandle dep1006_3, ref Unity.Jobs.JobHandle dep1006_4, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1006_5
-        , ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0, ref Unity.Jobs.JobHandle dep30_1) {
+        [BURST] private static void InnerMethodOnUpdate_0_1006_SystemsCodeGenerator_Burst(float dt, in World world, ref Unity.Jobs.JobHandle dependsOn, System.IntPtr* systems, ref Unity.Jobs.JobHandle dep1006_0, ref Unity.Jobs.JobHandle dep1006_2, ref Unity.Jobs.JobHandle dep1006_3, ref Unity.Jobs.JobHandle dep1006_4
+        , ref Unity.Jobs.JobHandle dep1006_6, ref Unity.Jobs.JobHandle dep30_2, ref Unity.Jobs.JobHandle dep1006_5, ref Unity.Jobs.JobHandle dep30_4, ref Unity.Jobs.JobHandle dep30_0, ref Unity.Jobs.JobHandle dep30_1) {
+            {
+                var input = dep1006_4;
+                dep1006_6 = input;
+                dep1006_6 = Batches.Apply(dep1006_6, world.state);
+                var localContext1006_6 = SystemContext.Create(dt, in world, dep1006_6);
+                ((SampleShooter.Systems.Player.PlayerApplyInputDataSystem*)systems[6])->OnUpdate(ref localContext1006_6);
+                dep1006_6 = localContext1006_6.dependsOn;
+            }
+            dep30_2 = dep1006_6;
             {
                 var input = dep30_2;
                 dep30_4 = input;
@@ -4618,6 +4694,7 @@ namespace ME.BECS {
             Unity.Jobs.JobHandle dep30_4 = default;
             Unity.Jobs.JobHandle dep1006_5 = default;
             Unity.Jobs.JobHandle dep30_2 = default;
+            Unity.Jobs.JobHandle dep1006_6 = default;
             Unity.Jobs.JobHandle dep1006_4 = default;
             Unity.Jobs.JobHandle dep1006_3 = default;
             Unity.Jobs.JobHandle dep1006_2 = default;
@@ -4626,10 +4703,9 @@ namespace ME.BECS {
             dep1006_2 = dep1006_0;
             dep1006_3 = dep1006_2;
             dep1006_4 = dep1006_3;
-            dep30_2 = dep1006_4;
             // BURST ENABLE CLOSE
-            InnerMethodOnUpdate_0_1006_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1006_0, ref dep1006_2, ref dep1006_3, ref dep1006_4, ref dep30_2, ref dep1006_5
-            , ref dep30_4, ref dep30_0, ref dep30_1
+            InnerMethodOnUpdate_0_1006_SystemsCodeGenerator_Burst(dt, in world, ref dependsOn,  systems, ref dep1006_0, ref dep1006_2, ref dep1006_3, ref dep1006_4
+            , ref dep1006_6, ref dep30_2, ref dep1006_5, ref dep30_4, ref dep30_0, ref dep30_1
             );
             
             dependsOn = dep1006_5;
@@ -4638,7 +4714,9 @@ namespace ME.BECS {
             // * dep1006_0                        => dep1006_2           Level Init System                [NOT BURST] - Method ME.BECS.IUpdate was not found. Node skipped.
             // * dep1006_2                        => dep1006_3           Players System                   [NOT BURST] - Method ME.BECS.IUpdate was not found. Node skipped.
             // * dep1006_3                        => dep1006_4           Player Initialize System         [NOT BURST] - Method ME.BECS.IUpdate was not found. Node skipped.
-            // * dep1006_4                        => dep30_2             START                            [ SKIPPED ]
+            // * Batches.Apply                    :  dep1006_4 => dep1006_6                               [  SYNC   ]
+            // * dep1006_6                        => dep1006_6           Player Apply Input Data System   [  BURST  ]
+            // * dep1006_6                        => dep30_2             START                            [ SKIPPED ]
             // * Batches.Apply                    :  dep30_2 => dep30_4                                   [  SYNC   ]
             // * dep30_4                          => dep30_4             Destroy With Ticks System        [  BURST  ]
             // * Batches.Apply                    :  dep30_4 => dep30_0                                   [  SYNC   ]
@@ -4658,7 +4736,8 @@ namespace ME.BECS {
             // * dep1006_0                        => dep1006_2           Level Init System                [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
             // * dep1006_2                        => dep1006_3           Players System                   [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
             // * dep1006_3                        => dep1006_4           Player Initialize System         [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
-            // * dep1006_4                        => dep30_2             START                            [ SKIPPED ]
+            // * dep1006_4                        => dep1006_6           Player Apply Input Data System   [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
+            // * dep1006_6                        => dep30_2             START                            [ SKIPPED ]
             // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
             // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
             // * dep30_0                          => dep30_1             Transform World Matrix Update... [NOT BURST] - Method ME.BECS.IDestroy was not found. Node skipped.
@@ -4675,7 +4754,8 @@ namespace ME.BECS {
             // * dep1006_0                        => dep1006_2           Level Init System                [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
             // * dep1006_2                        => dep1006_3           Players System                   [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
             // * dep1006_3                        => dep1006_4           Player Initialize System         [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
-            // * dep1006_4                        => dep30_2             START                            [ SKIPPED ]
+            // * dep1006_4                        => dep1006_6           Player Apply Input Data System   [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
+            // * dep1006_6                        => dep30_2             START                            [ SKIPPED ]
             // * dep30_2                          => dep30_4             Destroy With Ticks System        [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
             // * dep30_4                          => dep30_0             Destroy With Lifetime System     [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
             // * dep30_0                          => dep30_1             Transform World Matrix Update... [NOT BURST] - Method ME.BECS.IDrawGizmos was not found. Node skipped.
@@ -7342,6 +7422,7 @@ namespace ME.BECS {
             }
         }
         public static unsafe void NetworkLoad(ref ME.BECS.Network.UnsafeNetworkModule.MethodsStorage methods) {
+            methods.Add(SampleShooter.Systems.Player.PlayerShootSystem.DelegateMouseLeftClickData);
             methods.Add(SampleShooter.Systems.Player.PlayerRotationToPointerSystem.DelegateMousePositionData);
             methods.Add(SampleShooter.Systems.Player.PlayerApplyInputDataSystem.DelegatePlayerInputData);
         }

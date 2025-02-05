@@ -2,6 +2,7 @@ using ME.BECS;
 using ME.BECS.Players;
 using ME.BECS.Transforms;
 using SampleShooter.Components.Level;
+using SampleShooter.Components.Player;
 using Unity.Jobs;
 using UnityEngine;
 using Unity.Mathematics;
@@ -18,6 +19,10 @@ namespace SampleShooter.Systems.Player
             var playersSystem = logicWorld.GetSystem<PlayersSystem>();
             PlayerAspect playerAspectFromSystem = playersSystem.GetActivePlayer();
             Ent playerEntity = playerAspectFromSystem.ent;
+            playerEntity.Set(new PlayerMoveDirectionComponent()
+            {
+                MoveDirection = float3.zero,
+            });
             PlayerConfig.Apply(in playerEntity);
             
             PlayerUtils.SetActivePlayer(playerAspectFromSystem);

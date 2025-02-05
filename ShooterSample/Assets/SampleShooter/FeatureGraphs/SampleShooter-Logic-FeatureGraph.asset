@@ -23,7 +23,7 @@ MonoBehaviour:
   - rid: 2710897171688062999
   - rid: 2710897171688063001
   - rid: 2710897171688063004
-  - rid: 935440389415109463
+  - rid: 935440434155749377
   edges:
   - GUID: 1ee4244d-b6ad-4fe5-b520-c6398fef5c4e
     owner: {fileID: 11400000}
@@ -57,18 +57,18 @@ MonoBehaviour:
     outputFieldName: outputNodes
     inputPortIdentifier: 
     outputPortIdentifier: 
-  - GUID: d6048045-3efb-42ab-92bb-bf53772cbc9a
+  - GUID: e5995298-0794-4623-9c8e-be6d804d735d
     owner: {fileID: 11400000}
-    inputNodeGUID: d1e74010-e8ce-4cb4-a760-ef8bf7404fd5
+    inputNodeGUID: d1698b9f-6939-4704-8528-9188d35e46f5
     outputNodeGUID: 8f0938e9-977a-4a18-a688-e7f475bd2180
     inputFieldName: inputNodes
     outputFieldName: outputNodes
     inputPortIdentifier: 
     outputPortIdentifier: 
-  - GUID: aef2f0de-6ca7-446e-92b7-724aabf4d57c
+  - GUID: ca30b7c7-f703-4daf-a8e2-36ace222d5ed
     owner: {fileID: 11400000}
     inputNodeGUID: 7eefdaca-2770-48ba-b5c6-959d4b33b3bf
-    outputNodeGUID: d1e74010-e8ce-4cb4-a760-ef8bf7404fd5
+    outputNodeGUID: d1698b9f-6939-4704-8528-9188d35e46f5
     inputFieldName: inputNodes
     outputFieldName: outputNodes
     inputPortIdentifier: 
@@ -83,30 +83,30 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 935440389415109463
+    - rid: 935440434155749377
       type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
         syncPoint: 1
         syncCount: 0
         nodeCustomName: 
-        GUID: d1e74010-e8ce-4cb4-a760-ef8bf7404fd5
+        GUID: d1698b9f-6939-4704-8528-9188d35e46f5
         groupGUID: 
         computeOrder: 4
         position:
           serializedVersion: 2
-          x: 67.58246
-          y: -531.0001
+          x: 75.6326
+          y: -519
           width: 300
-          height: 104
+          height: 103
         expanded: 1
         enabled: 1
         debug: 0
         nodeLock: 0
         customRuntimeSystemRoot: {fileID: 0}
         system:
-          rid: 935440389415109464
-    - rid: 935440389415109464
-      type: {class: PlayerRotationToPointerSystem, ns: SampleShooter.Systems.Player,
+          rid: 935440434155749378
+    - rid: 935440434155749378
+      type: {class: PlayerApplyInputDataSystem, ns: SampleShooter.Systems.Player,
         asm: SampleShooter}
       data: 
     - rid: 2710897171688062995

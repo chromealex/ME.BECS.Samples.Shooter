@@ -40,7 +40,7 @@ MonoBehaviour:
       type: {class: PlayerMoveSpeedComponent, ns: SampleShooter.Components.Player,
         asm: SampleShooter}
       data:
-        MoveSpeed: 2.5
+        MoveSpeed: 10
     - rid: 935440367154626650
       type: {class: TransformAspect, ns: ME.BECS.Transforms, asm: ME.BECS.Transforms}
       data: 
