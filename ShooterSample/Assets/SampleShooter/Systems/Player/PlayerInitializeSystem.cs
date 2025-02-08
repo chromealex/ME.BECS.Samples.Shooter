@@ -24,6 +24,10 @@ namespace SampleShooter.Systems.Player
                 MoveDirection = float3.zero,
             });
             PlayerConfig.Apply(in playerEntity);
+            playerEntity.Set(new OwnerComponent()
+            {
+                ent = playerEntity
+            });
             
             PlayerUtils.SetActivePlayer(playerAspectFromSystem);
 

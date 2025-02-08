@@ -87,6 +87,7 @@ namespace SampleShooter.Systems.Input
             //         Direction = direction,
             //     }, PlayerApplyInputDataSystem.DelegatePlayerInputData);
             // }
+            //todo rethink this
             float3 newDirection = float3.zero;
             bool directionChanged = false;
 

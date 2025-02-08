@@ -12,4 +12,9 @@ namespace SampleShooter.Components.Player
     {
         public float3 MoveDirection;
     }
+    
+    public struct PlayerCanShootComponent : IComponent
+    {
+        public bool CanShoot;
+    }
 }

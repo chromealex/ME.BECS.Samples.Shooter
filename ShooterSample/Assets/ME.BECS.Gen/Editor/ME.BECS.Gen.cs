@@ -237,6 +237,10 @@ namespace ME.BECS.Editor {
             BurstCompileOnUpdate<SampleShooter.Systems.Player.PlayerRotationToPointerSystem>.MakeMethod(null);
             BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Player.PlayerRotationToPointerSystem>.MakeMethod(null);
             BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Player.PlayerRotationToPointerSystem>(default);
+            StaticSystemTypes<SampleShooter.Systems.Player.PlayerShootSystem>.Validate();
+            BurstCompileOnUpdate<SampleShooter.Systems.Player.PlayerShootSystem>.MakeMethod(null);
+            BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Player.PlayerShootSystem>.MakeMethod(null);
+            BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Player.PlayerShootSystem>(default);
             StaticTypes<ME.BECS.Attack.AttackComponent>.AOT();
             StaticTypes<ME.BECS.Attack.AttackFilterComponent>.AOT();
             StaticTypes<ME.BECS.Attack.AttackRuntimeFireComponent>.AOT();
@@ -355,6 +359,7 @@ namespace ME.BECS.Editor {
             StaticTypes<SampleShooter.Components.Level.LevelIdComponent>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelPlayerSpawnPointComponent>.AOT();
             StaticTypes<SampleShooter.Components.Level.LevelSpawnPointComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Player.PlayerCanShootComponent>.AOT();
             StaticTypes<SampleShooter.Components.Player.PlayerMoveDirectionComponent>.AOT();
             StaticTypes<SampleShooter.Components.Player.PlayerMoveSpeedComponent>.AOT();
             AutoDestroyRegistryStatic<ME.BECS.Pathfinding.GraphMaskRuntimeComponent>.Destroy(null);
@@ -426,6 +431,7 @@ namespace ME.BECS.Editor {
             StaticSystemTypes<SampleShooter.Systems.Player.PlayerInitializeSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Player.PlayerMoveDirectionSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Player.PlayerRotationToPointerSystem>.Validate();
+            StaticSystemTypes<SampleShooter.Systems.Player.PlayerShootSystem>.Validate();
             StaticTypes<ME.BECS.Commands.BuildingInProgress>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
             StaticTypes<ME.BECS.Commands.BuildInProgress>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
             StaticTypes<ME.BECS.Commands.CommandAttack>.ApplyGroup(typeof(ME.BECS.Commands.CommandComponentsGroup));
@@ -609,6 +615,7 @@ namespace ME.BECS.Editor {
             StaticTypes<SampleShooter.Components.Level.LevelIdComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Level.LevelPlayerSpawnPointComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Level.LevelSpawnPointComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Player.PlayerCanShootComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Player.PlayerMoveDirectionComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Player.PlayerMoveSpeedComponent>.Validate(isTag: false);
             StaticTypesDestroy<ME.BECS.Pathfinding.GraphMaskRuntimeComponent>.RegisterAutoDestroy(isTag: false);

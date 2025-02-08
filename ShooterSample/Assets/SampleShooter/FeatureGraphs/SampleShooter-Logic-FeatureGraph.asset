@@ -24,6 +24,7 @@ MonoBehaviour:
   - rid: 2710897171688063001
   - rid: 2710897171688063004
   - rid: 935440434155749377
+  - rid: 935440502286974979
   edges:
   - GUID: 1ee4244d-b6ad-4fe5-b520-c6398fef5c4e
     owner: {fileID: 11400000}
@@ -65,10 +66,18 @@ MonoBehaviour:
     outputFieldName: outputNodes
     inputPortIdentifier: 
     outputPortIdentifier: 
-  - GUID: ca30b7c7-f703-4daf-a8e2-36ace222d5ed
+  - GUID: 7c2a193f-820a-4d66-bf7e-8e1e738b1e2c
+    owner: {fileID: 11400000}
+    inputNodeGUID: cbcc320a-f4ea-45ff-9060-5691d8e5069d
+    outputNodeGUID: d1698b9f-6939-4704-8528-9188d35e46f5
+    inputFieldName: inputNodes
+    outputFieldName: outputNodes
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: 5148e3f7-8f13-4248-b32c-04434257bcb6
     owner: {fileID: 11400000}
     inputNodeGUID: 7eefdaca-2770-48ba-b5c6-959d4b33b3bf
-    outputNodeGUID: d1698b9f-6939-4704-8528-9188d35e46f5
+    outputNodeGUID: cbcc320a-f4ea-45ff-9060-5691d8e5069d
     inputFieldName: inputNodes
     outputFieldName: outputNodes
     inputPortIdentifier: 
@@ -109,6 +118,37 @@ MonoBehaviour:
       type: {class: PlayerApplyInputDataSystem, ns: SampleShooter.Systems.Player,
         asm: SampleShooter}
       data: 
+    - rid: 935440502286974979
+      type: {class: SystemNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
+      data:
+        syncPoint: 1
+        syncCount: 0
+        nodeCustomName: 
+        GUID: cbcc320a-f4ea-45ff-9060-5691d8e5069d
+        groupGUID: 
+        computeOrder: 5
+        position:
+          serializedVersion: 2
+          x: 390.00012
+          y: -338
+          width: 300
+          height: 160
+        expanded: 1
+        enabled: 1
+        debug: 0
+        nodeLock: 0
+        customRuntimeSystemRoot: {fileID: 0}
+        system:
+          rid: 935440502286974980
+    - rid: 935440502286974980
+      type: {class: PlayerShootSystem, ns: SampleShooter.Systems.Player, asm: SampleShooter}
+      data:
+        BulletView:
+          viewSource:
+            providerId: 1
+            prefabId: 216
+        BulletConfig:
+          sourceId: 203
     - rid: 2710897171688062995
       type: {class: StartNode, ns: ME.BECS.FeaturesGraph.Nodes, asm: ME.BECS.Features}
       data:
@@ -138,7 +178,7 @@ MonoBehaviour:
         nodeCustomName: 
         GUID: EndNode
         groupGUID: 
-        computeOrder: 6
+        computeOrder: 7
         position:
           serializedVersion: 2
           x: 777.7201
@@ -239,11 +279,11 @@ MonoBehaviour:
         nodeCustomName: 
         GUID: 7eefdaca-2770-48ba-b5c6-959d4b33b3bf
         groupGUID: 
-        computeOrder: 5
+        computeOrder: 6
         position:
           serializedVersion: 2
-          x: 430.5375
-          y: -531.0001
+          x: 540.00006
+          y: -725.4075
           width: 300
           height: 75
         expanded: 0

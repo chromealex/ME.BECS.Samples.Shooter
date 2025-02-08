@@ -8,6 +8,8 @@
         "ME.BECS.Network",
         "ME.BECS.Views",
         "ME.BECS.Players",
+        "ME.BECS.Bullets",
+        "ME.BECS.Attack",
         "Unity.Collections",
         "Unity.Burst",
         "Unity.Mathematics"
