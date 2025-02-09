@@ -44,4 +44,4 @@ MonoBehaviour:
     references: 1
   - source: {fileID: 11400000, guid: a8776c82ea3304377b2a18c3128c73f6, type: 2}
     sourceId: 203
-    references: 1
+    references: 2

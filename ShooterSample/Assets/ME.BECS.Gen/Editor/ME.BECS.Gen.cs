@@ -199,6 +199,10 @@ namespace ME.BECS.Editor {
             BurstCompileOnDestroyNoBurst<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>.MakeMethod(null);
             BurstCompileMethod.MakeUpdate<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>(default);
             BurstCompileMethod.MakeDestroy<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>(default);
+            StaticSystemTypes<SampleShooter.Systems.Bullets.BulletsRaycastSystems>.Validate();
+            BurstCompileOnUpdate<SampleShooter.Systems.Bullets.BulletsRaycastSystems>.MakeMethod(null);
+            BurstCompileOnUpdateNoBurst<SampleShooter.Systems.Bullets.BulletsRaycastSystems>.MakeMethod(null);
+            BurstCompileMethod.MakeUpdate<SampleShooter.Systems.Bullets.BulletsRaycastSystems>(default);
             StaticSystemTypes<SampleShooter.Systems.Camera.CameraInitializeSystem>.Validate();
             BurstCompileOnAwakeNoBurst<SampleShooter.Systems.Camera.CameraInitializeSystem>.MakeMethod(null);
             BurstCompileMethod.MakeAwake<SampleShooter.Systems.Camera.CameraInitializeSystem>(default);
@@ -344,6 +348,7 @@ namespace ME.BECS.Editor {
             StaticTypes<ME.BECS.Views.MeshRendererComponent>.AOT();
             StaticTypes<ME.BECS.Views.ViewComponent>.AOT();
             StaticTypes<ME.BECS.Views.ViewCustomIdComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Bullets.BulletComponent>.AOT();
             StaticTypes<SampleShooter.Components.Camera.CameraComponent>.AOT();
             StaticTypes<SampleShooter.Components.Camera.CameraFollowSpeedComponent>.AOT();
             StaticTypes<SampleShooter.Components.Camera.CameraPositionOffsetComponent>.AOT();
@@ -362,6 +367,8 @@ namespace ME.BECS.Editor {
             StaticTypes<SampleShooter.Components.Player.PlayerCanShootComponent>.AOT();
             StaticTypes<SampleShooter.Components.Player.PlayerMoveDirectionComponent>.AOT();
             StaticTypes<SampleShooter.Components.Player.PlayerMoveSpeedComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Player.PlayerMuzzlePositionComponent>.AOT();
+            StaticTypes<SampleShooter.Components.Player.PlayerShootingRangeComponent>.AOT();
             AutoDestroyRegistryStatic<ME.BECS.Pathfinding.GraphMaskRuntimeComponent>.Destroy(null);
             StaticTypesStatic<ME.BECS.Bullets.BulletEffectOnDestroy>.AOT();
             StaticTypesStatic<ME.BECS.Bullets.BulletViewPoint>.AOT();
@@ -420,6 +427,7 @@ namespace ME.BECS.Editor {
             StaticSystemTypes<ME.BECS.Units.SteeringSystem>.Validate();
             StaticSystemTypes<ME.BECS.Units.SteeringWithAvoidanceSystem>.Validate();
             StaticSystemTypes<ME.BECS.UnitsHealthBars.DrawHealthBarsSystem>.Validate();
+            StaticSystemTypes<SampleShooter.Systems.Bullets.BulletsRaycastSystems>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Camera.CameraInitializeSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Camera.CameraMoveSystem>.Validate();
             StaticSystemTypes<SampleShooter.Systems.Camera.CameraRayCastSystem>.Validate();
@@ -600,6 +608,7 @@ namespace ME.BECS.Editor {
             StaticTypes<ME.BECS.Views.MeshRendererComponent>.Validate(isTag: false);
             StaticTypes<ME.BECS.Views.ViewComponent>.Validate(isTag: false);
             StaticTypes<ME.BECS.Views.ViewCustomIdComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Bullets.BulletComponent>.Validate(isTag: true);
             StaticTypes<SampleShooter.Components.Camera.CameraComponent>.Validate(isTag: true);
             StaticTypes<SampleShooter.Components.Camera.CameraFollowSpeedComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Camera.CameraPositionOffsetComponent>.Validate(isTag: false);
@@ -618,6 +627,8 @@ namespace ME.BECS.Editor {
             StaticTypes<SampleShooter.Components.Player.PlayerCanShootComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Player.PlayerMoveDirectionComponent>.Validate(isTag: false);
             StaticTypes<SampleShooter.Components.Player.PlayerMoveSpeedComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Player.PlayerMuzzlePositionComponent>.Validate(isTag: false);
+            StaticTypes<SampleShooter.Components.Player.PlayerShootingRangeComponent>.Validate(isTag: false);
             StaticTypesDestroy<ME.BECS.Pathfinding.GraphMaskRuntimeComponent>.RegisterAutoDestroy(isTag: false);
             StaticTypes<ME.BECS.Bullets.BulletEffectOnDestroy>.ValidateStatic(isTag: false);
             StaticTypes<ME.BECS.Bullets.BulletViewPoint>.ValidateStatic(isTag: false);

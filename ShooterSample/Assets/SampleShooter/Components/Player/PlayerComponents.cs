@@ -17,4 +17,14 @@ namespace SampleShooter.Components.Player
     {
         public bool CanShoot;
     }
+
+    public struct PlayerMuzzlePositionComponent : IConfigComponent
+    {
+        public float3 MuzzlePointOffset;
+    }
+    
+    public struct PlayerShootingRangeComponent : IConfigComponent
+    {
+        public float ShootingRange;
+    }
 }

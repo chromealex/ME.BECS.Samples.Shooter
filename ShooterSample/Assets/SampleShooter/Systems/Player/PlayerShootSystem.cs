@@ -16,17 +16,22 @@ namespace SampleShooter.Systems.Player
     [BurstCompile]
     public struct PlayerShootSystem : IUpdate
     {
-        public View BulletView;
+        public View BulletEffectView;
         public Config BulletConfig;
 
         public void OnUpdate(ref SystemContext context)
         {
             JobHandle jobPlayerShooting = context
                 .Query()
-                .Schedule<JobPlayerShooting, TransformAspect, PlayerComponent, PlayerCanShootComponent>(
+                .Schedule<JobPlayerShooting, 
+                    TransformAspect, 
+                    PlayerComponent, 
+                    PlayerCanShootComponent,
+                    PlayerMuzzlePositionComponent,
+                    PlayerShootingRangeComponent>(
                     new JobPlayerShooting()
                     {
-                        View = BulletView,
+                        BulletEffectView = BulletEffectView,
                         BulletConfig = BulletConfig
                     });
 
@@ -35,29 +40,38 @@ namespace SampleShooter.Systems.Player
 
         [BurstCompile]
         public struct
-            JobPlayerShooting : IJobFor1Aspects2Components<TransformAspect, PlayerComponent, PlayerCanShootComponent>
+            JobPlayerShooting : IJobFor1Aspects4Components<TransformAspect, PlayerComponent, PlayerCanShootComponent,
+            PlayerMuzzlePositionComponent,PlayerShootingRangeComponent>
         {
-            public View View;
+            //this is the bullet effect view (Muzzle flash)
+            public View BulletEffectView;
+
+            //bullet config with 
             public Config BulletConfig;
 
-            public void Execute(in JobInfo jobInfo, in Ent playerEntity, ref TransformAspect playerTransform,
-                ref PlayerComponent c0,
-                ref PlayerCanShootComponent c1)
+            public void Execute(in JobInfo jobInfo, in Ent playerEntity,
+                ref TransformAspect playerTransform,
+                ref PlayerComponent playerComponent,
+                ref PlayerCanShootComponent playerCanShootComponent,
+                ref PlayerMuzzlePositionComponent playerMuzzlePositionComponent,
+                ref PlayerShootingRangeComponent playerShootingRangeComponent)
             {
-                // var bulletEntity = Ent.New(in jobInfo, "New Bullet");
-                // PlayerUtils.SetOwner(in bulletEntity, PlayerUtils.GetOwner(in playerEntity));
-                // var tr = bulletEntity.GetOrCreateAspect<TransformAspect>();
-                // tr.position = playerTransform.position;
-                // tr.rotation = playerTransform.rotation;
-                // var bullet = bulletEntity.GetOrCreateAspect<BulletAspect>();
-                // bullet.component.sourceUnit = playerEntity;
-                // bulletEntity.Set(new BulletRuntimeComponent());
-                // bulletEntity.InstantiateView(View);
-                //
-                // playerEntity.Remove<PlayerCanShootComponent>();
+                // Get the muzzle point position
+                float3 muzzlePosition = playerTransform.position + playerMuzzlePositionComponent.MuzzlePointOffset;
+                float3 direction = math.forward(playerTransform.rotation);
+                float shootingRange = playerShootingRangeComponent.ShootingRange;
+                float3 targetPosition = muzzlePosition + direction * shootingRange;
 
-                BulletUtils.CreateBullet(playerEntity, playerTransform.position, playerTransform.rotation, 0, default,
-                    float3.zero, BulletConfig, View, 2.0f, jobInfo);
+                BulletUtils.CreateBullet(playerEntity,
+                    muzzlePosition,
+                    playerTransform.rotation,
+                    0,
+                    Ent.Null,
+                    targetPosition,
+                    BulletConfig,
+                    BulletEffectView,
+                    2.0f,
+                    jobInfo);
                 playerEntity.Remove<PlayerCanShootComponent>();
             }
         }

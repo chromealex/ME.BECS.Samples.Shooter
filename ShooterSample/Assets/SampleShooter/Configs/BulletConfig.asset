@@ -14,13 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseConfig: {fileID: 0}
   data:
-    components: []
+    components:
+    - rid: 935440521042591745
+    - rid: 935440523014176782
   sharedData:
     components: []
   staticData:
-    components: []
+    components:
+    - rid: 935440521042591755
   dataInitialize:
-    components: []
+    components:
+    - rid: 935440521042591755
   aspects:
     components: []
   collectionsData:
@@ -28,4 +32,21 @@ MonoBehaviour:
     items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 935440521042591745
+      type: {class: BulletConfigComponent, ns: ME.BECS.Bullets, asm: ME.BECS.Bullets}
+      data:
+        damage: 1
+        hitRangeSqr: 1
+        speed: 25
+        autoTarget: 0
+    - rid: 935440521042591755
+      type: {class: InstantiateViewComponent, ns: ME.BECS.Views, asm: ME.BECS.Views}
+      data:
+        view:
+          viewSource:
+            providerId: 1
+            prefabId: 216
+    - rid: 935440523014176782
+      type: {class: BulletComponent, ns: SampleShooter.Components.Bullets, asm: SampleShooter}
+      data: 

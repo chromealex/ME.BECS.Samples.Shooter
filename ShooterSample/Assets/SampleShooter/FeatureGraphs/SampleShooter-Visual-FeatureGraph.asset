@@ -23,14 +23,6 @@ MonoBehaviour:
   - rid: 2710897057712308225
   - rid: 2710897100377554944
   edges:
-  - GUID: fc6060ae-3217-4c94-9d07-15abe7099132
-    owner: {fileID: 11400000}
-    inputNodeGUID: 57d1f92e-4213-474a-a193-beb2ed89f8f4
-    outputNodeGUID: StartNode
-    inputFieldName: inputNodes
-    outputFieldName: output
-    inputPortIdentifier: 
-    outputPortIdentifier: 
   - GUID: 60080c2d-9161-4a57-9d7f-047f4db59535
     owner: {fileID: 11400000}
     inputNodeGUID: EndNode
@@ -53,6 +45,14 @@ MonoBehaviour:
     outputNodeGUID: f6933dbf-8843-4c7f-829b-5e39f9ad4f9e
     inputFieldName: inputNodes
     outputFieldName: outputNodes
+    inputPortIdentifier: 
+    outputPortIdentifier: 
+  - GUID: 74acc295-f9a9-412f-96cf-d81ad3490d96
+    owner: {fileID: 11400000}
+    inputNodeGUID: 57d1f92e-4213-474a-a193-beb2ed89f8f4
+    outputNodeGUID: StartNode
+    inputFieldName: inputNodes
+    outputFieldName: output
     inputPortIdentifier: 
     outputPortIdentifier: 
   groups: []
@@ -118,8 +118,8 @@ MonoBehaviour:
         computeOrder: 3
         position:
           serializedVersion: 2
-          x: 246.35005
-          y: 0.000010967255
+          x: 367.6701
+          y: -28.000084
           width: 300
           height: 108
         expanded: 1
@@ -139,10 +139,10 @@ MonoBehaviour:
         computeOrder: 1
         position:
           serializedVersion: 2
-          x: -745.35016
-          y: -0.50001526
+          x: -490.9999
+          y: -168.00005
           width: 300
-          height: 139
+          height: 140
         expanded: 1
         enabled: 1
         debug: 0
@@ -166,8 +166,8 @@ MonoBehaviour:
         computeOrder: 2
         position:
           serializedVersion: 2
-          x: -292.8
-          y: -0.0000009536743
+          x: -67.91031
+          y: -132.00008
           width: 300
           height: 104
         expanded: 1

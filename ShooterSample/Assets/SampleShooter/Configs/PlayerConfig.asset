@@ -19,6 +19,8 @@ MonoBehaviour:
     - rid: 935440367154626651
     - rid: 935440367154626652
     - rid: 935440367154626653
+    - rid: 935440522641932289
+    - rid: 935440523014176769
   sharedData:
     components: []
   staticData:
@@ -67,6 +69,19 @@ MonoBehaviour:
           x: 1
           y: 1
           z: 1
+    - rid: 935440522641932289
+      type: {class: PlayerMuzzlePositionComponent, ns: SampleShooter.Components.Player,
+        asm: SampleShooter}
+      data:
+        MuzzlePointOffset:
+          x: 0
+          y: 1
+          z: 1
+    - rid: 935440523014176769
+      type: {class: PlayerShootingRangeComponent, ns: SampleShooter.Components.Player,
+        asm: SampleShooter}
+      data:
+        ShootingRange: 15
     - rid: 2710897054365253635
       type: {class: InstantiateViewComponent, ns: ME.BECS.Views, asm: ME.BECS.Views}
       data:

@@ -111,6 +111,9 @@ MonoBehaviour:
       id: 0
       gen: 0
       worldId: 0
+  _bulletTransform: {fileID: 6425651712820047554}
+  _sphereRadius: 0.5
+  _maxDistance: 100
   references:
     version: 2
     RefIds: []
