@@ -34,11 +34,20 @@ namespace SampleShooter.Systems.Player
 
         public void OnUpdate(ref SystemContext context)
         {
-            JobHandle cameraRayCastJob = context
+            //пример последовательных Job 
+         context
                 .Query()
-                .Schedule<CameraRayCastJob, CameraComponent, CameraRayComponent>();
+                .Schedule<CameraRayCastJob, CameraComponent, CameraRayComponent>()
+                .AddDependency(ref context);
+         
+            context.SetDependency(context.Apply(context.dependsOn));//
             
-            context.SetDependency(cameraRayCastJob);
+            context
+                .Query()
+                .Schedule<CameraRayCastJob, CameraComponent, CameraRayComponent>()
+                .AddDependency(ref context);
+            
+            // context.SetDependency(cameraRayCastJob);
         }
         
         [NetworkMethod]

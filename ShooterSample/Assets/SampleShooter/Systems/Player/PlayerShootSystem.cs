@@ -77,11 +77,14 @@ namespace SampleShooter.Systems.Player
         }
 
         [BurstCompile]
-        public struct JobPlayerShoot : IJobFor1Aspects1Components<TransformAspect, PlayerComponent>
+        public struct JobPlayerShoot : IJobForAspects<TransformAspect, PlayerAspect>
         {
-            public void Execute(in JobInfo jobInfo, in Ent playerEntity, ref TransformAspect playerTransform,
-                ref PlayerComponent playerComponent)
+            public void Execute(in JobInfo jobInfo, in Ent ent, ref TransformAspect playerTransform,
+                ref PlayerAspect playerAspect)
             {
+                var playerEntity = playerAspect.ent;
+                var playerId = playerAspect.readIndex;//так можно получить индекс игрока
+                
                 if (!playerEntity.Has<PlayerCanShootComponent>())
                 {
                     playerEntity.Set(new PlayerCanShootComponent
@@ -92,19 +95,26 @@ namespace SampleShooter.Systems.Player
             }
         }
 
-
+        //Отдать в IJob на обработку
+        //this code can be counted as part logic system
         [NetworkMethod]
         [AOT.MonoPInvokeCallback(typeof(NetworkMethodDelegate))]
         public static void DelegateMouseLeftClickData(in InputData data, ref SystemContext context)
         {
             Debug.Log($"Left mouse click");
 
-            JobHandle jobHandle = context.Query().Schedule<JobPlayerShoot, TransformAspect, PlayerComponent>(
-                new JobPlayerShoot()
-                {
-                });
-
-            context.SetDependency(jobHandle);
+            var playerId= data.PlayerId;
+            PlayerAspect activeShooterPlayerEntity = data.world.GetSystem<PlayersSystem>().GetPlayerEntity(playerId);
+            //Create common job for 1 player
+            context.dependsOn.Complete();
+            // обрати внимание на то что конкретный игрок по ID 
+            
+            // JobHandle jobHandle = context.Query().Schedule<JobPlayerShoot, TransformAspect, PlayerComponent>(
+            //     new JobPlayerShoot()
+            //     {
+            //     });
+            //
+            // context.SetDependency(jobHandle);
         }
     }
 }

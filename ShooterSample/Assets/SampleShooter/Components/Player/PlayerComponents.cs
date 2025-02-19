@@ -1,4 +1,5 @@
 using ME.BECS;
+using NativeTrees;
 using Unity.Mathematics;
 
 namespace SampleShooter.Components.Player
@@ -26,5 +27,15 @@ namespace SampleShooter.Components.Player
     public struct PlayerShootingRangeComponent : IConfigComponent
     {
         public float ShootingRange;
+    }
+
+    public struct PlayersQuadTreeIndexComponent : IComponent
+    {
+        public int QuadTreeIndex;
+    }
+    
+    public struct PlayerQuadTreeComponent : IComponent
+    {
+        public safe_ptr<NativeOctree<Ent>> QuadTree;
     }
 }

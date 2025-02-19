@@ -2,6 +2,7 @@ using ME.BECS;
 using ME.BECS.Views;
 using SampleShooter.Components.Camera;
 using SampleShooter.Enums;
+using SampleShooter.Systems.Input;
 using UnityEngine;
 
 namespace SampleShooter.Views.Camera
@@ -14,6 +15,7 @@ namespace SampleShooter.Views.Camera
         protected override void OnInitialize(in EntRO ent)
         {
             Debug.Log($"On initialize {nameof(PlayerCameraView)}!");
+            ent.World.GetSystem<ReadInputSystem>().SetCamera(_camera);
         }
 
         protected override void OnUpdate(in EntRO entRO, float dt)

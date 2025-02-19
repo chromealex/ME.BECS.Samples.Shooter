@@ -127,10 +127,10 @@ MonoBehaviour:
         computeOrder: 2
         position:
           serializedVersion: 2
-          x: -68.88501
-          y: 8.999945
+          x: -180.02385
+          y: -22.00003
           width: 300
-          height: 100
+          height: 104
         expanded: 1
         enabled: 1
         debug: 0
@@ -152,8 +152,8 @@ MonoBehaviour:
         computeOrder: 4
         position:
           serializedVersion: 2
-          x: 650.675
-          y: 24.000008
+          x: 591.9899
+          y: -22.000029
           width: 300
           height: 108
         expanded: 1
@@ -200,8 +200,8 @@ MonoBehaviour:
         computeOrder: 3
         position:
           serializedVersion: 2
-          x: 285.2575
-          y: 66
+          x: 196.78926
+          y: -22.000122
           width: 300
           height: 104
         expanded: 1

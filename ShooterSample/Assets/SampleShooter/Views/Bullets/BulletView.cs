@@ -21,6 +21,7 @@ namespace SampleShooter.Views.Bullets
                 Vector3 direction = _bulletTransform.forward;
                 Vector3 origin = _bulletTransform.position;
                 
+                
                 if (Physics.SphereCast(origin, _sphereRadius, direction, out RaycastHit hit, _maxDistance))
                 {
                     _hasGizmo = true;
@@ -31,7 +32,14 @@ namespace SampleShooter.Views.Bullets
                 }
             }
         }
-        
+
+        //вызывается при любом изменении данных на компонненте
+        protected override void ApplyState(in EntRO ent)
+        {
+            //animator.SetTrigger("Shoot");
+            base.ApplyState(in ent);
+        }
+
         void OnDrawGizmos()
         {
             if (!_hasGizmo)

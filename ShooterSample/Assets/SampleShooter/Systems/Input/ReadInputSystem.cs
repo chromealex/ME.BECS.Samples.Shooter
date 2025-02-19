@@ -5,89 +5,23 @@ using ME.BECS.Network.Markers;
 using UnityEngine;
 using Unity.Jobs;
 using Unity.Mathematics;
-using SampleShooter.Components.Input;
 using SampleShooter.Data;
-using SampleShooter.Initializers;
 using SampleShooter.Systems.Player;
 
 namespace SampleShooter.Systems.Input
 {
-    public struct ReadInputSystem : IUpdate
+    public struct ReadInputSystem : IUpdate, IDestroy
     {
         private float3 _currentDirection;
+        private ClassPtr<UnityEngine.Camera> _camera;
+
+        public void SetCamera(UnityEngine.Camera camera)
+        {
+            _camera = new ClassPtr<UnityEngine.Camera>(camera);
+        }
 
         public void OnUpdate(ref SystemContext context)
         {
-            // float3 direction = float3.zero;
-            //
-            // if (UnityEngine.Input.GetKeyDown(KeyCode.W))
-            // {
-            //     direction.z += 1f;
-            //     context.world.parent.SendNetworkEvent(new PlayerInputData()
-            //     {
-            //         Direction = direction,
-            //     }, PlayerApplyInputDataSystem.DelegatePlayerInputData);
-            // }
-            // if (UnityEngine.Input.GetKeyUp(KeyCode.W))
-            // {
-            //     direction.z -= 1f;
-            //     context.world.parent.SendNetworkEvent(new PlayerInputData()
-            //     {
-            //         Direction = direction,
-            //     }, PlayerApplyInputDataSystem.DelegatePlayerInputData);
-            // }
-            //
-            // if (UnityEngine.Input.GetKeyDown(KeyCode.A))
-            // {
-            //     direction.x -= 1f;
-            //     context.world.parent.SendNetworkEvent(new PlayerInputData()
-            //     {
-            //         Direction = direction,
-            //     }, PlayerApplyInputDataSystem.DelegatePlayerInputData);
-            // }
-            // if (UnityEngine.Input.GetKeyUp(KeyCode.A))
-            // {
-            //     direction.x += 1f;
-            //     context.world.parent.SendNetworkEvent(new PlayerInputData()
-            //     {
-            //         Direction = direction,
-            //     }, PlayerApplyInputDataSystem.DelegatePlayerInputData);
-            // }
-            //
-            // if (UnityEngine.Input.GetKeyDown(KeyCode.S))
-            // {
-            //     direction.z -= -1f;
-            //     context.world.parent.SendNetworkEvent(new PlayerInputData()
-            //     {
-            //         Direction = direction,
-            //     }, PlayerApplyInputDataSystem.DelegatePlayerInputData);
-            // }
-            // if (UnityEngine.Input.GetKeyUp(KeyCode.S))
-            // {
-            //     direction.z += 1f;
-            //     context.world.parent.SendNetworkEvent(new PlayerInputData()
-            //     {
-            //         Direction = direction,
-            //     }, PlayerApplyInputDataSystem.DelegatePlayerInputData);
-            // }
-            //
-            // if (UnityEngine.Input.GetKeyDown(KeyCode.D))
-            // {
-            //     direction.x += 1f;
-            //     context.world.parent.SendNetworkEvent(new PlayerInputData()
-            //     {
-            //         Direction = direction,
-            //     }, PlayerApplyInputDataSystem.DelegatePlayerInputData);
-            // }
-            // if (UnityEngine.Input.GetKeyUp(KeyCode.D))
-            // {
-            //     direction.x -= 1f;
-            //     context.world.parent.SendNetworkEvent(new PlayerInputData()
-            //     {
-            //         Direction = direction,
-            //     }, PlayerApplyInputDataSystem.DelegatePlayerInputData);
-            // }
-            //todo rethink this
             float3 newDirection = float3.zero;
             bool directionChanged = false;
 
@@ -147,6 +81,11 @@ namespace SampleShooter.Systems.Input
             //         MousePosition = currentMousePosition,
             //     }, PlayerRotationToPointerSystem.DelegateMousePositionData);
             // }
+        }
+
+        public void OnDestroy(ref SystemContext context)
+        {
+            _camera.Dispose();
         }
     }
 }

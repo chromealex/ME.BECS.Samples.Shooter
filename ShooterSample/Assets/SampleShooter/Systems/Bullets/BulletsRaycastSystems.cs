@@ -17,25 +17,43 @@ namespace SampleShooter.Systems.Bullets
         {
             JobHandle jobBulletsRaycast = context
                 .Query()
+                .AsParallel()
                 .Schedule<JobBulletsRaycast,
                     BulletAspect,
                     TransformAspect,
-                    BulletComponent,
+                    QuadTreeQueryAspect,
                     BulletConfigComponent>(
                     new JobBulletsRaycast() { });
             context.SetDependency(jobBulletsRaycast);
         }
 
         [BurstCompile]
-        public struct JobBulletsRaycast : IJobFor2Aspects2Components<BulletAspect, TransformAspect, BulletComponent,
+        public struct JobBulletsRaycast : IJobFor3Aspects1Components<BulletAspect, TransformAspect, QuadTreeQueryAspect,
             BulletConfigComponent>
         {
-            public void Execute(in JobInfo jobInfo, in Ent bulletEntity,
-                ref BulletAspect bulletAspect,
-                ref TransformAspect bulletTransform, 
-                ref BulletComponent bulletComponent,
-                ref BulletConfigComponent bulletConfigComponent)
+            public void Execute(in JobInfo jobInfo, in Ent ent, ref BulletAspect a0, ref TransformAspect a1,
+                ref QuadTreeQueryAspect a2,
+                ref BulletConfigComponent c0)
             {
+                foreach (Ent target in a2.readResults.results)
+                {
+                    if (!target.IsAlive())
+                    {
+                        continue;
+                    }
+                    
+                    //в QuadQueryAspect можно перенести все фильтры выборки объектов
+                    //это делается на момент запроса квад дерева
+                    // target.Read<>()
+                }
+            }
+
+            // public void Execute(in JobInfo jobInfo, in Ent bulletEntity,
+            //     ref BulletAspect bulletAspect,
+            //     ref TransformAspect bulletTransform,
+            //     ref BulletComponent bulletComponent,
+            //     ref BulletConfigComponent bulletConfigComponent)
+            // {
                 // Debug.Log("Bullet raycast");
                 //
                 // var sphereRadius = 0.5f;
@@ -50,7 +68,7 @@ namespace SampleShooter.Systems.Bullets
                 //
                 // Debug.DrawLine(bulletTransform.position, bulletTransform.position + direction * maxDistance, Color.red, 1.0f);
                 // Debug.DrawRay(bulletTransform.position, direction * sphereRadius * 2.0f, Color.green, 1.0f);
-            }
+            // }
         }
     }
 }

@@ -10,6 +10,8 @@
         "ME.BECS.Players",
         "ME.BECS.Bullets",
         "ME.BECS.Attack",
+        "ME.BECS.Trees",
+        "ME.BECS.SceneEntityView",
         "Unity.Collections",
         "Unity.Burst",
         "Unity.Mathematics"
